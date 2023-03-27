@@ -21,20 +21,61 @@ class _DashboardState extends State<Dashboard> {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            bottom: const TabBar(
+            titleSpacing: 0,
+            toolbarHeight: 41,
+            leading: Container(
+              margin: const EdgeInsets.fromLTRB(16, 8, 0, 8),
+              child: Image.asset(
+                "assets/images/logo.png",
+                // width: 147,
+                // height: 25,
+                fit: BoxFit.fill,
+              ),
+            ),
+            leadingWidth: 147, // default is 56
+            bottom: TabBar(
+              unselectedLabelColor: const Color(0xE0E0E0FF),
+              unselectedLabelStyle: const TextStyle(fontSize: 14),
+              labelStyle: const TextStyle(fontSize: 14),
+              labelColor: const Color(0xFFFFFFFF),
+              indicatorColor: Colors.orange,
+              indicatorWeight: 3,
+              indicator: const BoxDecoration(
+                color: Colors.red,
+              ),
               tabs: [
-                Tab(text: 'FIRST'),
-                Tab(text: 'SECOND',),
-                Tab(text: 'THIRD'),
+                Tab(
+                  child: Container(
+                    color:Colors.black,
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: const Text(
+                      'Postularse',
+                    ),
+                  ),
+                ),
+                const Tab(
+                  child: Center(
+                    child: Text(
+                      'Mi perfil',
+                    ),
+                  ),
+                ),
+                const Tab(
+                  child: Center(
+                    child: Text(
+                      'Novedades',
+                    ),
+                  ),
+                ),
               ],
             ),
-            title: const Text('TABS TITLE TEXT'),
           ),
-          body: TabBarView(
+          body: const TabBarView(
             children: [
-              const Postularse(),
-              const Novedades(),
-              const MiPerfil()
+              Postularse(),
+              MiPerfil(),
+              Novedades(),
             ],
           ),
         ),
