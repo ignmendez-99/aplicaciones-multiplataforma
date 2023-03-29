@@ -5,6 +5,8 @@ void main() {
   runApp(const MyApp());
 }
 
+// https://www.figma.com/file/iCyHRyGBGaKOqS1ioWbJeI/Ser-manos-%7C-Design-System?node-id=231%3A1648&t=OKsdvc6OSI4nOwpw-1
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+        fontFamily: 'Roboto',
         primarySwatch: Colors.blue,
       ),
       home: const Dashboard(),

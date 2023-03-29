@@ -1,4 +1,6 @@
+import 'package:aplicaciones_multiplataforma/buttons/short_button_with_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:aplicaciones_multiplataforma/constants/themes.dart';
 
 class MiPerfil extends StatefulWidget {
   const MiPerfil({Key? key}) : super(key: key);
@@ -12,44 +14,48 @@ class _MiPerfilState extends State<MiPerfil> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 147),
-        SizedBox(
-          width: 120,
-          height: 120,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(90),
-            child: Image.asset(
-              "assets/images/face.png",
-              fit: BoxFit.fill,
+        const Spacer(),
+        Column(
+          children: [
+            SizedBox(
+              width: 120,
+              height: 120,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(90),
+                child: Image.asset(
+                  "assets/images/face.png",
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        Container(
-          margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-          child: Column(
-            children: const [
-              Text(
-                'VOLUNTARIO',
+            const SizedBox(height: 16),
+            Container(
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              child: Column(
+                children: const [
+                  Text('VOLUNTARIO', style: MyTheme.overlineNeutralGrey75,),
+                  SizedBox(height: 8),
+                  Text('Juan Cruz', style: MyTheme.subtitle01,),
+                  SizedBox(height: 8),
+                  Text(
+                    '¡Completá tu perfil para tener \nacceso a mejores oportunidades!',
+                    textAlign: TextAlign.center,
+                    style: MyTheme.body01NeutralGrey75,
+                  )
+                ],
               ),
-              SizedBox(height: 8),
-              Text(
-                'juan cruz',
-              ),
-              SizedBox(height: 8),
-              Text(
-                '¡Completá tu perfil para tener \nacceso a mejores oportunidades!',
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),
+            ),
+          ],
         ),
         const Spacer(),
         Container(
           margin: const EdgeInsets.only(bottom: 80),
-          child: TextButton(
-              onPressed: (){},
-              child: const Text('+ Completar')
+          child: ShortButtonWithIcon(
+            icon: Icons.add,
+            buttonText: 'Completar',
+            onPressed: () {
+              print('boton apretado');
+            },
           ),
         )
       ],
