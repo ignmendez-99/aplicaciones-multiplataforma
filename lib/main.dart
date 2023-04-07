@@ -1,3 +1,4 @@
+import 'package:aplicaciones_multiplataforma/card_seleccionada.dart';
 import 'package:aplicaciones_multiplataforma/dashboard.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const Dashboard(),
+      routes: {
+        '/card-seleccionada/':(context) => const CardSeleccionada()
+      },
     );
   }
 }

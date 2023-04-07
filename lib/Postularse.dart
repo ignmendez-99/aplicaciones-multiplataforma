@@ -101,14 +101,19 @@ class _BuscadorState extends State<Buscador> {
     return Card(
         child: Column(
           children: [
-            SizedBox(
-              height: 138,
-              width: double.infinity,
-              child: FittedBox(
-                clipBehavior: Clip.hardEdge,
-                fit: BoxFit.fitWidth,
-                child: Image.asset(
-                  "assets/images/accion_social.jpeg",
+            GestureDetector(
+              onTap: () => {
+                Navigator.of(context).pushNamed('/card-seleccionada/')
+              },
+              child: SizedBox(
+                height: 138,
+                width: double.infinity,
+                child: FittedBox(
+                  clipBehavior: Clip.hardEdge,
+                  fit: BoxFit.fitWidth,
+                  child: Image.asset(
+                    "assets/images/accion_social.jpeg",
+                  ),
                 ),
               ),
             ),
