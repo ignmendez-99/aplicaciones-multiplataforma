@@ -48,34 +48,101 @@ class _BuscadorState extends State<Buscador> {
   }
 
 
+
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.yellow,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          
-          Expanded(
-            child: Container(
-              color: Colors.greenAccent,
-              margin: const EdgeInsets.fromLTRB(16, 12, 0, 12),
-              child: TextField(),
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+      child: Center(
+        child: Column(
+          children: [
+            Card(
+              color: Colors.yellow,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  Expanded(
+                    child: Container(
+                      color: Colors.greenAccent,
+                      margin: const EdgeInsets.fromLTRB(16, 12, 0, 12),
+                      child: const TextField(),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(3.25, 15.26, 19.26, 15.25),
+                    padding: const EdgeInsets.fromLTRB(3.26, 3.25, 3.25, 3.26),
+                    color: Colors.green,
+                    child: const Icon(
+                      Icons.search,
+                      color: Colors.pink,
+                      size: 24,
+                      semanticLabel: 'Text to announce in accessibility modes',
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(3.25, 15.26, 19.26, 15.25),
-            padding: const EdgeInsets.fromLTRB(3.26, 3.25, 3.25, 3.26),
-            color: Colors.green,
-            child: const Icon(
-              Icons.search,
-              color: Colors.pink,
-              size: 24,
-              semanticLabel: 'Text to announce in accessibility modes',
-            ),
-          ),
-        ],
+            const SizedBox(height: 32),
+            Column(
+              children: [
+                postularseCard(),
+                postularseCard()
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
+
+  Widget postularseCard() {
+    return Card(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 138,
+              width: double.infinity,
+              child: FittedBox(
+                clipBehavior: Clip.hardEdge,
+                fit: BoxFit.fitWidth,
+                child: Image.asset(
+                  "assets/images/accion_social.jpeg",
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.fromLTRB(16, 8, 18, 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('ACCION SOCIAL'),
+                  Row(
+                    children: [
+                      const Text('Manos caritativas'),
+                      Expanded(child: Container(),),
+                      const Icon(
+                        Icons.heart_broken,
+                        // color: Colors.pink,
+                        // size: 24,
+                        semanticLabel: 'Text to announce in accessibility modes',
+                      ),
+                      const Icon(
+                        Icons.place,
+                        // color: Colors.pink,
+                        // size: 24,
+                        semanticLabel: 'Text to announce in accessibility modes',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )
+    );
+  }
 }
+
+

@@ -1,5 +1,3 @@
-
-
 import 'package:aplicaciones_multiplataforma/MiPerfil.dart';
 import 'package:aplicaciones_multiplataforma/Novedades.dart';
 import 'package:aplicaciones_multiplataforma/Postularse.dart';
@@ -36,29 +34,29 @@ class _DashboardState extends State<Dashboard> {
           leadingWidth: 147, // default is 56
           bottom: const TabBar(
             unselectedLabelStyle: MyTheme.buttonNeutralGrey25,
-            labelStyle: const TextStyle(fontSize: 14),
-            labelColor: const Color(0xFFFFFFFF),
+            labelStyle: MyTheme.buttonNeutralWhite,
             indicatorColor: Colors.white,
-            indicatorWeight: 3,
-            indicator: const BoxDecoration(
+            // indicatorWeight: 3,
+            // indicatorPadding: EdgeInsets.only(bottom: 3),
+            indicator: BoxDecoration(
               color: AppColors.secondaryBlue200,
             ),
             tabs: [
               Tab(
                 child: Center(
-                  child: const Text(
+                  child: Text(
                     'Postularse',
                   ),
                 ),
               ),
-              const Tab(
+              Tab(
                 child: Center(
                   child: Text(
                     'Mi perfil',
                   ),
                 ),
               ),
-              const Tab(
+              Tab(
                 child: Center(
                   child: Text(
                     'Novedades',
