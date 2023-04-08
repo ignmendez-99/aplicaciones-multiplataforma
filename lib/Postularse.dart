@@ -1,3 +1,5 @@
+import 'package:aplicaciones_multiplataforma/constants/icons.dart';
+import 'package:aplicaciones_multiplataforma/constants/themes.dart';
 import 'package:flutter/material.dart';
 
 class Postularse extends StatefulWidget {
@@ -122,23 +124,20 @@ class _BuscadorState extends State<Buscador> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('ACCION SOCIAL'),
+                  const Text(
+                    'ACCION SOCIAL',
+                    style: MyTheme.overlineNeutralGrey75,
+                  ),
                   Row(
                     children: [
-                      const Text('Manos caritativas'),
+                      const Text(
+                        'Manos caritativas',
+                        style: MyTheme.subtitle01,
+                      ),
                       Expanded(child: Container(),),
-                      const Icon(
-                        Icons.heart_broken,
-                        // color: Colors.pink,
-                        // size: 24,
-                        semanticLabel: 'Text to announce in accessibility modes',
-                      ),
-                      const Icon(
-                        Icons.place,
-                        // color: Colors.pink,
-                        // size: 24,
-                        semanticLabel: 'Text to announce in accessibility modes',
-                      ),
+                      MyIcons.favoriteOutlineActivated,
+                      const SizedBox(width: 16,),
+                      MyIcons.locationOnActivated,
                     ],
                   ),
                 ],

@@ -3,7 +3,7 @@ import 'package:aplicaciones_multiplataforma/constants/themes.dart';
 import 'package:flutter/material.dart';
 
 class ShortButtonWithIcon extends StatelessWidget {
-  final IconData icon;
+  final Icon icon;
   final String buttonText;
   final VoidCallback onPressed;
 
@@ -24,7 +24,8 @@ class ShortButtonWithIcon extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, color: AppColors.neutralWhite,),
+                icon,
+                const SizedBox(width: 8,),
                 Text(buttonText, style: MyTheme.buttonNeutralWhite,)
               ],
             ),

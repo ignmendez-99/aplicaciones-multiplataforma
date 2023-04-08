@@ -1,4 +1,5 @@
 import 'package:aplicaciones_multiplataforma/buttons/short_button_with_icon.dart';
+import 'package:aplicaciones_multiplataforma/constants/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicaciones_multiplataforma/constants/themes.dart';
 
@@ -51,7 +52,7 @@ class _MiPerfilState extends State<MiPerfil> {
         Container(
           margin: const EdgeInsets.only(bottom: 80),
           child: ShortButtonWithIcon(
-            icon: Icons.add,
+            icon: MyIcons.addNeutralWhite,
             buttonText: 'Completar',
             onPressed: () {
               print('boton apretado');

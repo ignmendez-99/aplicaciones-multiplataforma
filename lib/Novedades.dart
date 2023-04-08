@@ -1,3 +1,4 @@
+import 'package:aplicaciones_multiplataforma/constants/themes.dart';
 import 'package:flutter/material.dart';
 
 class Novedades extends StatefulWidget {
@@ -12,7 +13,7 @@ class _NovedadesState extends State<Novedades> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: const EdgeInsets.fromLTRB(16, 32, 16, 0),
+        margin: const EdgeInsets.fromLTRB(16, 32, 16, 32),
         child: Column(
           children: [
             novedadesCard(),
@@ -29,9 +30,10 @@ class _NovedadesState extends State<Novedades> {
   Widget novedadesCard() {
     return Card(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 138,
+            height: 156,
             width: 118,
             child: FittedBox(
               clipBehavior: Clip.hardEdge,
@@ -41,29 +43,39 @@ class _NovedadesState extends State<Novedades> {
               ),
             ),
           ),
-          Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text('REPORTE 2820'),
-                    Text('Ser donante voluntario'),
-                    Text('Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre'),
-                  ],
+          Container(
+            width: 194,
+            margin: const EdgeInsets.fromLTRB(8, 16, 8, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'REPORTE 2820',
+                  style: MyTheme.overlineNeutralGrey75,
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: (){},
-                    child: const Text('Leer mas'),
-                  )
-                ],
-              )
-            ],
+                const Text(
+                  'Ser donante voluntario',
+                  style: MyTheme.subtitle01,
+                ),
+                const Text(
+                  'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
+                  style: MyTheme.body02NeutralGrey75,
+                ),
+                const SizedBox(height: 8,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: (){},
+                      child: const Text(
+                        'Leer mas',
+                        style: MyTheme.buttonPrimary,
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           )
         ],
       ),

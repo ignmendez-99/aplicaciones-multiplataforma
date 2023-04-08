@@ -1,6 +1,8 @@
+import 'package:aplicaciones_multiplataforma/constants/icons.dart';
 import 'package:flutter/material.dart';
 
 import 'buttons/long_button.dart';
+import 'constants/colors.dart';
 import 'constants/themes.dart';
 
 class CardSeleccionada extends StatefulWidget {
@@ -52,11 +54,71 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
             margin: const EdgeInsets.fromLTRB(16, 0, 16, 56),
             child: LongButton(
               buttonText: 'Postularme',
-              onPressed: () {},
+              onPressed: () => _dialogBuilder(context)
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SizedBox(
+            height: 182,
+            width: 280,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Te estás por postular a',
+                  style: MyTheme.subtitle01,
+                ),
+                const Text(
+                  'Un Techo para mi País',
+                  style: MyTheme.headline02,
+                ),
+                const SizedBox(height: 16,),
+                const Text(
+                  'Días sábados de 9.00 a 17.00 horas.',
+                  style: MyTheme.body01NeutralGrey75,
+                ),
+                const Text(
+                  'Caballito',
+                  style: MyTheme.body01NeutralGrey75,
+                ),
+                const SizedBox(height: 8,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        'Cancelar',
+                        style: MyTheme.buttonPrimary,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        'Confirmar',
+                        style: MyTheme.buttonPrimary,
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

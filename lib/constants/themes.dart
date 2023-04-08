@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 class MyTheme {
 
+  // TODO revisar propiedades extra, como line spacing, ya que estas propiedades aparecen en el Figma
+
   static const TextStyle headline01 = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,  // REGULAR
@@ -45,6 +47,13 @@ class MyTheme {
     color: AppColors.neutralBlack
   );
 
+  static const TextStyle body02NeutralGrey75 = TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,  // REGULAR
+      fontSize: 12.0,
+      color: AppColors.neutralGrey75
+  );
+
   static const TextStyle button = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w500,  // MEDIUM
@@ -64,6 +73,13 @@ class MyTheme {
       fontWeight: FontWeight.w500,  // MEDIUM
       fontSize: 14.0,
       color: AppColors.neutralGrey25
+  );
+
+  static const TextStyle buttonPrimary = TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w500,  // MEDIUM
+      fontSize: 14.0,
+      color: AppColors.primary
   );
 
   static const TextStyle caption = TextStyle(
