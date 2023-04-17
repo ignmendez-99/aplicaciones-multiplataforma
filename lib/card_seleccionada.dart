@@ -1,9 +1,8 @@
-import 'package:aplicaciones_multiplataforma/constants/icons.dart';
 import 'package:flutter/material.dart';
 
 import 'buttons/long_button.dart';
-import 'constants/colors.dart';
-import 'constants/themes.dart';
+import 'design_system/tokens/colors.dart';
+import 'design_system/tokens/typography.dart';
 
 class CardSeleccionada extends StatefulWidget {
   const CardSeleccionada({Key? key}) : super(key: key);
@@ -35,16 +34,16 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
             margin: const EdgeInsets.fromLTRB(16, 32, 16, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   'Un Techo para mi País',
                   textAlign: TextAlign.left,
-                  style: MyTheme.headline01,
+                  style: MyTheme.headline01(),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Text(
                   'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
-                  style: MyTheme.body01NeutralGrey75,
+                  style: MyTheme.body01(color: AppColors.neutralGrey75),
                 ),
               ],
             ),
@@ -73,22 +72,22 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Te estás por postular a',
-                  style: MyTheme.subtitle01,
+                  style: MyTheme.subtitle01(),
                 ),
-                const Text(
+                Text(
                   'Un Techo para mi País',
-                  style: MyTheme.headline02,
+                  style: MyTheme.headline02(),
                 ),
                 const SizedBox(height: 16,),
-                const Text(
+                Text(
                   'Días sábados de 9.00 a 17.00 horas.',
-                  style: MyTheme.body01NeutralGrey75,
+                  style: MyTheme.body01(color: AppColors.neutralGrey75),
                 ),
-                const Text(
+                Text(
                   'Caballito',
-                  style: MyTheme.body01NeutralGrey75,
+                  style: MyTheme.body01(color: AppColors.neutralGrey75),
                 ),
                 const SizedBox(height: 8,),
                 Row(
@@ -98,18 +97,18 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                       onPressed: (){
                         Navigator.of(context).pop();
                       },
-                      child: const Text(
+                      child: Text(
                         'Cancelar',
-                        style: MyTheme.buttonPrimary,
+                        style: MyTheme.button(color: AppColors.primary),
                       ),
                     ),
                     TextButton(
                       onPressed: (){
                         Navigator.of(context).pop();
                       },
-                      child: const Text(
+                      child: Text(
                         'Confirmar',
-                        style: MyTheme.buttonPrimary,
+                        style: MyTheme.button(color: AppColors.primary),
                       ),
                     )
                   ],

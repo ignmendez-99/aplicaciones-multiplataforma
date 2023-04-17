@@ -1,7 +1,8 @@
 import 'package:aplicaciones_multiplataforma/buttons/short_button_with_icon.dart';
-import 'package:aplicaciones_multiplataforma/constants/icons.dart';
+import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:aplicaciones_multiplataforma/constants/themes.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 
 class MiPerfil extends StatefulWidget {
   const MiPerfil({Key? key}) : super(key: key);
@@ -33,15 +34,21 @@ class _MiPerfilState extends State<MiPerfil> {
             Container(
               margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Column(
-                children: const [
-                  Text('VOLUNTARIO', style: MyTheme.overlineNeutralGrey75,),
-                  SizedBox(height: 8),
-                  Text('Juan Cruz', style: MyTheme.subtitle01,),
-                  SizedBox(height: 8),
+                children: [
+                  Text(
+                    'VOLUNTARIO',
+                    style: MyTheme.overline(color: AppColors.neutralGrey75),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Juan Cruz',
+                    style: MyTheme.subtitle01(),
+                  ),
+                  const SizedBox(height: 8),
                   Text(
                     '¡Completá tu perfil para tener \nacceso a mejores oportunidades!',
                     textAlign: TextAlign.center,
-                    style: MyTheme.body01NeutralGrey75,
+                    style: MyTheme.body01(color: AppColors.neutralGrey75),
                   )
                 ],
               ),

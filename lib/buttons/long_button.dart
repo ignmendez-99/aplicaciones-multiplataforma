@@ -1,5 +1,5 @@
-import 'package:aplicaciones_multiplataforma/constants/colors.dart';
-import 'package:aplicaciones_multiplataforma/constants/themes.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:flutter/material.dart';
 
 class LongButton extends StatelessWidget {
@@ -23,7 +23,7 @@ class LongButton extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
                   child: Text(
                     buttonText,
-                    style: MyTheme.buttonNeutralWhite,
+                    style: MyTheme.button(color: AppColors.neutralWhite)
                   ),
                 )
               ],

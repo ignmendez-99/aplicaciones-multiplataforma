@@ -1,5 +1,5 @@
-import 'package:aplicaciones_multiplataforma/constants/colors.dart';
-import 'package:aplicaciones_multiplataforma/constants/themes.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:flutter/material.dart';
 
 class ShortButtonWithIcon extends StatelessWidget {
@@ -26,7 +26,10 @@ class ShortButtonWithIcon extends StatelessWidget {
               children: [
                 icon,
                 const SizedBox(width: 8,),
-                Text(buttonText, style: MyTheme.buttonNeutralWhite,)
+                Text(
+                  buttonText,
+                  style: MyTheme.button(color: AppColors.neutralWhite),
+                )
               ],
             ),
           )

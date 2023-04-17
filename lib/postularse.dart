@@ -1,6 +1,9 @@
-import 'package:aplicaciones_multiplataforma/constants/icons.dart';
-import 'package:aplicaciones_multiplataforma/constants/themes.dart';
+import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
+
+import 'design_system/molecules/buscador.dart';
 
 class Postularse extends StatefulWidget {
   const Postularse({Key? key}) : super(key: key);
@@ -11,31 +14,16 @@ class Postularse extends StatefulWidget {
 
 class _PostularseState extends State<Postularse> {
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Buscador(),
-    );
-  }
-}
-
-class Buscador extends StatefulWidget {
-  const Buscador({Key? key}) : super(key: key);
-
-  @override
-  State<Buscador> createState() => _BuscadorState();
-}
-
-class _BuscadorState extends State<Buscador> {
-
   final myController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+  bool _searchFocused = false;
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
-    myController.dispose();
     super.dispose();
+    myController.dispose();
+    _focusNode.removeListener(_onFocusChange);
+    _focusNode.dispose();
   }
 
   void _printLatestValue() {
@@ -44,48 +32,27 @@ class _BuscadorState extends State<Buscador> {
 
   @override
   void initState() {
-    super.initState();
-    // Start listening to changes.
     myController.addListener(_printLatestValue);
+    _focusNode.addListener(_onFocusChange);
+    super.initState();
   }
 
-
-
+  void _onFocusChange() {
+    if (_focusNode.hasFocus != _searchFocused) {
+      setState(() {
+        _searchFocused = _focusNode.hasFocus;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-      child: Center(
+    return SingleChildScrollView(
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(16, 24, 16, 0),
         child: Column(
           children: [
-            Card(
-              color: Colors.yellow,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  Expanded(
-                    child: Container(
-                      color: Colors.greenAccent,
-                      margin: const EdgeInsets.fromLTRB(16, 12, 0, 12),
-                      child: const TextField(),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(3.25, 15.26, 19.26, 15.25),
-                    padding: const EdgeInsets.fromLTRB(3.26, 3.25, 3.25, 3.26),
-                    color: Colors.green,
-                    child: const Icon(
-                      Icons.search,
-                      color: Colors.pink,
-                      size: 24,
-                      semanticLabel: 'Text to announce in accessibility modes',
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            Buscador(focusNode: _focusNode, searchFocused: _searchFocused,),
             const SizedBox(height: 32),
             Column(
               children: [
@@ -124,15 +91,15 @@ class _BuscadorState extends State<Buscador> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'ACCION SOCIAL',
-                    style: MyTheme.overlineNeutralGrey75,
+                    style: MyTheme.overline(color: AppColors.neutralGrey75),
                   ),
                   Row(
                     children: [
-                      const Text(
+                      Text(
                         'Manos caritativas',
-                        style: MyTheme.subtitle01,
+                        style: MyTheme.subtitle01(),
                       ),
                       Expanded(child: Container(),),
                       MyIcons.favoriteOutlineActivated,

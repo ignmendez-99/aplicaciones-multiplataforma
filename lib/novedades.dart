@@ -1,4 +1,5 @@
-import 'package:aplicaciones_multiplataforma/constants/themes.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
 
 class Novedades extends StatefulWidget {
@@ -45,21 +46,21 @@ class _NovedadesState extends State<Novedades> {
           ),
           Container(
             width: 194,
-            margin: const EdgeInsets.fromLTRB(8, 16, 8, 0),
+            margin: const EdgeInsets.fromLTRB(8, 16, 0, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'REPORTE 2820',
-                  style: MyTheme.overlineNeutralGrey75,
+                  style: MyTheme.overline(color: AppColors.neutralGrey75),
                 ),
-                const Text(
+                Text(
                   'Ser donante voluntario',
-                  style: MyTheme.subtitle01,
+                  style: MyTheme.subtitle01(),
                 ),
-                const Text(
+                Text(
                   'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-                  style: MyTheme.body02NeutralGrey75,
+                  style: MyTheme.body02(color: AppColors.neutralGrey75),
                 ),
                 const SizedBox(height: 8,),
                 Row(
@@ -67,9 +68,9 @@ class _NovedadesState extends State<Novedades> {
                   children: [
                     TextButton(
                       onPressed: (){},
-                      child: const Text(
+                      child: Text(
                         'Leer mas',
-                        style: MyTheme.buttonPrimary,
+                        style: MyTheme.button(color: AppColors.primary),
                       ),
                     )
                   ],

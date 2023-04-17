@@ -1,4 +1,4 @@
-import 'package:aplicaciones_multiplataforma/constants/colors.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
 
 class MyIcons {
