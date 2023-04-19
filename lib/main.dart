@@ -1,5 +1,9 @@
+import 'package:aplicaciones_multiplataforma/Login.dart';
 import 'package:aplicaciones_multiplataforma/card_seleccionada.dart';
 import 'package:aplicaciones_multiplataforma/dashboard.dart';
+import 'package:aplicaciones_multiplataforma/register.dart';
+import 'package:aplicaciones_multiplataforma/start.dart';
+import 'package:aplicaciones_multiplataforma/welcome.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,8 +28,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const Dashboard(),
+      initialRoute: '/start',
       routes: {
-        '/card-seleccionada/':(context) => const CardSeleccionada()
+        '/card-seleccionada/':(context) => const CardSeleccionada(),
+        '/login': (context) => const Login(),
+        '/register': (context) => const Register(),
+        '/start': (context) => const Start(),
+        '/welcome': (context) => const Welcome(),
+        '/home': (context) => const Dashboard(),
       },
     );
   }
