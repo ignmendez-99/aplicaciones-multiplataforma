@@ -24,8 +24,8 @@ class _MiPerfilState extends State<MiPerfil> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(90),
                 child: Image.asset(
-                  "assets/images/face.png",
-                  fit: BoxFit.fill,
+                  "assets/images/image.jpg",
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

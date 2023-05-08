@@ -27,7 +27,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
             height: 243,
             width: double.infinity,
             child: Image.asset(
-              "assets/images/accion_social.jpeg",
+              "assets/images/1109 techo 500.jpeg",
               fit: BoxFit.fill,
             ),
           ),

@@ -38,9 +38,9 @@ class _NovedadesState extends State<Novedades> {
             width: 118,
             child: FittedBox(
               clipBehavior: Clip.hardEdge,
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.cover,
               child: Image.asset(
-                "assets/images/novedades_1.jpeg",
+                "assets/images/donacion-sangre-chica-joven-camiseta-roja-grabada-mano-parche-corazon-rojo-despues-dar-sangre-sobre-fondo-gris_89386-1287.jpeg",
               ),
             ),
           ),

@@ -81,7 +81,7 @@ class _PostularseState extends State<Postularse> {
                   clipBehavior: Clip.hardEdge,
                   fit: BoxFit.fitWidth,
                   child: Image.asset(
-                    "assets/images/accion_social.jpeg",
+                    "assets/images/1109 techo 500.jpeg",
                   ),
                 ),
               ),
