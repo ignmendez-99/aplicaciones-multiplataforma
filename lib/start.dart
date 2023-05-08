@@ -1,4 +1,6 @@
 import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:flutter/material.dart';
 
 class Start extends StatelessWidget {
@@ -7,49 +9,33 @@ class Start extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
       body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const LogoCuadrado(),
-              const SizedBox(height: 20),
-              const Center(
-                child: Text(
-                  '“El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros”',
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                    textAlign: TextAlign.center
-                ),
-              ),
-              const SizedBox(height: 50),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                  child: const Text('Iniciar Sesión'),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: OutlinedButton(
-                  // Add your register button here
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: const Text('Registrarse'),
-                ),
-              ),
-            ],
-          ),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            const SizedBox(height: 177),
+            const LogoCuadrado(),
+            const SizedBox(height: 32),
+            Text(
+              '“El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros”',
+              style: MyTheme.subtitle01(),
+              textAlign: TextAlign.center
+            ),
+            const SizedBox(height: 181),
+            ButtonCTAFilled(
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed('/login');
+              },
+              buttonText: 'Iniciar Sesión',
+            ),
+            const SizedBox(height: 16),
+            ButtonCTANotFilled(
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed('/register');
+              },
+              buttonText: 'Registrarse'
+            ),
+          ],
         ),
       ),
     );

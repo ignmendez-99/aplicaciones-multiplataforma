@@ -38,7 +38,7 @@ class LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -92,9 +92,7 @@ class LoginState extends State<Login> {
                   obscureText: true,
                   enabled: true,
                 ),
-
-
-                // const SizedBox(height: 16),
+                const SizedBox(height: 147),
                 _isLoginButtonDisabled ?
                     const ButtonCTAFilledDisabled(buttonText: 'Iniciar Sesión',)
                     :
