@@ -245,7 +245,7 @@ class MyIcons {
   static Icon errorActivated = const Icon(
     Icons.error,
     size: 24,
-    color: AppColors.primary,
+    color: AppColors.error,
   );
 
   static Icon errorOutlineEnabled = const Icon(
@@ -263,7 +263,7 @@ class MyIcons {
   static Icon errorOutlineActivated = const Icon(
     Icons.error_outline,
     size: 24,
-    color: AppColors.primary,
+    color: AppColors.error,
   );
 
 }

@@ -1,6 +1,7 @@
+import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/shadows.dart';
 import 'package:flutter/material.dart';
 
-import 'buttons/long_button.dart';
 import 'design_system/tokens/colors.dart';
 import 'design_system/tokens/typography.dart';
 
@@ -51,9 +52,9 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
           const Spacer(),
           Container(
             margin: const EdgeInsets.fromLTRB(16, 0, 16, 56),
-            child: LongButton(
+            child: ButtonCTAFilled(
               buttonText: 'Postularme',
-              onPressed: () => _dialogBuilder(context)
+              onPressed: () => _dialogBuilder(context),
             ),
           ),
         ],
@@ -66,9 +67,15 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: SizedBox(
+          contentPadding: const EdgeInsets.all(0),
+          content: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              boxShadow: AppShadows.sombra3,
+            ),
             height: 182,
             width: 280,
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -93,24 +100,18 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton(
+                    ButtonCTANotFilled(
+                      buttonText: 'Cancelar',
                       onPressed: (){
                         Navigator.of(context).pop();
                       },
-                      child: Text(
-                        'Cancelar',
-                        style: MyTheme.button(color: AppColors.primary),
-                      ),
                     ),
-                    TextButton(
+                    ButtonCTANotFilled(
+                      buttonText: 'Confirmar',
                       onPressed: (){
                         Navigator.of(context).pop();
                       },
-                      child: Text(
-                        'Confirmar',
-                        style: MyTheme.button(color: AppColors.primary),
-                      ),
-                    )
+                    ),
                   ],
                 )
               ],

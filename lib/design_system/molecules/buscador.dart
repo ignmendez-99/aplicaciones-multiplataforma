@@ -1,4 +1,5 @@
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/shadows.dart';
 import 'package:flutter/material.dart';
 
 import '../atoms/icons.dart';
@@ -14,7 +15,11 @@ class Buscador extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: SizedBox(
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: AppShadows.sombra1,
+        ),
         width: 328,
         height: 48,
         child: Row(

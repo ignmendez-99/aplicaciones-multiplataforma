@@ -16,7 +16,7 @@ class Welcome extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/logo_cuadrado.png',
+                'assets/images/SER MANOS LOGO_Mesa de trabajo 1.png',
                 height: 150,
                 width: 150,
               ),

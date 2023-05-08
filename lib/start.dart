@@ -1,3 +1,4 @@
+import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.dart';
 import 'package:flutter/material.dart';
 
 class Start extends StatelessWidget {
@@ -15,11 +16,7 @@ class Start extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/logo_cuadrado.png',
-                height: 150,
-                width: 150,
-              ),
+              const LogoCuadrado(),
               const SizedBox(height: 20),
               const Center(
                 child: Text(

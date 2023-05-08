@@ -1,36 +1,17 @@
+import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const LoginPage();
-  }
+  LoginState createState() => LoginState();
 }
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: LoginForm(),
-      ),
-    );
-  }
-}
-
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
-
-  @override
-  _LoginFormState createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
+class LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -55,80 +36,87 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 50),
-          Image.asset(
-            "assets/images/logo_cuadrado.png",
-            height: 200,
-            width: 200,
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const SizedBox(height: 147),
+                const LogoCuadrado(),
+                const SizedBox(height: 32),
+                Input1(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'El email es requerido';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    if( _validLoginData() && _isLoginButtonDisabled ) {
+                      _toggleLoginButtonState();
+                    } else if( !_validLoginData() && !_isLoginButtonDisabled ) {
+                      _toggleLoginButtonState();
+                    }
+                  },
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  labelText: 'Email',
+                  obscureText: false,
+                  enabled: true,
+                ),
+                const SizedBox(height: 24),
+                Input1(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'La contraseña es requerida';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    if( _validLoginData() && _isLoginButtonDisabled ) {
+                      setState(() {
+                        _toggleLoginButtonState();
+                      });
+                    } else if( !_validLoginData() && !_isLoginButtonDisabled ) {
+                      setState(() {
+                        _toggleLoginButtonState();
+                      });
+                    }
+                  },
+                  controller: _passwordController,
+                  keyboardType: TextInputType.emailAddress,
+                  labelText: 'Contraseña',
+                  obscureText: true,
+                  enabled: true,
+                ),
+
+
+                // const SizedBox(height: 16),
+                _isLoginButtonDisabled ?
+                    const ButtonCTAFilledDisabled(buttonText: 'Iniciar Sesión',)
+                    :
+                    ButtonCTAFilled(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.of(context).pushReplacementNamed('/welcome');
+                        }
+                      },
+                      buttonText: 'Iniciar Sesión',
+                    ),
+                const SizedBox(height: 16),
+                ButtonCTANotFilled(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/register');
+                  },
+                  buttonText: 'No tengo cuenta',
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(labelText: 'Email'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'El email es requerido';
-              }
-              return null;
-            },
-            onChanged: (value) {
-              if( _validLoginData() && _isLoginButtonDisabled ) {
-                setState(() {
-                  _toggleLoginButtonState();
-                });
-              } else if( !_validLoginData() && !_isLoginButtonDisabled ) {
-                setState(() {
-                  _toggleLoginButtonState();
-                });
-              }
-            },
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(labelText: 'Contraseña'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'La contraseña es requerida';
-              }
-              return null;
-            },
-            onChanged: (value) {
-              if( _validLoginData() && _isLoginButtonDisabled ) {
-                setState(() {
-                  _toggleLoginButtonState();
-                });
-              } else if( !_validLoginData() && !_isLoginButtonDisabled ) {
-                setState(() {
-                  _toggleLoginButtonState();
-                });
-              }
-            },
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            child: const Text('Iniciar Sesión'),
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, '/welcome');
-              }
-            },
-          ),
-          const SizedBox(height: 16),
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/register');
-            },
-            child: const Text('No tengo cuenta'),
-          ),
-        ],
+        ),
       ),
     );
   }

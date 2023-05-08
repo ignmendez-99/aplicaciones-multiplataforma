@@ -1,10 +1,12 @@
 import 'package:aplicaciones_multiplataforma/Login.dart';
 import 'package:aplicaciones_multiplataforma/card_seleccionada.dart';
 import 'package:aplicaciones_multiplataforma/dashboard.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:aplicaciones_multiplataforma/register.dart';
 import 'package:aplicaciones_multiplataforma/start.dart';
 import 'package:aplicaciones_multiplataforma/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +18,18 @@ void main() {
 // todo: revisar pantallas cuando se abre el teclado
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: AppColors.secondaryBlue90,
+      ),
+    );
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

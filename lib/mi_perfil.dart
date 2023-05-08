@@ -1,5 +1,4 @@
-import 'package:aplicaciones_multiplataforma/buttons/short_button_with_icon.dart';
-import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_corto.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
@@ -58,12 +57,9 @@ class _MiPerfilState extends State<MiPerfil> {
         const Spacer(),
         Container(
           margin: const EdgeInsets.only(bottom: 80),
-          child: ShortButtonWithIcon(
-            icon: MyIcons.addNeutralWhite,
+          child: ShortButtonActivated(
+            onPressed: () { },
             buttonText: 'Completar',
-            onPressed: () {
-              print('boton apretado');
-            },
           ),
         )
       ],

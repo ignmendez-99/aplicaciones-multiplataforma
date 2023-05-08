@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class MyTheme {
 
-  // TODO revisar propiedades extra, como line spacing, ya que estas propiedades aparecen en el Figma
-
   static TextStyle headline01({color = AppColors.neutralBlack}) {
     return TextStyle(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w400,  // REGULAR
       fontSize: 24.0,
+      height: 1,
+      letterSpacing: 0.18,
       color: color
     );
   }
@@ -19,6 +19,8 @@ class MyTheme {
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,  // MEDIUM
       fontSize: 20.0,
+      height: 1.20,
+      letterSpacing: 0.15,
       color: color
     );
   }
@@ -28,6 +30,8 @@ class MyTheme {
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w400,  // REGULAR
         fontSize: 16.0,
+        height: 1.5,
+        letterSpacing: 0.15,
         color: color
     );
   }
@@ -37,6 +41,8 @@ class MyTheme {
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w400,  // REGULAR
       fontSize: 14.0,
+      letterSpacing: 0.25,
+      height: (20/14),
       color: color
     );
   }
@@ -46,6 +52,8 @@ class MyTheme {
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w400,  // REGULAR
       fontSize: 12.0,
+      height: (16/14),
+      letterSpacing: 0.4,
       color: color
     );
   }
@@ -55,6 +63,8 @@ class MyTheme {
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,  // MEDIUM
       fontSize: 14.0,
+      height: (20/14),
+      letterSpacing: 0.1,
       color: color
     );
   }
@@ -64,6 +74,8 @@ class MyTheme {
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w400,  // REGULAR
       fontSize: 12.0,
+      letterSpacing: 0.4,
+      height: (16/14),
       color: color
     );
   }
@@ -73,6 +85,8 @@ class MyTheme {
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,  // MEDIUM
       fontSize: 10.0,
+      height: 1.6,
+      letterSpacing: 1.5,
       color: color
     );
   }
