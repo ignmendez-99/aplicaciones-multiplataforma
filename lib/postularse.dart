@@ -1,6 +1,4 @@
-import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
-import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
-import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
+import 'package:aplicaciones_multiplataforma/design_system/celulas/card_voluntariado.dart';
 import 'package:flutter/material.dart';
 
 import 'design_system/molecules/buscador.dart';
@@ -52,12 +50,13 @@ class _PostularseState extends State<Postularse> {
         margin: const EdgeInsets.fromLTRB(16, 24, 16, 0),
         child: Column(
           children: [
-            Buscador(focusNode: _focusNode, searchFocused: _searchFocused,),
+            const Buscador(),
             const SizedBox(height: 32),
             Column(
-              children: [
-                postularseCard(),
-                postularseCard()
+              children: const [
+                CardVoluntariado(),
+                CardVoluntariado(),
+                CardVoluntariado(),
               ],
             )
           ],
@@ -66,54 +65,6 @@ class _PostularseState extends State<Postularse> {
     );
   }
 
-  Widget postularseCard() {
-    return Card(
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () => {
-                Navigator.of(context).pushNamed('/card-seleccionada/')
-              },
-              child: SizedBox(
-                height: 138,
-                width: double.infinity,
-                child: FittedBox(
-                  clipBehavior: Clip.hardEdge,
-                  fit: BoxFit.fitWidth,
-                  child: Image.asset(
-                    "assets/images/1109 techo 500.jpeg",
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(16, 8, 18, 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'ACCION SOCIAL',
-                    style: MyTheme.overline(color: AppColors.neutralGrey75),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Manos caritativas',
-                        style: MyTheme.subtitle01(),
-                      ),
-                      Expanded(child: Container(),),
-                      MyIcons.favoriteOutlineActivated,
-                      const SizedBox(width: 16,),
-                      MyIcons.locationOnActivated,
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        )
-    );
-  }
 }
 
 

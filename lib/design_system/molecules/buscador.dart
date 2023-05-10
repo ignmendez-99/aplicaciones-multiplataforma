@@ -5,46 +5,54 @@ import 'package:flutter/material.dart';
 import '../atoms/icons.dart';
 import '../tokens/typography.dart';
 
-class Buscador extends StatelessWidget {
+class Buscador extends StatefulWidget {
 
-  final FocusNode focusNode;
-  final bool searchFocused;
+  const Buscador({super.key});
 
-  const Buscador({required this.focusNode, required this.searchFocused});
+  @override
+  State<Buscador> createState() => _BuscadorState();
+}
+
+class _BuscadorState extends State<Buscador> {
+  bool _typing = false;
+  final _controller = TextEditingController();
+  final _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.all(0),
       child: Container(
         decoration: const BoxDecoration(
           color: Colors.white,
           boxShadow: AppShadows.sombra1,
         ),
-        width: 328,
-        height: 48,
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(16, 12, 0, 12),
-                child: TextField(
-                  style: MyTheme.subtitle01(),
-                  focusNode: focusNode,
-                  decoration: InputDecoration(
-                    hintText: "Buscar",  // TODO: cuando se pone esta linea, el texto se va para arriba
-                    hintStyle: searchFocused ? MyTheme.subtitle01(color: AppColors.neutralGrey50) : MyTheme.subtitle01(color: AppColors.neutralGrey75),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 12, 16, 12),
-              child: MyIcons.searchEnabled,
-            ),
-          ],
+        padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+        child: TextFormField(
+          style: MyTheme.subtitle01(),
+          focusNode: _focusNode,
+          decoration: InputDecoration(
+            suffixIcon: getSuffixIcon(),
+            hintText: "Buscar",
+            hintStyle: _focusNode.hasFocus ? MyTheme.subtitle01(color: AppColors.neutralGrey50) : MyTheme.subtitle01(color: AppColors.neutralGrey75),
+            border: InputBorder.none,
+          ),
         ),
       ),
     );
+  }
+
+  Widget? getSuffixIcon() {
+    if(_typing) {
+      return MyIcons.closeEnabled;
+    }
+    return MyIcons.searchEnabled;
   }
 }

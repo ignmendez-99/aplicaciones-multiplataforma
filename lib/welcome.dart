@@ -9,17 +9,19 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        child: Center(
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              const SizedBox(height: 166),
+              const Spacer(),
               const LogoCuadrado(),
               const SizedBox(height: 30),
               Text(
-                '¡Bienvenido!',
-                style: MyTheme.headline01()
+                  '¡Bienvenido!',
+                  style: MyTheme.headline01()
               ),
               const SizedBox(height: 48),
               Text(
@@ -27,12 +29,15 @@ class Welcome extends StatelessWidget {
                 style: MyTheme.subtitle01(),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 146),
-              ButtonCTAFilled(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home');
-                },
-                buttonText: 'Comenzar',
+              const Spacer(),
+              Container(
+                margin: const EdgeInsets.only(bottom: 92),
+                child: ButtonCTAFilled(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  },
+                  buttonText: 'Comenzar',
+                ),
               ),
             ],
           ),

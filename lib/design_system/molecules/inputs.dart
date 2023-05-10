@@ -6,7 +6,7 @@ import '../tokens/typography.dart';
 
 // TODO TODAVIA FALTA LO DEL PLACEHOLDER
 
-class Input1 extends StatefulWidget {
+class InputTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final TextEditingController? controller;
@@ -15,7 +15,7 @@ class Input1 extends StatefulWidget {
   final bool obscureText;
   final bool enabled;
 
-  const Input1({
+  const InputTextField({
     super.key,
     required this.validator,
     required this.onChanged,
@@ -27,10 +27,10 @@ class Input1 extends StatefulWidget {
   });
 
   @override
-  State<Input1> createState() => _Input1State();
+  State<InputTextField> createState() => _InputTextFieldState();
 }
 
-class _Input1State extends State<Input1> {
+class _InputTextFieldState extends State<InputTextField> {
   bool _showClearIcon = false;
   bool _showErrorIcon = false;
   final FocusNode _focusNode = FocusNode();
@@ -129,8 +129,8 @@ class _Input1State extends State<Input1> {
     return null;
   }
 }
-
-class Input2 extends Input1 {
+/*
+class Input2 extends InputTextField {
   const Input2({
     super.key,
     required String? Function(String?)? validator,
@@ -150,3 +150,4 @@ class Input2 extends Input1 {
     enabled: enabled
   );
 }
+*/

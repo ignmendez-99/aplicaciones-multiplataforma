@@ -9,33 +9,41 @@ class Start extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            const SizedBox(height: 177),
-            const LogoCuadrado(),
-            const SizedBox(height: 32),
-            Text(
-              '“El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros”',
-              style: MyTheme.subtitle01(),
-              textAlign: TextAlign.center
-            ),
-            const SizedBox(height: 181),
-            ButtonCTAFilled(
-              onPressed: () {
-                Navigator.of(context).pushReplacementNamed('/login');
-              },
-              buttonText: 'Iniciar Sesión',
-            ),
-            const SizedBox(height: 16),
-            ButtonCTANotFilled(
-              onPressed: () {
-                Navigator.of(context).pushReplacementNamed('/register');
-              },
-              buttonText: 'Registrarse'
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const Spacer(),
+              const LogoCuadrado(),
+              const SizedBox(height: 32),
+              Text(
+                '“El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros”',
+                style: MyTheme.subtitle01(),
+                textAlign: TextAlign.center
+              ),
+              // const SizedBox(height: 181),
+              const Spacer(),
+              ButtonCTAFilled(
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed('/login');
+                },
+                buttonText: 'Iniciar Sesión',
+              ),
+              const SizedBox(height: 16),
+              Container(
+                margin: const EdgeInsets.only(bottom: 32),
+                child: ButtonCTANotFilled(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/register');
+                  },
+                  buttonText: 'Registrarse'
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

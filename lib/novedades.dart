@@ -1,84 +1,23 @@
-import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
-import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
+import 'package:aplicaciones_multiplataforma/design_system/celulas/card_novedades.dart';
 import 'package:flutter/material.dart';
 
-class Novedades extends StatefulWidget {
+class Novedades extends StatelessWidget {
   const Novedades({Key? key}) : super(key: key);
 
-  @override
-  State<Novedades> createState() => _NovedadesState();
-}
-
-class _NovedadesState extends State<Novedades> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: const EdgeInsets.fromLTRB(16, 32, 16, 32),
+        margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
         child: Column(
-          children: [
-            novedadesCard(),
-            novedadesCard(),
-            novedadesCard(),
-            novedadesCard(),
-            novedadesCard(),
+          children: const [
+            CardNovedades(),
+            CardNovedades(),
+            CardNovedades(),
+            CardNovedades(),
+            CardNovedades(),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget novedadesCard() {
-    return Card(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 156,
-            width: 118,
-            child: FittedBox(
-              clipBehavior: Clip.hardEdge,
-              fit: BoxFit.cover,
-              child: Image.asset(
-                "assets/images/donacion-sangre-chica-joven-camiseta-roja-grabada-mano-parche-corazon-rojo-despues-dar-sangre-sobre-fondo-gris_89386-1287.jpeg",
-              ),
-            ),
-          ),
-          Container(
-            width: 194,
-            margin: const EdgeInsets.fromLTRB(8, 16, 0, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'REPORTE 2820',
-                  style: MyTheme.overline(color: AppColors.neutralGrey75),
-                ),
-                Text(
-                  'Ser donante voluntario',
-                  style: MyTheme.subtitle01(),
-                ),
-                Text(
-                  'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-                  style: MyTheme.body02(color: AppColors.neutralGrey75),
-                ),
-                const SizedBox(height: 8,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: (){},
-                      child: Text(
-                        'Leer mas',
-                        style: MyTheme.button(color: AppColors.primary),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
       ),
     );
   }

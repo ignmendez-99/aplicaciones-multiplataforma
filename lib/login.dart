@@ -37,17 +37,19 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Form(
             key: _formKey,
             child: Column(
               children: [
-                const SizedBox(height: 147),
+                const Spacer(),
                 const LogoCuadrado(),
                 const SizedBox(height: 32),
-                Input1(
+                InputTextField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'El email es requerido';
@@ -68,7 +70,7 @@ class LoginState extends State<Login> {
                   enabled: true,
                 ),
                 const SizedBox(height: 24),
-                Input1(
+                InputTextField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'La contraseña es requerida';
@@ -92,7 +94,7 @@ class LoginState extends State<Login> {
                   obscureText: true,
                   enabled: true,
                 ),
-                const SizedBox(height: 147),
+                const Spacer(),
                 _isLoginButtonDisabled ?
                     const ButtonCTAFilledDisabled(buttonText: 'Iniciar Sesión',)
                     :
@@ -111,6 +113,7 @@ class LoginState extends State<Login> {
                   },
                   buttonText: 'No tengo cuenta',
                 ),
+                const SizedBox(height: 32),
               ],
             ),
           ),
