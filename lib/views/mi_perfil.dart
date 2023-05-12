@@ -3,14 +3,9 @@ import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 
-class MiPerfil extends StatefulWidget {
+class MiPerfil extends StatelessWidget {
   const MiPerfil({Key? key}) : super(key: key);
 
-  @override
-  State<MiPerfil> createState() => _MiPerfilState();
-}
-
-class _MiPerfilState extends State<MiPerfil> {
   @override
   Widget build(BuildContext context) {
     return Container(

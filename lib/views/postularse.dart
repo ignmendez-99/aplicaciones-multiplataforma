@@ -1,7 +1,8 @@
 import 'package:aplicaciones_multiplataforma/design_system/celulas/card_voluntariado.dart';
 import 'package:flutter/material.dart';
 
-import 'design_system/molecules/buscador.dart';
+import '../design_system/molecules/buscador.dart';
+
 
 class Postularse extends StatefulWidget {
   const Postularse({Key? key}) : super(key: key);

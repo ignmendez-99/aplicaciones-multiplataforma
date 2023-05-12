@@ -1,10 +1,10 @@
 import 'package:aplicaciones_multiplataforma/Login.dart';
-import 'package:aplicaciones_multiplataforma/card_seleccionada.dart';
-import 'package:aplicaciones_multiplataforma/dashboard.dart';
+import 'package:aplicaciones_multiplataforma/views/card_seleccionada.dart';
+import 'package:aplicaciones_multiplataforma/views/dashboard.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
-import 'package:aplicaciones_multiplataforma/register.dart';
-import 'package:aplicaciones_multiplataforma/start.dart';
-import 'package:aplicaciones_multiplataforma/welcome.dart';
+import 'package:aplicaciones_multiplataforma/views/register.dart';
+import 'package:aplicaciones_multiplataforma/views/start.dart';
+import 'package:aplicaciones_multiplataforma/views/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

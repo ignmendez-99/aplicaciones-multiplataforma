@@ -2,9 +2,9 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.d
 import 'package:aplicaciones_multiplataforma/design_system/tokens/shadows.dart';
 import 'package:flutter/material.dart';
 
-import 'design_system/celulas/modal.dart';
-import 'design_system/tokens/colors.dart';
-import 'design_system/tokens/typography.dart';
+import '../design_system/celulas/modal.dart';
+import '../design_system/tokens/colors.dart';
+import '../design_system/tokens/typography.dart';
 
 class CardSeleccionada extends StatefulWidget {
   const CardSeleccionada({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
         children: [
           SizedBox(
             height: 243,
-            // width: double.infinity,
+            width: double.infinity,
             child: Image.asset(
               "assets/images/1109 techo 500.jpeg",
               fit: BoxFit.fill,
