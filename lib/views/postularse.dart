@@ -1,6 +1,10 @@
 import 'package:aplicaciones_multiplataforma/design_system/celulas/card_voluntariado.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/floating_button.dart';
 import 'package:flutter/material.dart';
 
+import '../design_system/celulas/card_foto_de_perfil.dart';
+import '../design_system/celulas/card_input.dart';
+import '../design_system/celulas/card_voluntariado_actual.dart';
 import '../design_system/molecules/buscador.dart';
 
 

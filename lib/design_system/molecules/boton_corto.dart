@@ -1,21 +1,21 @@
-import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
 import 'package:flutter/material.dart';
 
 import '../tokens/colors.dart';
-import '../tokens/typography.dart';
 
 class ShortButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final String buttonText;
-  final Color backgroundColor;
-  final Color textColor;
+  final double width;
+  final double height;
+  final Widget content;
+  final bool disabled;
 
   const ShortButton({
     super.key,
     required this.onPressed,
-    required this.buttonText,
-    required this.backgroundColor,
-    required this.textColor,
+    required this.width,
+    required this.height,
+    required this.content,
+    required this.disabled,
   });
 
   @override
@@ -25,48 +25,40 @@ class ShortButton extends StatelessWidget {
       child: TextButton(
         onPressed: onPressed,
         child: Container(
-          color: AppColors.primary,
-          width: 123,
-          height: 48,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MyIcons.addNeutralWhite,
-              const SizedBox(width: 8,),
-              Text(
-                buttonText,
-                style: MyTheme.button(color: textColor),
-              )
-            ],
-          ),
+          color: disabled ? AppColors.neutralGrey25 : AppColors.primary100,
+          width: width,
+          height: height,
+          child: content,
         )
       ),
     );
   }
 }
 
-class ShortButtonActivated extends ShortButton {
-  const ShortButtonActivated({
+class ShortButtonDefault extends ShortButton {
+  const ShortButtonDefault({
     super.key,
     required VoidCallback onPressed,
-    required String buttonText,
+    required Widget content,
   }) : super(
     onPressed: onPressed,
-    buttonText: buttonText,
-    backgroundColor: AppColors.primary,
-    textColor: AppColors.neutralWhite,
+    width: 123,
+    height: 48,
+    content: content,
+    disabled: false,
   );
 }
 
-class ShortButtonDisabled extends ShortButton {
-  const ShortButtonDisabled({
+class ShortButtonChico extends ShortButton {
+  const ShortButtonChico({
     super.key,
     required VoidCallback onPressed,
-    required String buttonText,
+    required Widget content,
   }) : super(
     onPressed: onPressed,
-    buttonText: buttonText,
-    backgroundColor: AppColors.neutralGrey25,
-    textColor: AppColors.neutralGrey50,
+    width: 123,
+    height: 40,
+    content: content,
+    disabled: false,
   );
 }

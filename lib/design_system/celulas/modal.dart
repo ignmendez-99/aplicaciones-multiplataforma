@@ -31,15 +31,6 @@ class Modal extends StatelessWidget {
               'Un Techo para mi País',
               style: MyTheme.headline02(),
             ),
-            const SizedBox(height: 16,),
-            Text(
-              'Días sábados de 9.00 a 17.00 horas.',
-              style: MyTheme.body01(color: AppColors.neutralGrey75),
-            ),
-            Text(
-              'Caballito',
-              style: MyTheme.body01(color: AppColors.neutralGrey75),
-            ),
             const SizedBox(height: 8,),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

@@ -3,6 +3,9 @@ import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 
+import '../design_system/atoms/icons.dart';
+import '../design_system/molecules/profile_picture.dart';
+
 class MiPerfil extends StatelessWidget {
   const MiPerfil({Key? key}) : super(key: key);
 
@@ -13,17 +16,7 @@ class MiPerfil extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(),
-          SizedBox(
-            width: 120,
-            height: 120,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(90),
-              child: Image.asset(
-                "assets/images/image.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          const ProfilePictureBig(),
           const SizedBox(height: 16),
           Text(
             'VOLUNTARIO',
@@ -43,9 +36,19 @@ class MiPerfil extends StatelessWidget {
           const Spacer(),
           Container(
             margin: const EdgeInsets.only(bottom: 80),
-            child: ShortButtonActivated(
+            child: ShortButtonDefault(
               onPressed: () { },
-              buttonText: 'Completar',
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyIcons.addNeutralWhite,
+                  const SizedBox(width: 8,),
+                  Text(
+                    'Completar',
+                    style: MyTheme.button(color: AppColors.neutralWhite),
+                  )
+                ],
+              ),
             ),
           )
         ],

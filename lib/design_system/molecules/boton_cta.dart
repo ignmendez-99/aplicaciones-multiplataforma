@@ -49,7 +49,7 @@ class ButtonCTAFilled extends ButtonCTA {
   }) : super(
     onPressed: onPressed,
     buttonText: buttonText,
-    backgroundColor: AppColors.primary,
+    backgroundColor: AppColors.primary100,
     textColor: AppColors.neutralWhite,
   );
 }
@@ -75,7 +75,7 @@ class ButtonCTANotFilled extends ButtonCTA {
     onPressed: onPressed,
     buttonText: buttonText,
     backgroundColor: null,
-    textColor: AppColors.primary,
+    textColor: AppColors.primary100,
   );
 }
 

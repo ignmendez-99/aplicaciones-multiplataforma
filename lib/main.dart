@@ -1,4 +1,4 @@
-import 'package:aplicaciones_multiplataforma/Login.dart';
+import 'package:aplicaciones_multiplataforma/views/login.dart';
 import 'package:aplicaciones_multiplataforma/views/card_seleccionada.dart';
 import 'package:aplicaciones_multiplataforma/views/dashboard.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
@@ -27,6 +27,8 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: AppColors.secondaryBlue90,
+        // statusBarColor: AppColors.neutralWhite,
+        // statusBarColor: AppColors.neutralBlack,
       ),
     );
 
