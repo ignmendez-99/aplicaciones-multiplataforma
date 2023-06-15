@@ -1,7 +1,7 @@
 import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs.dart';
-import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
+import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -16,6 +16,7 @@ class LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoginButtonDisabled = true;
+  final AuthService _authService = AuthService();
 
   @override
   void dispose() {
@@ -99,8 +100,12 @@ class LoginState extends State<Login> {
                     const ButtonCTAFilledDisabled(buttonText: 'Iniciar Sesión',)
                     :
                     ButtonCTAFilled(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          final email = _emailController.text;
+                          final password = _passwordController.text;
+                          await _authService.logIn(email: email, password: password);
+                          // Navigator.of(context).popUntil((route) => false);
                           Navigator.of(context).pushReplacementNamed('/welcome');
                         }
                       },

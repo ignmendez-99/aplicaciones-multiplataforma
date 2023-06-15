@@ -1,3 +1,4 @@
+import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:aplicaciones_multiplataforma/views/login.dart';
 import 'package:aplicaciones_multiplataforma/views/card_seleccionada.dart';
 import 'package:aplicaciones_multiplataforma/views/dashboard.dart';
@@ -5,14 +6,34 @@ import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:aplicaciones_multiplataforma/views/register.dart';
 import 'package:aplicaciones_multiplataforma/views/start.dart';
 import 'package:aplicaciones_multiplataforma/views/welcome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'auth_orchestrator.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // AuthService().authStateChanges.listen((User? user) {
+  //   Navigator.of(navigatorKey.currentContext!).popUntil((route) => false);
+  //   if (user == null) {
+  //     print('User is signed out!');
+  //     Navigator.of(navigatorKey.currentContext!).pushNamed('/start');
+  //   } else {
+  //     print('User is signed in!');
+  //     Navigator.of(navigatorKey.currentContext!).pushNamed('/welcome');
+  //   }
+  // });
+
   runApp(const MyApp());
 }
-
-// https://www.figma.com/file/iCyHRyGBGaKOqS1ioWbJeI/Ser-manos-%7C-Design-System?node-id=231%3A1648&t=OKsdvc6OSI4nOwpw-1
 
 // TODO: revisar pantalla horizontal
 // todo: revisar pantallas cuando se abre el teclado
@@ -38,8 +59,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto',
         primarySwatch: Colors.blue,
       ),
-      home: const Dashboard(),
-      initialRoute: '/start',
+      home: AuthOrchestrator(),
       routes: {
         '/card-seleccionada/':(context) => const CardSeleccionada(),
         '/login': (context) => const Login(),
@@ -51,3 +71,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

@@ -3,16 +3,6 @@ import 'package:flutter/material.dart';
 
 class MyIcons {
 
-  //TODO faltan los 3 iconos de VISIBILITY dos tonos
-  //TODO faltan los 3 iconos de VISIBILITY_OFF dos tonos
-  // TODO faltan los 3 iconos de LOCATION_ON dos tonos
-  // TODO faltan los 3 iconos de ERROR dos tonos
-  // TODO falta el icono de account circle (foto de perfil) dos tonos
-  // https://mui.com/material-ui/material-icons/?query=calendarm&theme=Outlined
-  // TODO falta los 3 iconos de calendar dos tonos
-  // TODO falta icono ubicacion
-  // TODO falta los 3 iconos de mapa dos tonos
-
   static Icon visibilityEnabled = const Icon(
     Icons.visibility,
     size: 24,
@@ -49,6 +39,36 @@ class MyIcons {
     color: AppColors.primary100,
   );
 
+  static SizedBox visibilityTwoTonesEnabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/visibility_two_tones_enabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox visibilityTwoTonesDisabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/visibility_two_tones_disabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox visibilityTwoTonesActivated = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/visibility_two_tones_activated.png",
+      ),
+    ),
+  );
+
   static Icon visibilityOffEnabled = const Icon(
     Icons.visibility_off,
     size: 24,
@@ -83,6 +103,36 @@ class MyIcons {
     Icons.visibility_off_outlined,
     size: 24,
     color: AppColors.primary100,
+  );
+
+  static SizedBox visibilityOffTwoTonesEnabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/visibility_off_two_tones_enabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox visibilityOffTwoTonesDisabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/visibility_off_two_tones_disabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox visibilityOffTwoTonesActivated = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/visibility_off_two_tones_activated.png",
+      ),
+    ),
   );
 
   static Icon favoriteEnabled = const Icon(
@@ -217,6 +267,36 @@ class MyIcons {
     color: AppColors.primary100,
   );
 
+  static SizedBox locationOnTwoTonesEnabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/location_on_two_tones_enabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox locationOnTwoTonesDisabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/location_on_two_tones_disabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox locationOnTwoTonesActivated = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/location_on_two_tones_activated.png",
+      ),
+    ),
+  );
+
   static Icon closeEnabled = const Icon(
     Icons.close,
     size: 24,
@@ -271,6 +351,36 @@ class MyIcons {
     color: AppColors.error,
   );
 
+  static SizedBox errorTwoTonesEnabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/error_two_tones_enabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox errorTwoTonesDisabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/error_two_tones_disabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox errorTwoTonesActivated = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/error_two_tones_activated.png",
+      ),
+    ),
+  );
+
   static Icon personEnabled = const Icon(
     Icons.person,
     size: 20,
@@ -287,6 +397,36 @@ class MyIcons {
     Icons.person,
     size: 20,
     color: AppColors.secondaryBlue200,
+  );
+
+  static SizedBox mapTwoTonesEnabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/map_two_tones_enabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox mapTwoTonesDisabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/map_two_tones_disabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox mapTwoTonesActivated = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/map_two_tones_activated.png",
+      ),
+    ),
   );
 
   static Icon radioButtonCheckedEnabled = const Icon(
@@ -359,6 +499,46 @@ class MyIcons {
     Icons.list,
     size: 24,
     color: AppColors.primary100,
+  );
+
+  static SizedBox calendarMonthTwoTonesEnabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/calendar_month_two_tones_enabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox calendarMonthTwoTonesDisabled = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/calendar_month_two_tones_disabled.png",
+      ),
+    ),
+  );
+
+  static SizedBox calendarMonthTwoTonesActivated = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/calendar_month_two_tones_activated.png",
+      ),
+    ),
+  );
+
+  static SizedBox ubicacion = SizedBox(
+    width: 24,
+    height: 24,
+    child: ClipRRect(
+      child: Image.asset(
+        "assets/icons/ubicacion.png",
+      ),
+    ),
   );
 
 }

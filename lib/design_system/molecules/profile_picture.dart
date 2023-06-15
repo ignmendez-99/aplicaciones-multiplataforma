@@ -43,3 +43,22 @@ class ProfilePictureSmall extends ProfilePicture {
     height: 84,
   );
 }
+
+class ProfilePictureEmpty extends StatelessWidget {
+  const ProfilePictureEmpty({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 120,
+      height: 120,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(90),
+        child: Image.asset(
+          "assets/images/account_circle_two_tones.png",
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+}

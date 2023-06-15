@@ -1,13 +1,17 @@
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_corto.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 
 import '../design_system/atoms/icons.dart';
 import '../design_system/molecules/profile_picture.dart';
+import '../services/auth/auth_service.dart';
 
 class MiPerfil extends StatelessWidget {
-  const MiPerfil({Key? key}) : super(key: key);
+  MiPerfil({Key? key}) : super(key: key);
+
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,8 @@ class MiPerfil extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(),
-          const ProfilePictureBig(),
+          // const ProfilePictureBig(),
+          ProfilePictureEmpty(),
           const SizedBox(height: 16),
           Text(
             'VOLUNTARIO',
@@ -35,7 +40,7 @@ class MiPerfil extends StatelessWidget {
           ),
           const Spacer(),
           Container(
-            margin: const EdgeInsets.only(bottom: 80),
+            // margin: const EdgeInsets.only(bottom: 80),
             child: ShortButtonDefault(
               onPressed: () { },
               content: Row(
@@ -50,7 +55,15 @@ class MiPerfil extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          // ButtonCTAFilled(
+          //   onPressed: () async {
+          //     await _authService.signOut();
+          //     // Navigator.of(context).popUntil((route) => false);
+          //     Navigator.of(context).pushReplacementNamed('/start');
+          //   },
+          //   buttonText: 'Cerrar sesión'
+          // ),
         ],
       ),
     );

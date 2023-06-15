@@ -57,9 +57,10 @@ class CardVoluntariado extends StatelessWidget {
                   const Spacer(),
                   Row(
                     children: [
-                      MyIcons.favoriteOutlineActivated,
+                      MyIcons.visibilityTwoTonesActivated,
                       const SizedBox(width: 16,),
-                      MyIcons.locationOnActivated,
+                      // MyIcons.locationOnActivated,
+                      MyIcons.visibilityTwoTonesEnabled
                     ],
                   ),
                 ],

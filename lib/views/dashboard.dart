@@ -13,11 +13,11 @@ class Dashboard extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: Header.appbar,
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            Postularse(),
+            const Postularse(),
             MiPerfil(),
-            Novedades(),
+            const Novedades(),
           ],
         ),
       ),

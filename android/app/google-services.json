@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "849835430554",
+    "project_id": "ser-manos-flutter",
+    "storage_bucket": "ser-manos-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849835430554:android:705effc377b2b1ca5e4523",
+        "android_client_info": {
+          "package_name": "com.example.aplicaciones_multiplataforma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849835430554-1vbu4uu643iruf3qdocr754glo51udf0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoCbgbYeSy3otXdAz08ikvCVcyj4qa3WA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849835430554-1vbu4uu643iruf3qdocr754glo51udf0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

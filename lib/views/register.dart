@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../services/auth/auth_service.dart';
+
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -13,15 +15,16 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +98,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   return null;
                 },
               ),
-              const SizedBox(
-                height: 16.0,
-              ),
+              const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/welcome');
+                onPressed: () async {
+                  final email = _emailController.text;
+                  final password = _passwordController.text;
+                  await _authService.signUp(email: email, password: password);
+                  // Navigator.of(context).popUntil((route) => false);
+                  Navigator.of(context).pushReplacementNamed('/welcome');
                 },
                 child: const Text('Registrarse'),
               ),
