@@ -1,4 +1,6 @@
 import 'package:aplicaciones_multiplataforma/design_system/molecules/vacantes.dart';
+import 'package:aplicaciones_multiplataforma/models/voluntariado.dart';
+import 'package:aplicaciones_multiplataforma/services/maps_service.dart';
 import 'package:flutter/material.dart';
 
 import '../atoms/icons.dart';
@@ -7,7 +9,14 @@ import '../tokens/shadows.dart';
 import '../tokens/typography.dart';
 
 class CardVoluntariado extends StatelessWidget {
-  const CardVoluntariado({Key? key}) : super(key: key);
+
+  final Voluntariado voluntariado;
+  final MapService _mapService = MapService();
+
+  CardVoluntariado({
+    Key? key,
+    required this.voluntariado
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,23 +53,25 @@ class CardVoluntariado extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'ACCION SOCIAL',
+                        voluntariado.tipoDeVoluntariado,
                         style: MyTheme.overline(color: AppColors.neutralGrey75),
                       ),
                       Text(
-                        'Un Techo para mi País',
+                        voluntariado.titulo,
                         style: MyTheme.subtitle01(),
                       ),
-                      const Vacantes(vacantes: 10,)
+                      Vacantes(vacantes: voluntariado.vacantes,)
                     ],
                   ),
                   const Spacer(),
                   Row(
                     children: [
-                      MyIcons.visibilityTwoTonesActivated,
+                      MyIcons.favoriteOutlineActivated,
                       const SizedBox(width: 16,),
-                      // MyIcons.locationOnActivated,
-                      MyIcons.visibilityTwoTonesEnabled
+                      GestureDetector(
+                        onTap: () => _mapService.openGoogleMaps(voluntariado.ubicacion.latitude, voluntariado.ubicacion.longitude),
+                        child: MyIcons.locationOnActivated
+                      ),
                     ],
                   ),
                 ],

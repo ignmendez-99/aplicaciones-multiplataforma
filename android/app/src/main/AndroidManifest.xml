@@ -1,5 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.aplicaciones_multiplataforma">
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="www.google.com"/>
+        </intent>
+    </queries>
+
    <application
         android:label="aplicaciones_multiplataforma"
         android:name="${applicationName}"

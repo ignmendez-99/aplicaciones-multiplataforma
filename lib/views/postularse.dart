@@ -1,8 +1,13 @@
 import 'package:aplicaciones_multiplataforma/design_system/celulas/card_voluntariado.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/floating_button.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
+import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
+import 'package:aplicaciones_multiplataforma/models/voluntariado.dart';
+import 'package:aplicaciones_multiplataforma/services/voluntariado_service.dart';
 import 'package:flutter/material.dart';
 
 import '../design_system/celulas/card_foto_de_perfil.dart';
+import '../design_system/celulas/card_informacion.dart';
 import '../design_system/celulas/card_input.dart';
 import '../design_system/celulas/card_voluntariado_actual.dart';
 import '../design_system/molecules/buscador.dart';
@@ -20,6 +25,7 @@ class _PostularseState extends State<Postularse> {
   final myController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool _searchFocused = false;
+  final VoluntariadoService _voluntariadoService = VoluntariadoService();
 
   @override
   void dispose() {
@@ -54,18 +60,45 @@ class _PostularseState extends State<Postularse> {
       child: Container(
         margin: const EdgeInsets.fromLTRB(16, 24, 16, 0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Buscador(),
             const SizedBox(height: 32),
-            Column(
-              children: const [
-                CardVoluntariado(),
-                CardVoluntariado(),
-                CardVoluntariado(),
-              ],
-            )
+            Text(
+              'Voluntariados',
+              style: MyTheme.headline01(),
+            ),
+            const SizedBox(height: 16),
+            FutureBuilder(
+              future: _voluntariadoService.getAllVoluntariados(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if(snapshot.hasData) {
+                  List<Voluntariado> voluntariados = snapshot.data as List<Voluntariado>;
+                  return Column(
+                    children: voluntariados.map((v) => CardVoluntariado(voluntariado: v)).toList(),
+                  );
+                } else {
+                  return noData();
+                }
+              }
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget noData() {
+    return Container(
+      color: AppColors.neutralWhite,
+      padding: const EdgeInsets.fromLTRB(24, 18, 24, 18),
+      child: Text(
+        'Actualmente no hay voluntariados vigentes. Pronto se irán ircorporando nuevos',
+        textAlign: TextAlign.center,
+        style: MyTheme.subtitle01(),
       ),
     );
   }
