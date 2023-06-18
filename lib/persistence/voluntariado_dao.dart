@@ -13,9 +13,27 @@ class VoluntariadoDao {
     List<Voluntariado> voluntariados = [];
     for (DocumentSnapshot document in documents) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      voluntariados.add(Voluntariado.fromJson(document.reference.id, data));
+      voluntariados.add(Voluntariado.fromJson(
+        id: document.reference.id,
+        json: data
+      ));
     }
     return voluntariados;
+  }
+
+  Future<Voluntariado?> getVoluntariadoById(String id) async {
+    DocumentSnapshot snapshot = await _firestoreInstance
+        .collection('voluntariados')
+        .doc(id)
+        .get();
+    if(!snapshot.exists) {
+      return null;
+    }
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    return Voluntariado.fromJson(
+      id: snapshot.reference.id,
+      json: data
+    );
   }
 
   // TODO no anda
@@ -30,7 +48,7 @@ class VoluntariadoDao {
     List<Voluntariado> voluntariados = [];
     for (DocumentSnapshot document in documents) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      voluntariados.add(Voluntariado.fromJson(document.reference.id, data));
+      voluntariados.add(Voluntariado.fromJson(id: document.reference.id, json: data));
     }
     return voluntariados;
   }

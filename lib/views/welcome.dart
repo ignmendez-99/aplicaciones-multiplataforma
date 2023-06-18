@@ -2,6 +2,7 @@ import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.d
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -34,7 +35,8 @@ class Welcome extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 92),
                 child: ButtonCTAFilled(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/home');
+                    // Navigator.pushNamed(context, '/home');
+                    context.goNamed('dashboard', pathParameters: {'tabId': '0'});
                   },
                   buttonText: 'Comenzar',
                 ),

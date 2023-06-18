@@ -3,6 +3,7 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.d
 import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -105,8 +106,7 @@ class LoginState extends State<Login> {
                           final email = _emailController.text;
                           final password = _passwordController.text;
                           await _authService.logIn(email: email, password: password);
-                          // Navigator.of(context).popUntil((route) => false);
-                          Navigator.of(context).pushReplacementNamed('/welcome');
+                          context.goNamed('welcome');
                         }
                       },
                       buttonText: 'Iniciar Sesión',
@@ -114,7 +114,7 @@ class LoginState extends State<Login> {
                 const SizedBox(height: 16),
                 ButtonCTANotFilled(
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed('/register');
+                    context.goNamed('register');
                   },
                   buttonText: 'No tengo cuenta',
                 ),

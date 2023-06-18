@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../services/auth/auth_service.dart';
 
@@ -104,15 +105,14 @@ class RegisterPageState extends State<RegisterPage> {
                   final email = _emailController.text;
                   final password = _passwordController.text;
                   await _authService.signUp(email: email, password: password);
-                  // Navigator.of(context).popUntil((route) => false);
-                  Navigator.of(context).pushReplacementNamed('/welcome');
+                  context.goNamed('welcome');
                 },
                 child: const Text('Registrarse'),
               ),
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login');
+                  context.goNamed('login');
                 },
                 child: const Text('Ya tengo cuenta'),
               ),

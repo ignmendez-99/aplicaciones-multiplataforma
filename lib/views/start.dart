@@ -2,6 +2,7 @@ import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.d
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Start extends StatelessWidget {
   const Start({super.key});
@@ -28,7 +29,8 @@ class Start extends StatelessWidget {
               const Spacer(),
               ButtonCTAFilled(
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed('/login');
+                  // Navigator.of(context).pushReplacementNamed('/login');
+                  context.goNamed('login');
                 },
                 buttonText: 'Iniciar Sesión',
               ),
@@ -37,7 +39,8 @@ class Start extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 32),
                 child: ButtonCTANotFilled(
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed('/register');
+                    // Navigator.of(context).pushReplacementNamed('/register');
+                    context.goNamed('register');
                   },
                   buttonText: 'Registrarse'
                 ),

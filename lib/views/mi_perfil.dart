@@ -3,6 +3,7 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.d
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
+import 'package:go_router/go_router.dart';
 
 import '../design_system/atoms/icons.dart';
 import '../design_system/molecules/profile_picture.dart';
@@ -20,8 +21,7 @@ class MiPerfil extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(),
-          // const ProfilePictureBig(),
-          ProfilePictureEmpty(),
+          const ProfilePictureEmpty(),
           const SizedBox(height: 16),
           Text(
             'VOLUNTARIO',
@@ -56,14 +56,13 @@ class MiPerfil extends StatelessWidget {
               ),
             ),
           ),
-          // ButtonCTAFilled(
-          //   onPressed: () async {
-          //     await _authService.signOut();
-          //     // Navigator.of(context).popUntil((route) => false);
-          //     Navigator.of(context).pushReplacementNamed('/start');
-          //   },
-          //   buttonText: 'Cerrar sesión'
-          // ),
+          ButtonCTAFilled(
+            onPressed: () async {
+              await _authService.signOut();
+              context.goNamed('start');
+            },
+            buttonText: 'Cerrar sesión'
+          ),
         ],
       ),
     );

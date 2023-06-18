@@ -14,4 +14,7 @@ class AuthUser {
   // Constructor using factory pattern
   factory AuthUser.from(User user) =>
       AuthUser(id:user.uid, emailVerified: user.emailVerified, email: user.email);
+
+  @override
+  String toString() => 'AuthUser(id:$id, emailVerified:$emailVerified, email:$email)';
 }

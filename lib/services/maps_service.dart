@@ -2,6 +2,17 @@ import 'package:url_launcher/url_launcher.dart';
 
 class MapService {
 
+  static MapService? _instance;
+
+  MapService._(); // Private constructor
+
+  factory MapService() {
+    if (_instance == null) {
+      _instance = MapService._();
+    }
+    return _instance!;
+  }
+
   void openGoogleMaps(double latitude, double longitude) async {
     // https://www.google.com/maps/search/?api=1&query=37.7749,-122.4194
     final uri = Uri(
