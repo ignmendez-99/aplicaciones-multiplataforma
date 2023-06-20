@@ -92,7 +92,8 @@ class _CardInputState extends State<CardInput> {
 
   String? _validateGenderRadioButton(String? input) {
     if (input == null && _selectedOption == null) {
-      return 'El género es obligatorio';
+      _errorText = 'El género es obligatorio';
+      return _errorText;
     }
     return null;
   }

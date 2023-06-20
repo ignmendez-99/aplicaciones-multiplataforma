@@ -37,15 +37,18 @@ class _Input2State extends State<Input2> {
   @override
   void initState() {
     super.initState();
-    widget.controller.addListener(() {
-      setState(() {
-        _showClearIcon = widget.controller.text.isNotEmpty;
-      });
+    widget.controller.addListener(controllerListener);
+  }
+
+  void controllerListener() {
+    setState(() {
+      _showClearIcon = widget.controller.text.isNotEmpty;
     });
   }
 
   @override
   void dispose() {
+    widget.controller.removeListener(controllerListener);
     widget.controller.dispose();
     super.dispose();
   }

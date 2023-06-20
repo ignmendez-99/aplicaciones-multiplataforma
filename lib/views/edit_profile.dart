@@ -33,9 +33,9 @@ class EditProfile extends StatefulWidget {
 
 class EditProfileState extends State<EditProfile> {
 
-  late TextEditingController _phoneController;
-  late TextEditingController _emailController;
-  late TextEditingController _birthdateController;
+  late TextEditingController? _phoneController = null;
+  late TextEditingController? _emailController = null;
+  late TextEditingController? _birthdateController = null;
   final _formKey = GlobalKey<FormState>();
   final DateTime _anioMaximo = DateTime.now();
   final DateTime _anioMinimo = DateTime(1900);
@@ -44,13 +44,6 @@ class EditProfileState extends State<EditProfile> {
   File? _profilePicture;
   final UserService _userService = UserService();
   final AuthService _authService = AuthService();
-
-  @override
-  void dispose() {
-    _phoneController.dispose();
-    _emailController.dispose();
-    super.dispose();
-  }
 
   bool _validEditProfileData() {
     return _formKey.currentState!.validate();
@@ -73,9 +66,9 @@ class EditProfileState extends State<EditProfile> {
             }
             if(snapshot.hasData && snapshot.data != null) {
               final User user = snapshot.data!;
-              _phoneController = TextEditingController(text: user.phone);
-              _emailController = TextEditingController(text: user.email);
-              _birthdateController = TextEditingController(
+              _phoneController ??= TextEditingController(text: user.phone);
+              _emailController ??= TextEditingController(text: user.email);
+              _birthdateController ??= TextEditingController(
                   text: user.birthdate != null ?
                       SerManosDateUtils.dateFormatter.format(user.birthdate!)
                       : null
@@ -84,7 +77,6 @@ class EditProfileState extends State<EditProfile> {
               return SingleChildScrollView(
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-                  height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   child: Form(
                     key: _formKey,
@@ -101,7 +93,7 @@ class EditProfileState extends State<EditProfile> {
                           anioMinimo: _anioMinimo,
                           anioMaximo: _anioMaximo,
                           onChanged: _onChangeInput,
-                          controller: _birthdateController,
+                          controller: _birthdateController!,
                         ),
                         const SizedBox(height: 24,),
                         CardInput(
@@ -135,7 +127,7 @@ class EditProfileState extends State<EditProfile> {
                         ),
                         const SizedBox(height: 24,),
                         Input2(
-                          controller: _phoneController,
+                          controller: _phoneController!,
                           keyboardType: TextInputType.number,
                           labelText: 'Teléfono',
                           validator: _validatePhoneNumber,
@@ -144,7 +136,7 @@ class EditProfileState extends State<EditProfile> {
                         ),
                         const SizedBox(height: 24,),
                         Input2(
-                          controller: _emailController,
+                          controller: _emailController!,
                           keyboardType: TextInputType.emailAddress,
                           labelText: 'Mail',
                           validator: _validateEmail,
@@ -155,9 +147,9 @@ class EditProfileState extends State<EditProfile> {
                         ButtonCTAFilled(
                           onPressed: () async {
                             if(_validEditProfileData()) {
-                              final birthDate = getBirthdate(_birthdateController.text);
-                              final phone = _phoneController.text;
-                              final email = _emailController.text;
+                              final birthDate = getBirthdate(_birthdateController!.text);
+                              final phone = _phoneController!.text;
+                              final email = _emailController!.text;
                               await _userService.updateUser(
                                 phone: phone,
                                 birthdate: birthDate,
