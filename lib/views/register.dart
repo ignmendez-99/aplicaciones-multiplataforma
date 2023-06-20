@@ -83,14 +83,12 @@ class RegisterState extends State<Register> {
                   hintText: 'Ej: juanbarcena@mail.com',
                 ),
                 const SizedBox(height: 24,),
-                Input2(
+                PasswordInputField(
                   controller: _passwordController,
-                  keyboardType: TextInputType.text,
                   labelText: 'Contraseña',
                   validator: _validatePassword,
                   onChanged: _onChangeInput,
                   hintText: 'Ej: ABCD1234',
-                  obscureText: true,
                 ),
                 const Spacer(),
                 ButtonCTAFilled(

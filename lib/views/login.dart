@@ -53,12 +53,10 @@ class LoginState extends State<Login> {
                   onChanged: _onChangeInput,
                 ),
                 const SizedBox(height: 24),
-                Input2(
+                PasswordInputField(
                   controller: _passwordController,
                   labelText: 'Contraseña',
-                  keyboardType: TextInputType.text,
                   validator: _validatePassword,
-                  obscureText: true,
                   onChanged: _onChangeInput,
                 ),
                 const Spacer(),

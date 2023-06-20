@@ -10,7 +10,7 @@ class Input2 extends StatefulWidget {
   final TextInputType? keyboardType;
   final String labelText;
   final String? hintText;
-  final bool? obscureText;
+  final bool obscureText;
   // final bool enabled;
 
   const Input2({
@@ -20,7 +20,7 @@ class Input2 extends StatefulWidget {
     required this.labelText,
     required this.validator,
     this.hintText,
-    this.obscureText,
+    this.obscureText = false,
     required this.onChanged
   });
 
@@ -32,17 +32,21 @@ class _Input2State extends State<Input2> {
 
   bool _showClearIcon = false;
   bool _showErrorIcon = false;
+  bool _showVisibilityIcon = false;
+  late bool _obscureText;
   String? _errorText;
 
   @override
   void initState() {
     super.initState();
     widget.controller.addListener(controllerListener);
+    _obscureText = widget.obscureText;
+    _showVisibilityIcon = widget.obscureText;
   }
 
   void controllerListener() {
     setState(() {
-      _showClearIcon = widget.controller.text.isNotEmpty;
+      _showClearIcon = widget.controller.text.isNotEmpty && !widget.obscureText;
     });
   }
 
@@ -75,29 +79,50 @@ class _Input2State extends State<Input2> {
       onChanged: _onChangedInput,
       controller: widget.controller,
       keyboardType: widget.keyboardType,
-      obscureText: widget.obscureText ?? false,
+      obscureText: _obscureText,
       decoration: InputDecoration(
         errorText: _errorText,
         border: const OutlineInputBorder(),
         labelText: widget.labelText,
         hintText: widget.hintText,
         floatingLabelBehavior: widget.hintText != null ? FloatingLabelBehavior.always : FloatingLabelBehavior.auto,
-        suffixIcon: _showErrorIcon ? MyIcons.errorActivated
-            :
-              _showClearIcon ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    widget.controller.clear();
-                    _onChangedInput('');
-                    _showClearIcon = false;
-                  });
-                },
-                child: MyIcons.closeEnabled,
-              )
-              :
-              null,
+        suffixIcon: _getSuffixIcon(),
       )
     );
+  }
+
+  Widget? _getSuffixIcon() {
+    if(_showErrorIcon) {
+      return MyIcons.errorActivated;
+    } else if(_showClearIcon) {
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            widget.controller.clear();
+            _onChangedInput('');
+            _showClearIcon = false;
+          });
+        },
+        child: MyIcons.closeEnabled,
+      );
+    } else if(_showVisibilityIcon) {
+      Icon icon;
+      if(_obscureText) {
+        icon = MyIcons.visibilityOffEnabled;
+      } else {
+        icon = MyIcons.visibilityEnabled;
+      }
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            _obscureText = !_obscureText;
+          });
+        },
+        child: icon,
+      );
+    } else {
+      return null;
+    }
   }
 
   void _onChangedInput(String input) {
@@ -106,4 +131,23 @@ class _Input2State extends State<Input2> {
       _errorText = _validator(input);
     });
   }
+}
+
+class PasswordInputField extends Input2{
+  const PasswordInputField({
+    super.key,
+    required TextEditingController controller,
+    required String labelText,
+    required String? Function(String?)? validator,
+    String? hintText,
+    required void Function(String)? onChanged
+  }) : super(
+    controller: controller,
+    keyboardType: TextInputType.visiblePassword,
+    labelText: labelText,
+    validator: validator,
+    hintText: hintText,
+    obscureText: true,
+    onChanged: onChanged,
+  );
 }
