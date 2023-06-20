@@ -28,7 +28,7 @@ class ShortButton extends StatelessWidget {
           color: disabled ? AppColors.neutralGrey25 : AppColors.primary100,
           width: width,
           height: height,
-          child: content,
+          child: Center(child: content),
         )
       ),
     );

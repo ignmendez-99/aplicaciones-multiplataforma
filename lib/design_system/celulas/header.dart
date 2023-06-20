@@ -22,7 +22,13 @@ class Header {
       bottom: TabBar(
         controller: controller,
         onTap: (index) => {
-          context.goNamed('dashboard', pathParameters: {'tabId': index.toString()})
+          if(index == 0) {
+            context.goNamed('voluntariados')
+          } else if(index == 1) {
+            context.goNamed('miPerfil')
+          } else if(index == 2) {
+            context.goNamed('novedades')
+          }
         },
         unselectedLabelStyle: MyTheme.button(color: AppColors.neutralGrey25),
         labelStyle: MyTheme.button(color: AppColors.neutralWhite),

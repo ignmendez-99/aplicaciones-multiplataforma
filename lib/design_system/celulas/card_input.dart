@@ -4,10 +4,31 @@ import '../atoms/icons.dart';
 import '../tokens/colors.dart';
 import '../tokens/typography.dart';
 
-class CardInput extends StatelessWidget {
-  const CardInput({Key? key}) : super(key: key);
+class CardInput extends StatefulWidget {
 
-  static const List<String> generos = ['Hombre', 'Mujer', 'No binario'];
+  final void Function(String)? onChanged;
+  final String? genderInitialValue;
+
+  const CardInput({
+    super.key,
+    required this.onChanged,
+    this.genderInitialValue,
+  });
+
+  @override
+  State<CardInput> createState() => _CardInputState();
+}
+
+class _CardInputState extends State<CardInput> {
+  String? _selectedOption;
+  String? _errorText;
+  final List<String> generos = ['Hombre', 'Mujer', 'No binario'];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedOption = widget.genderInitialValue;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,36 +43,93 @@ class CardInput extends StatelessWidget {
                 'Información de perfil',
                 style: MyTheme.subtitle01(),
               ),
-              // const Spacer()
             ],
           ),
         ),
         Container(
           color: AppColors.neutralGrey10,
-          margin: const EdgeInsets.fromLTRB(16, 8, 0, 8),
-          child: Column(
-            children: List.generate(
-              generos.length,
-              (index) => Row(
+          padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
+          child: FormField(
+            builder: (field) {
+              return Column(
                 children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(4, 4, 0, 4),
-                    child: MyIcons.radioButtonUncheckedActivated
-                  ),
-                  const SizedBox(width: 8,),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 6, 4, 6),
-                    child: Text(
-                      generos[index],
-                      style: MyTheme.body01(),
+                  Column(
+                    children: List.generate(
+                      generos.length,
+                      (index) => CustomRadioButton(
+                        label: generos[index],
+                        isSelected: _selectedOption == generos[index],
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedOption = value ? generos[index] : null;
+                            _errorText = _validateGenderRadioButton(_selectedOption);
+                          });
+                          field.didChange(value ? generos[index] : null);
+                          widget.onChanged!(generos[index]);
+                        },
+                      )
                     ),
                   ),
+                  _errorText != null ?
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          field.errorText!,
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      )
+                      :
+                      Container(),
                 ],
-              ),
-            ),
-          )
+              );
+            },
+            validator: _validateGenderRadioButton,
+          ),
         )
       ],
+    );
+  }
+
+  String? _validateGenderRadioButton(String? input) {
+    if (input == null && _selectedOption == null) {
+      return 'El género es obligatorio';
+    }
+    return null;
+  }
+}
+
+class CustomRadioButton extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final Function(bool) onChanged;
+
+  const CustomRadioButton({
+    super.key,
+    required this.label,
+    required this.isSelected,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => onChanged(!isSelected),
+      child: Row(
+        children: [
+          Container(
+            margin: const EdgeInsets.fromLTRB(4, 4, 0, 4),
+            child: isSelected ? MyIcons.radioButtonCheckedActivated : MyIcons.radioButtonUncheckedActivated
+          ),
+          const SizedBox(width: 8,),
+          Container(
+            margin: const EdgeInsets.fromLTRB(0, 6, 4, 6),
+            child: Text(
+              label,
+              style: MyTheme.body01(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -51,7 +51,8 @@ class CardNovedades extends StatelessWidget {
                     children: [
                       ButtonCTANotFilled(
                         onPressed: (){},
-                        buttonText: 'Leer mas'
+                        buttonText: 'Leer mas',
+                        disabled: false,
                       )
                     ],
                   )

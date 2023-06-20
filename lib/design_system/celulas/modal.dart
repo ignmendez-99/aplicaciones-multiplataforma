@@ -1,12 +1,23 @@
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:flutter/material.dart';
 
-import '../tokens/colors.dart';
 import '../tokens/shadows.dart';
-import '../tokens/typography.dart';
 
 class Modal extends StatelessWidget {
-  const Modal({Key? key}) : super(key: key);
+  const Modal({
+    super.key,
+    required this.modalBody,
+    required this.buttonOneText,
+    required this.buttonTwoText,
+    required this.onPressedButtonOne,
+    required this.onPressedButtonTwo,
+  });
+
+  final Widget modalBody;
+  final String buttonOneText;
+  final String buttonTwoText;
+  final void Function() onPressedButtonOne;
+  final void Function() onPressedButtonTwo;
 
   @override
   Widget build(BuildContext context) {
@@ -23,30 +34,21 @@ class Modal extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Te estás por postular a',
-              style: MyTheme.subtitle01(),
-            ),
-            Text(
-              'Un Techo para mi País',
-              style: MyTheme.headline02(),
-            ),
+            modalBody,
             const SizedBox(height: 8,),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ButtonCTANotFilled(
-                  buttonText: 'Cancelar',
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  },
+                  buttonText: buttonOneText,
+                  onPressed: onPressedButtonOne,
+                  disabled: false,
                 ),
                 const SizedBox(height: 8,),
                 ButtonCTANotFilled(
-                  buttonText: 'Confirmar',
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  },
+                  buttonText: buttonTwoText,
+                  onPressed: onPressedButtonTwo,
+                  disabled: false,
                 ),
               ],
             )

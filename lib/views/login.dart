@@ -1,6 +1,6 @@
 import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
-import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs_2.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,14 +26,8 @@ class LoginState extends State<Login> {
     super.dispose();
   }
 
-  void _toggleLoginButtonState() {
-    setState(() {
-      _isLoginButtonDisabled = !_formKey.currentState!.validate();
-    });
-  }
-
   bool _validLoginData() {
-    return _passwordController.value.text.isNotEmpty && _emailController.value.text.isNotEmpty;
+    return _formKey.currentState!.validate();
   }
 
   @override
@@ -51,72 +45,42 @@ class LoginState extends State<Login> {
                 const Spacer(),
                 const LogoCuadrado(),
                 const SizedBox(height: 32),
-                InputTextField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'El email es requerido';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    if( _validLoginData() && _isLoginButtonDisabled ) {
-                      _toggleLoginButtonState();
-                    } else if( !_validLoginData() && !_isLoginButtonDisabled ) {
-                      _toggleLoginButtonState();
-                    }
-                  },
+                Input2(
                   controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
                   labelText: 'Email',
-                  obscureText: false,
-                  enabled: true,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: _validateEmail,
+                  onChanged: _onChangeInput,
                 ),
                 const SizedBox(height: 24),
-                InputTextField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'La contraseña es requerida';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    if( _validLoginData() && _isLoginButtonDisabled ) {
-                      setState(() {
-                        _toggleLoginButtonState();
-                      });
-                    } else if( !_validLoginData() && !_isLoginButtonDisabled ) {
-                      setState(() {
-                        _toggleLoginButtonState();
-                      });
-                    }
-                  },
+                Input2(
                   controller: _passwordController,
-                  keyboardType: TextInputType.emailAddress,
                   labelText: 'Contraseña',
+                  keyboardType: TextInputType.text,
+                  validator: _validatePassword,
                   obscureText: true,
-                  enabled: true,
+                  onChanged: _onChangeInput,
                 ),
                 const Spacer(),
-                _isLoginButtonDisabled ?
-                    const ButtonCTAFilledDisabled(buttonText: 'Iniciar Sesión',)
-                    :
-                    ButtonCTAFilled(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          final email = _emailController.text;
-                          final password = _passwordController.text;
-                          await _authService.logIn(email: email, password: password);
-                          context.goNamed('welcome');
-                        }
-                      },
-                      buttonText: 'Iniciar Sesión',
-                    ),
+                ButtonCTAFilled(
+                  buttonText: 'Iniciar Sesión',
+                  onPressed: () async {
+                    if (_validLoginData()) {
+                      final email = _emailController.text;
+                      final password = _passwordController.text;
+                      await _authService.logIn(email: email, password: password);
+                      context.goNamed('welcome');
+                    }
+                  },
+                  disabled: _isLoginButtonDisabled,
+                ),
                 const SizedBox(height: 16),
                 ButtonCTANotFilled(
                   onPressed: () {
                     context.goNamed('register');
                   },
                   buttonText: 'No tengo cuenta',
+                  disabled: false,
                 ),
                 const SizedBox(height: 32),
               ],
@@ -125,5 +89,35 @@ class LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void _onChangeInput(String value) {
+    final bool allFormValid = _validLoginData();
+    if(allFormValid && _isLoginButtonDisabled ) {
+      setState(() {
+        _isLoginButtonDisabled = false;
+      });
+    } else if(!allFormValid && !_isLoginButtonDisabled ) {
+      setState(() {
+        _isLoginButtonDisabled = true;
+      });
+    }
+  }
+
+  String? _validateEmail(String? input) {
+    if(input == null || input.isEmpty) {
+      return 'El mail es obligatorio';
+    }
+    if(input.length < 3) {
+      return 'El email debe tener al menos 3 caracteres de largo';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? input) {
+    if(input == null || input.isEmpty) {
+      return 'La contraseña es obligatoria';
+    }
+    return null;
   }
 }

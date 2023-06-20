@@ -1,5 +1,5 @@
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
-import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth, FirebaseAuthException, User;
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth, FirebaseAuthException, User, UserCredential;
 import 'package:flutter/material.dart';
 
 import 'auth_exceptions.dart';
@@ -50,10 +50,21 @@ class AuthService with ChangeNotifier{
     }
   }
 
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> signUp({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+  }) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      await _userService.createUser(email, false);
+      await _userService.createUser(
+        email: email,
+        emailVerified: false,
+        firstName: firstName,
+        lastName: lastName,
+        userId: currentUser!.id,
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw WeakPasswordAuthException();

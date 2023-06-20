@@ -9,7 +9,7 @@ import '../tokens/typography.dart';
 class InputTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final TextInputType? keyboardType;
   final String labelText;
   final bool obscureText;
@@ -38,9 +38,9 @@ class _InputTextFieldState extends State<InputTextField> {
   @override
   void initState() {
     super.initState();
-    widget.controller?.addListener(() {
+    widget.controller.addListener(() {
       setState(() {
-        _showClearIcon = widget.controller!.text.isNotEmpty;
+        _showClearIcon = widget.controller.text.isNotEmpty;
       });
     });
     _focusNode.addListener(_onFocusChanged);
@@ -48,7 +48,7 @@ class _InputTextFieldState extends State<InputTextField> {
 
   @override
   void dispose() {
-    widget.controller?.dispose();
+    widget.controller.dispose();
     _focusNode.dispose();
     super.dispose();
   }
@@ -58,7 +58,7 @@ class _InputTextFieldState extends State<InputTextField> {
       setState(() {
         _showClearIcon = false;
       });
-    } else if(widget.controller!.text.isEmpty){
+    } else if(widget.controller.text.isEmpty){
       setState(() {
         _showClearIcon = false;
       });
@@ -119,7 +119,7 @@ class _InputTextFieldState extends State<InputTextField> {
       return GestureDetector(
         onTap: () {
           setState(() {
-            widget.controller?.clear();
+            widget.controller.clear();
             _showClearIcon = false;
           });
         },

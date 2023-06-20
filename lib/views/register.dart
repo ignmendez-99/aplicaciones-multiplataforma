@@ -1,125 +1,181 @@
+import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs_2.dart';
+import 'package:aplicaciones_multiplataforma/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../services/auth/auth_service.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const RegisterPage();
-  }
+  RegisterState createState() => RegisterState();
 }
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
-  @override
-  RegisterPageState createState() => RegisterPageState();
-}
-
-class RegisterPageState extends State<RegisterPage> {
+class RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _surnameController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final AuthService _authService = AuthService();
+  final UserService _userService = UserService();
+  bool _isSignupButtonDisabled = true;
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  bool _validSignupData() {
+    return _formKey.currentState!.validate();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 50),
-              Image.asset(
-                "assets/images/SER MANOS LOGO_Mesa de trabajo 1.png",
-                height: 150,
-                width: 150,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(),
+                Image.asset(
+                  "assets/images/SER MANOS LOGO_Mesa de trabajo 1.png",
+                  height: 150,
+                  width: 150,
+                ),
+                const SizedBox(height: 31,),
+                Input2(
+                  controller: _firstNameController,
+                  keyboardType: TextInputType.text,
                   labelText: 'Nombre',
+                  validator: _validateFirstName,
+                  onChanged: _onChangeInput,
+                  hintText: 'Ej: Juan',
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingrese su nombre';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _surnameController,
-                decoration: const InputDecoration(
+                const SizedBox(height: 24,),
+                Input2(
+                  controller: _lastNameController,
+                  keyboardType: TextInputType.text,
                   labelText: 'Apellido',
+                  validator: _validateLastName,
+                  onChanged: _onChangeInput,
+                  hintText: 'Ej: Barcena',
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'PPor favor, ingrese su apellido';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(
+                const SizedBox(height: 24,),
+                Input2(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
                   labelText: 'Email',
+                  validator: _validateEmail,
+                  onChanged: _onChangeInput,
+                  hintText: 'Ej: juanbarcena@mail.com',
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingrese su mail';
-                  }
-                  if (!value.contains('@')) {
-                    return 'Por favor, ingrese un email válido';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
+                const SizedBox(height: 24,),
+                Input2(
+                  controller: _passwordController,
+                  keyboardType: TextInputType.text,
                   labelText: 'Contraseña',
+                  validator: _validatePassword,
+                  onChanged: _onChangeInput,
+                  hintText: 'Ej: ABCD1234',
+                  obscureText: true,
                 ),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingrese su contraseña';
-                  }
-                  if (value.length < 8) {
-                    return 'La contraseña debe ser de al menos 8 caracteres de longitud';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () async {
-                  final email = _emailController.text;
-                  final password = _passwordController.text;
-                  await _authService.signUp(email: email, password: password);
-                  context.goNamed('welcome');
-                },
-                child: const Text('Registrarse'),
-              ),
-              const SizedBox(height: 16),
-              TextButton(
-                onPressed: () {
-                  context.goNamed('login');
-                },
-                child: const Text('Ya tengo cuenta'),
-              ),
-            ],
+                const Spacer(),
+                ButtonCTAFilled(
+                  onPressed: () async {
+                    if (_validSignupData()) {
+                      final firstName = _firstNameController.text;
+                      final lastName = _lastNameController.text;
+                      final email = _emailController.text;
+                      final password = _passwordController.text;
+                      await _authService.signUp(
+                        email: email,
+                        password: password,
+                        firstName: firstName,
+                        lastName: lastName,
+                      );
+                      context.goNamed('welcome');
+                    }
+                  },
+                  buttonText: 'Registrarme',
+                  disabled: _isSignupButtonDisabled
+                ),
+                const SizedBox(height: 16),
+                ButtonCTANotFilled(
+                  onPressed: () {
+                    context.goNamed('login');
+                  },
+                  buttonText: 'Ya tengo cuenta',
+                  disabled: false,
+                ),
+                const SizedBox(height: 32),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _onChangeInput(String value) {
+    final bool allFormValid = _validSignupData();
+    if(allFormValid && _isSignupButtonDisabled ) {
+      setState(() {
+        _isSignupButtonDisabled = false;
+      });
+    } else if(!allFormValid && !_isSignupButtonDisabled ) {
+      setState(() {
+        _isSignupButtonDisabled = true;
+      });
+    }
+  }
+
+  String? _validateFirstName(String? input) {
+    if(input == null || input.isEmpty) {
+      return 'El nombre es obligatorio';
+    }
+    if(input.length < 3) {
+      return 'El nombre debe tener al menos 3 caracteres de largo';
+    }
+    return null;
+  }
+
+  String? _validateLastName(String? input) {
+    if(input == null || input.isEmpty) {
+      return 'El apellido es obligatorio';
+    }
+    if(input.length < 3) {
+      return 'El apellido debe tener al menos 3 caracteres de largo';
+    }
+    return null;
+  }
+
+  String? _validateEmail(String? input) {
+    if(input == null || input.isEmpty) {
+      return 'El mail es obligatorio';
+    }
+    if(input.length < 3) {
+      return 'El email debe tener al menos 3 caracteres de largo';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? input) {
+    if(input == null || input.isEmpty) {
+      return 'La contraseña es obligatoria';
+    }
+    return null;
   }
 }

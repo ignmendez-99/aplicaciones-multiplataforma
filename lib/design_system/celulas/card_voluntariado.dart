@@ -46,9 +46,8 @@ class _CardVoluntariadoState extends State<CardVoluntariado> {
             GestureDetector(
               onTap: () => {
                 context.goNamed(
-                  'voluntariados',
+                  'voluntariado',
                   pathParameters: {
-                    'tabId': '0',
                     'voluntariadoId': widget.voluntariado.id
                   }
                 )
@@ -92,8 +91,8 @@ class _CardVoluntariadoState extends State<CardVoluntariado> {
                           widget.voluntariado.favorito = !widget.voluntariado.favorito;
                           await _userService.changeFavouriteInVoluntariado(
                             voluntariadoId: widget.voluntariado.id,
+                            changeTo: widget.voluntariado.favorito,
                             userId: _authService.currentUser!.id,
-                            changeTo: widget.voluntariado.favorito
                           );
                           setState(() {
                             favorito = widget.voluntariado.favorito;

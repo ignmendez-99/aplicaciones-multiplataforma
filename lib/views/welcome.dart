@@ -36,9 +36,10 @@ class Welcome extends StatelessWidget {
                 child: ButtonCTAFilled(
                   onPressed: () {
                     // Navigator.pushNamed(context, '/home');
-                    context.goNamed('dashboard', pathParameters: {'tabId': '0'});
+                    context.goNamed('voluntariados');
                   },
                   buttonText: 'Comenzar',
+                  disabled: false,
                 ),
               ),
             ],

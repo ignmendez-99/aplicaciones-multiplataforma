@@ -2,6 +2,7 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.d
 import 'package:aplicaciones_multiplataforma/design_system/tokens/shadows.dart';
 import 'package:aplicaciones_multiplataforma/models/voluntariado.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../design_system/celulas/modal.dart';
 import '../design_system/tokens/colors.dart';
@@ -66,16 +67,17 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                     ),
                   ),
                   const Spacer(),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(16, 0, 16, 56),
-                    child: ButtonCTAFilled(
-                      buttonText: 'Postularme',
-                      onPressed: () => showDialog(
-                        context: context,
-                        builder: (context) => const Modal(),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   margin: const EdgeInsets.fromLTRB(16, 0, 16, 56),
+                  //   child: ButtonCTAFilled(
+                  //     buttonText: 'Postularme',
+                  //     onPressed: () => showDialog(
+                  //       context: context,
+                  //       builder: (context) => const Modal(),
+                  //     ),
+                  //     disabled: false,
+                  //   ),
+                  // ),
                 ],
               );
             } else {

@@ -33,6 +33,7 @@ class Start extends StatelessWidget {
                   context.goNamed('login');
                 },
                 buttonText: 'Iniciar Sesión',
+                disabled: false,
               ),
               const SizedBox(height: 16),
               Container(
@@ -42,7 +43,8 @@ class Start extends StatelessWidget {
                     // Navigator.of(context).pushReplacementNamed('/register');
                     context.goNamed('register');
                   },
-                  buttonText: 'Registrarse'
+                  buttonText: 'Registrarse',
+                  disabled: false,
                 ),
               ),
             ],
