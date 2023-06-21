@@ -4,6 +4,7 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs_2.da
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class LoginState extends State<Login> {
                 const SizedBox(height: 32),
                 Input2(
                   controller: _emailController,
-                  labelText: 'Email',
+                  labelText: AppLocalizations.of(context)!.email2,
                   keyboardType: TextInputType.emailAddress,
                   validator: _validateEmail,
                   onChanged: _onChangeInput,
@@ -55,13 +56,13 @@ class LoginState extends State<Login> {
                 const SizedBox(height: 24),
                 PasswordInputField(
                   controller: _passwordController,
-                  labelText: 'Contraseña',
+                  labelText: AppLocalizations.of(context)!.password,
                   validator: _validatePassword,
                   onChanged: _onChangeInput,
                 ),
                 const Spacer(),
                 ButtonCTAFilled(
-                  buttonText: 'Iniciar Sesión',
+                  buttonText: AppLocalizations.of(context)!.login,
                   onPressed: () async {
                     if (_validLoginData()) {
                       final email = _emailController.text;
@@ -77,7 +78,7 @@ class LoginState extends State<Login> {
                   onPressed: () {
                     context.goNamed('register');
                   },
-                  buttonText: 'No tengo cuenta',
+                  buttonText: AppLocalizations.of(context)!.dontHaveAccountMessage,
                   disabled: false,
                 ),
                 const SizedBox(height: 32),
@@ -104,17 +105,17 @@ class LoginState extends State<Login> {
 
   String? _validateEmail(String? input) {
     if(input == null || input.isEmpty) {
-      return 'El mail es obligatorio';
+      return AppLocalizations.of(context)!.mailNeeded;
     }
     if(input.length < 3) {
-      return 'El email debe tener al menos 3 caracteres de largo';
+      return AppLocalizations.of(context)!.mailMinLength;
     }
     return null;
   }
 
   String? _validatePassword(String? input) {
     if(input == null || input.isEmpty) {
-      return 'La contraseña es obligatoria';
+      return AppLocalizations.of(context)!.passwordNeeded;
     }
     return null;
   }

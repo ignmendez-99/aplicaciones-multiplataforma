@@ -5,6 +5,7 @@ import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../design_system/atoms/icons.dart';
 import '../design_system/celulas/modal.dart';
@@ -64,7 +65,7 @@ class _MiPerfilState extends State<MiPerfil> {
                 const ProfilePictureEmpty(),
             const SizedBox(height: 16,),
             Text(
-              'VOLUNTARIO',
+              AppLocalizations.of(context)!.volunteer.toUpperCase(),
               style: MyTheme.overline(color: AppColors.neutralGrey75),
             ),
             const SizedBox(height: 2,),
@@ -79,18 +80,18 @@ class _MiPerfilState extends State<MiPerfil> {
             ),
             const SizedBox(height: 32,),
             CardInformacion(
-              titulo: 'Información personal',
-              label1: 'FECHA DE NACIMIENTO',
+              titulo: AppLocalizations.of(context)!.personalInformation,
+              label1: AppLocalizations.of(context)!.dateOfBirth.toUpperCase(),
               content1: SerManosDateUtils.dateFormatter.format(user.birthdate!),
-              label2: 'GÉNERO',
+              label2: AppLocalizations.of(context)!.gender.toUpperCase(),
               content2: user.gender!,
             ),
             const SizedBox(height: 32,),
             CardInformacion(
-              titulo: 'Datos de contacto',
-              label1: 'TELÉFONO',
+              titulo: AppLocalizations.of(context)!.contactData,
+              label1: AppLocalizations.of(context)!.phone,
               content1: user.phone!,
-              label2: 'E-MAIL',
+              label2: AppLocalizations.of(context)!.email.toUpperCase(),
               content2: user.email,
             ),
             const SizedBox(height: 32,),
@@ -98,7 +99,7 @@ class _MiPerfilState extends State<MiPerfil> {
               onPressed: () {
                 context.goNamed('editProfile');
               },
-              buttonText: 'Editar perfil',
+              buttonText: AppLocalizations.of(context)!.editProfile,
               disabled: false
             ),
             const SizedBox(height: 8,),
@@ -107,11 +108,11 @@ class _MiPerfilState extends State<MiPerfil> {
                 context: context,
                 builder: (context) => Modal(
                   modalBody: Text(
-                    '¿Estás seguro que quieres cerrar sesión?',
+                    AppLocalizations.of(context)!.logoutConfirmation,
                     style: MyTheme.subtitle01(),
                   ),
-                  buttonOneText: 'Cancelar',
-                  buttonTwoText: 'Cerrar sesión',
+                  buttonOneText: AppLocalizations.of(context)!.cancel,
+                  buttonTwoText: AppLocalizations.of(context)!.logout,
                   onPressedButtonOne: () {
                     Navigator.pop(context);
                   },
@@ -121,7 +122,7 @@ class _MiPerfilState extends State<MiPerfil> {
                   },
                 ),
               ),
-              buttonText: 'Cerrar sesión',
+              buttonText: AppLocalizations.of(context)!.logout,
               disabled: false,
             ),
           ],
@@ -140,7 +141,7 @@ class _MiPerfilState extends State<MiPerfil> {
             const ProfilePictureEmpty(),
             const SizedBox(height: 16),
             Text(
-              'VOLUNTARIO',
+              AppLocalizations.of(context)!.volunteer.toUpperCase(),
               style: MyTheme.overline(color: AppColors.neutralGrey75),
             ),
             const SizedBox(height: 8),
@@ -150,7 +151,7 @@ class _MiPerfilState extends State<MiPerfil> {
             ),
             const SizedBox(height: 8),
             Text(
-              '¡Completá tu perfil para tener \nacceso a mejores oportunidades!',
+              AppLocalizations.of(context)!.completeProfileMessage,
               textAlign: TextAlign.center,
               style: MyTheme.body01(color: AppColors.neutralGrey75),
             ),
@@ -165,7 +166,7 @@ class _MiPerfilState extends State<MiPerfil> {
                   MyIcons.addNeutralWhite,
                   const SizedBox(width: 8,),
                   Text(
-                    'Completar',
+                    AppLocalizations.of(context)!.complete,
                     style: MyTheme.button(color: AppColors.neutralWhite),
                   )
                 ],

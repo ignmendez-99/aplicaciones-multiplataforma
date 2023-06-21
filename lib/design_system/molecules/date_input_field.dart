@@ -2,6 +2,7 @@ import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DateInputField extends StatefulWidget {
 
@@ -63,7 +64,7 @@ class DateInputFieldState extends State<DateInputField> {
         helperText: 'DD/MM/YYYY',
         errorText: _errorText,
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelText: 'Fecha de Nacimiento',
+        labelText: AppLocalizations.of(context)!.dateOfBirth,
         hintText: 'DD/MM/YYYY',
         border: const OutlineInputBorder(),
         suffixIcon: IconButton(

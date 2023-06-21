@@ -3,6 +3,7 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.d
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Start extends StatelessWidget {
   const Start({super.key});
@@ -21,7 +22,7 @@ class Start extends StatelessWidget {
               const LogoCuadrado(),
               const SizedBox(height: 32),
               Text(
-                '“El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros”',
+                  AppLocalizations.of(context)!.startMessage,
                 style: MyTheme.subtitle01(),
                 textAlign: TextAlign.center
               ),
@@ -32,7 +33,7 @@ class Start extends StatelessWidget {
                   // Navigator.of(context).pushReplacementNamed('/login');
                   context.goNamed('login');
                 },
-                buttonText: 'Iniciar Sesión',
+                buttonText: AppLocalizations.of(context)!.login,
                 disabled: false,
               ),
               const SizedBox(height: 16),
@@ -43,7 +44,7 @@ class Start extends StatelessWidget {
                     // Navigator.of(context).pushReplacementNamed('/register');
                     context.goNamed('register');
                   },
-                  buttonText: 'Registrarse',
+                  buttonText: AppLocalizations.of(context)!.register,
                   disabled: false,
                 ),
               ),

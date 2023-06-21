@@ -3,6 +3,7 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.d
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -21,12 +22,12 @@ class Welcome extends StatelessWidget {
               const LogoCuadrado(),
               const SizedBox(height: 30),
               Text(
-                  '¡Bienvenido!',
+                  AppLocalizations.of(context)!.welcome,
                   style: MyTheme.headline01()
               ),
               const SizedBox(height: 48),
               Text(
-                'Nunca subestimes tu habilidad para mejorar la vida de alguien.',
+                AppLocalizations.of(context)!.welcomeMessage,
                 style: MyTheme.subtitle01(),
                 textAlign: TextAlign.center,
               ),
@@ -38,7 +39,7 @@ class Welcome extends StatelessWidget {
                     // Navigator.pushNamed(context, '/home');
                     context.goNamed('voluntariados');
                   },
-                  buttonText: 'Comenzar',
+                  buttonText: AppLocalizations.of(context)!.start,
                   disabled: false,
                 ),
               ),

@@ -4,6 +4,7 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_corto
 import 'package:aplicaciones_multiplataforma/design_system/molecules/profile_picture.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../tokens/colors.dart';
 import '../tokens/typography.dart';
@@ -16,7 +17,6 @@ class CardFotoDePerfil extends StatefulWidget {
   });
 
   final String? initialPictureDownloadUrl;
-  static const List<String> generos = ['Hombre', 'Mujer', 'No binario'];
   final void Function(File)? onChanged;
 
   @override
@@ -55,7 +55,7 @@ class _CardFotoDePerfilState extends State<CardFotoDePerfil> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Foto de perfil',
+                AppLocalizations.of(context)!.profilePhoto,
                 style: MyTheme.subtitle01(),
               ),
               ShortButtonChico(
@@ -63,7 +63,7 @@ class _CardFotoDePerfilState extends State<CardFotoDePerfil> {
                 content: Container(
                   margin: const EdgeInsets.fromLTRB(12, 8, 12, 8),
                   child: Text(
-                    'Cambiar foto',
+                    AppLocalizations.of(context)!.changePhoto,
                     style: MyTheme.button(color: AppColors.neutralWhite),
                   ),
                 ),
@@ -89,7 +89,7 @@ class _CardFotoDePerfilState extends State<CardFotoDePerfil> {
         Container(
           margin: const EdgeInsets.fromLTRB(16, 14, 0, 14),
           child: Text(
-            'Foto de perfil',
+            AppLocalizations.of(context)!.profilePhoto,
             style: MyTheme.subtitle01(),
           ),
         ),
@@ -99,7 +99,7 @@ class _CardFotoDePerfilState extends State<CardFotoDePerfil> {
           content: Container(
             margin: const EdgeInsets.fromLTRB(12, 8, 12, 8),
             child: Text(
-              'Subir foto',
+              AppLocalizations.of(context)!.uploadPicture,
               style: MyTheme.button(color: AppColors.neutralWhite),
             ),
           ),

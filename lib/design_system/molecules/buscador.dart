@@ -1,6 +1,7 @@
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/shadows.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../atoms/icons.dart';
 import '../tokens/typography.dart';
@@ -40,7 +41,7 @@ class _BuscadorState extends State<Buscador> {
           focusNode: _focusNode,
           decoration: InputDecoration(
             suffixIcon: getSuffixIcon(),
-            hintText: "Buscar",
+            hintText: AppLocalizations.of(context)!.search,
             hintStyle: _focusNode.hasFocus ? MyTheme.subtitle01(color: AppColors.neutralGrey50) : MyTheme.subtitle01(color: AppColors.neutralGrey75),
             border: InputBorder.none,
           ),

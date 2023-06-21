@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../design_system/atoms/status_bar.dart';
 import '../design_system/molecules/date_input_field.dart';
@@ -84,7 +85,7 @@ class EditProfileState extends State<EditProfile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Datos de perfil',
+                          AppLocalizations.of(context)!.profileData,
                           style: MyTheme.headline01(),
                         ),
                         const SizedBox(height: 24,),
@@ -117,21 +118,21 @@ class EditProfileState extends State<EditProfile> {
                         ),
                         const SizedBox(height: 32,),
                         Text(
-                          'Datos de contacto',
+                          AppLocalizations.of(context)!.contactData,
                           style: MyTheme.headline01(),
                         ),
                         const SizedBox(height: 24,),
                         Text(
-                          'Estos datos serán compartidos con la organización para ponerse en contacto contigo',
+                          AppLocalizations.of(context)!.dataShare,
                           style: MyTheme.subtitle01(),
                         ),
                         const SizedBox(height: 24,),
                         Input2(
                           controller: _phoneController!,
                           keyboardType: TextInputType.number,
-                          labelText: 'Teléfono',
+                          labelText: AppLocalizations.of(context)!.phone,
                           validator: _validatePhoneNumber,
-                          hintText: 'Ej: +541178445459',
+                          hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: +541178445459',
                           onChanged: _onChangeInput,
                         ),
                         const SizedBox(height: 24,),
@@ -140,7 +141,7 @@ class EditProfileState extends State<EditProfile> {
                           keyboardType: TextInputType.emailAddress,
                           labelText: 'Mail',
                           validator: _validateEmail,
-                          hintText: 'Ej: mimail@mail.com',
+                          hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: mimail@mail.com',
                           onChanged: _onChangeInput,
                         ),
                         const SizedBox(height: 30,),
@@ -161,7 +162,7 @@ class EditProfileState extends State<EditProfile> {
                               context.goNamed('miPerfil');
                             }
                           },
-                          buttonText: 'Guardar datos',
+                          buttonText: AppLocalizations.of(context)!.saveData,
                           disabled: _isSaveChangesButtonDisabled,
                         )
                       ],
@@ -188,36 +189,36 @@ class EditProfileState extends State<EditProfile> {
 
   String? _validatePhoneNumber(String? input) {
     if(input == null || input.isEmpty) {
-      return 'El teléfono es obligatorio';
+      return AppLocalizations.of(context)!.phoneNeeded;
     }
     if(input.length < 8) {
-      return 'El teléfono debe tener al menos 8 numeros';
+      return AppLocalizations.of(context)!.phoneMinLength;
     }
     return null;
   }
 
   String? _validateEmail(String? input) {
     if(input == null || input.isEmpty) {
-      return 'El mail es obligatorio';
+      return AppLocalizations.of(context)!.mailNeeded;
     }
     if(input.length < 3) {
-      return 'El email debe tener al menos 3 caracteres';
+      return AppLocalizations.of(context)!.mailMinLength;
     }
     return null;
   }
 
   String? _validateBirthdayDate(String? input) {
     if(input == null || input.isEmpty) {
-      return 'La fecha de nacimiento es obligatoria';
+      return AppLocalizations.of(context)!.dateOfBirthNeeded;
     }
     if(input.length < 10) {
       // Todavia no terminó de escribir la fecha completa
-      return 'Escriba fecha en formato DD/MM/YYYY';
+      return AppLocalizations.of(context)!.dateFormat;
     }
 
     final parts = input.split('/');
     if (parts.length != 3) {
-      return 'Escriba fecha en formato DD/MM/YYYY';
+      return AppLocalizations.of(context)!.dateFormat;
     }
 
     final day = int.tryParse(parts[0]);
@@ -225,19 +226,19 @@ class EditProfileState extends State<EditProfile> {
     final year = int.tryParse(parts[2]);
 
     if (day == null || month == null || year == null) {
-      return 'Escriba fecha en formato DD/MM/YYYY';
+      return AppLocalizations.of(context)!.dateFormat;
     }
 
     try {
       final date = DateTime(year, month, day);
       if (date.day != day || date.month != month || date.year != year) {
-        return 'Escriba fecha en formato DD/MM/YYYY';
+        return AppLocalizations.of(context)!.dateFormat;
       }
       if(date.year < _anioMinimo.year || date.year > _anioMaximo.year) {
-        return 'Solo se acepta años mayores a 1900 y menores o iguales al año actual';
+        return AppLocalizations.of(context)!.correctDate;
       }
     } catch (e) {
-      return 'Escriba fecha en formato DD/MM/YYYY';
+      return AppLocalizations.of(context)!.dateFormat;
     }
 
     return null;

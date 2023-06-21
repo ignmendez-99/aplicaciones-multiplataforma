@@ -5,6 +5,7 @@ import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dar
 import 'package:aplicaciones_multiplataforma/models/voluntariado.dart';
 import 'package:aplicaciones_multiplataforma/services/voluntariado_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../design_system/celulas/card_foto_de_perfil.dart';
 import '../design_system/celulas/card_informacion.dart';
@@ -65,7 +66,7 @@ class _PostularseState extends State<Postularse> {
             const Buscador(),
             const SizedBox(height: 32),
             Text(
-              'Voluntariados',
+              AppLocalizations.of(context)!.volunteering,
               style: MyTheme.headline01(),
             ),
             const SizedBox(height: 16),
@@ -96,7 +97,7 @@ class _PostularseState extends State<Postularse> {
       color: AppColors.neutralWhite,
       padding: const EdgeInsets.fromLTRB(24, 18, 24, 18),
       child: Text(
-        'Actualmente no hay voluntariados vigentes. Pronto se irán ircorporando nuevos',
+        AppLocalizations.of(context)!.noVolunteersMessage,
         textAlign: TextAlign.center,
         style: MyTheme.subtitle01(),
       ),

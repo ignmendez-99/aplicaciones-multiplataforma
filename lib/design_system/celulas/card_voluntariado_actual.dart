@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../atoms/icons.dart';
 import '../tokens/colors.dart';
@@ -28,11 +29,11 @@ class CardVoluntariadoActual extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'ACCION SOCIAL',
+                  AppLocalizations.of(context)!.socialAction.toUpperCase(),
                   style: MyTheme.overline(color: AppColors.neutralGrey75),
                 ),
                 Text(
-                  'Un Techo para mi País',
+                  AppLocalizations.of(context)!.roofForCountry,
                   style: MyTheme.subtitle01(),
                 ),
               ],

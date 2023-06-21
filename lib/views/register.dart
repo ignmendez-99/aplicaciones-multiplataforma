@@ -3,6 +3,7 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs_2.da
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../services/auth/auth_service.dart';
 
@@ -59,36 +60,36 @@ class RegisterState extends State<Register> {
                 Input2(
                   controller: _firstNameController,
                   keyboardType: TextInputType.text,
-                  labelText: 'Nombre',
+                  labelText: AppLocalizations.of(context)!.name,
                   validator: _validateFirstName,
                   onChanged: _onChangeInput,
-                  hintText: 'Ej: Juan',
+                  hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: Juan',
                 ),
                 const SizedBox(height: 24,),
                 Input2(
                   controller: _lastNameController,
                   keyboardType: TextInputType.text,
-                  labelText: 'Apellido',
+                  labelText: AppLocalizations.of(context)!.surname,
                   validator: _validateLastName,
                   onChanged: _onChangeInput,
-                  hintText: 'Ej: Barcena',
+                  hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: Barcena',
                 ),
                 const SizedBox(height: 24,),
                 Input2(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  labelText: 'Email',
+                  labelText: AppLocalizations.of(context)!.email2,
                   validator: _validateEmail,
                   onChanged: _onChangeInput,
-                  hintText: 'Ej: juanbarcena@mail.com',
+                  hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: juanbarcena@mail.com',
                 ),
                 const SizedBox(height: 24,),
                 PasswordInputField(
                   controller: _passwordController,
-                  labelText: 'Contraseña',
+                  labelText: AppLocalizations.of(context)!.password,
                   validator: _validatePassword,
                   onChanged: _onChangeInput,
-                  hintText: 'Ej: ABCD1234',
+                  hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: ABCD1234',
                 ),
                 const Spacer(),
                 ButtonCTAFilled(
@@ -107,7 +108,7 @@ class RegisterState extends State<Register> {
                       context.goNamed('welcome');
                     }
                   },
-                  buttonText: 'Registrarme',
+                  buttonText: AppLocalizations.of(context)!.register,
                   disabled: _isSignupButtonDisabled
                 ),
                 const SizedBox(height: 16),
@@ -115,7 +116,7 @@ class RegisterState extends State<Register> {
                   onPressed: () {
                     context.goNamed('login');
                   },
-                  buttonText: 'Ya tengo cuenta',
+                  buttonText: AppLocalizations.of(context)!.haveAccountMessage,
                   disabled: false,
                 ),
                 const SizedBox(height: 32),
@@ -142,37 +143,37 @@ class RegisterState extends State<Register> {
 
   String? _validateFirstName(String? input) {
     if(input == null || input.isEmpty) {
-      return 'El nombre es obligatorio';
+      return AppLocalizations.of(context)!.nameNeeded;
     }
     if(input.length < 3) {
-      return 'El nombre debe tener al menos 3 caracteres de largo';
+      return AppLocalizations.of(context)!.nameMinLength;
     }
     return null;
   }
 
   String? _validateLastName(String? input) {
     if(input == null || input.isEmpty) {
-      return 'El apellido es obligatorio';
+      return AppLocalizations.of(context)!.surnameNeeded;
     }
     if(input.length < 3) {
-      return 'El apellido debe tener al menos 3 caracteres de largo';
+      return AppLocalizations.of(context)!.surnameMinLength;
     }
     return null;
   }
 
   String? _validateEmail(String? input) {
     if(input == null || input.isEmpty) {
-      return 'El mail es obligatorio';
+      return AppLocalizations.of(context)!.mailNeeded;
     }
     if(input.length < 3) {
-      return 'El email debe tener al menos 3 caracteres de largo';
+      return AppLocalizations.of(context)!.mailMinLength;
     }
     return null;
   }
 
   String? _validatePassword(String? input) {
     if(input == null || input.isEmpty) {
-      return 'La contraseña es obligatoria';
+      return AppLocalizations.of(context)!.passwordNeeded;
     }
     return null;
   }

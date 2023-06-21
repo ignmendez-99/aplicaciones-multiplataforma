@@ -1,5 +1,6 @@
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../tokens/colors.dart';
 import '../tokens/typography.dart';
@@ -51,7 +52,7 @@ class CardNovedades extends StatelessWidget {
                     children: [
                       ButtonCTANotFilled(
                         onPressed: (){},
-                        buttonText: 'Leer mas',
+                        buttonText: AppLocalizations.of(context)!.readMore,
                         disabled: false,
                       )
                     ],

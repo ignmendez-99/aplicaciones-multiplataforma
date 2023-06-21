@@ -1,5 +1,6 @@
 import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../tokens/colors.dart';
 import '../tokens/typography.dart';
@@ -21,7 +22,7 @@ class Vacantes extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(8, 6, 0, 6),
             child: Text(
-              'Vacantes:',
+              '${AppLocalizations.of(context)!.vacancy}:',
               style: MyTheme.body02(),
             )
           ),

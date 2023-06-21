@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../atoms/icons.dart';
 import '../tokens/colors.dart';
@@ -22,7 +23,6 @@ class CardInput extends StatefulWidget {
 class _CardInputState extends State<CardInput> {
   String? _selectedOption;
   String? _errorText;
-  final List<String> generos = ['Hombre', 'Mujer', 'No binario'];
 
   @override
   void initState() {
@@ -32,6 +32,7 @@ class _CardInputState extends State<CardInput> {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> generos = [AppLocalizations.of(context)!.genderMale, AppLocalizations.of(context)!.genderFemale, AppLocalizations.of(context)!.genderOther];
     return Column(
       children: [
         Container(
@@ -40,7 +41,7 @@ class _CardInputState extends State<CardInput> {
           child: Row(
             children: [
               Text(
-                'Información de perfil',
+                AppLocalizations.of(context)!.profileInformation,
                 style: MyTheme.subtitle01(),
               ),
             ],
@@ -92,8 +93,7 @@ class _CardInputState extends State<CardInput> {
 
   String? _validateGenderRadioButton(String? input) {
     if (input == null && _selectedOption == null) {
-      _errorText = 'El género es obligatorio';
-      return _errorText;
+      return AppLocalizations.of(context)!.genderNeeded;
     }
     return null;
   }
