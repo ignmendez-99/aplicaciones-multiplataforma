@@ -3,8 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/user.dart';
 
 class UserDao {
+  final FirebaseFirestore _firestoreInstance;
 
-  final FirebaseFirestore _firestoreInstance = FirebaseFirestore.instance;
+  UserDao(FirebaseFirestore firestoreInstance)
+    : _firestoreInstance = firestoreInstance;
 
   Future<User> getUserById(String id) async {
     DocumentSnapshot snapshot = await _firestoreInstance
