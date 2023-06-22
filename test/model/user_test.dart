@@ -13,25 +13,32 @@ void main() {
     const firstName = 'Test';
     const lastName = 'User';
     const phone = '123132';
-    final _auth = MockFirebaseAuth();
-    final _fireStoreInstance = FakeFirebaseFirestore();
-    final _userDao = UserDao(_fireStoreInstance);
+    final auth = MockFirebaseAuth();
+    final fireStoreInstance = FakeFirebaseFirestore();
+    final userDao = UserDao(fireStoreInstance);
 
     test('User should be created', () async {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await auth.createUserWithEmailAndPassword(email: email, password: password);
 
-      _userDao.createUser(email: email, emailVerified: true, firstName: firstName,
-          lastName: lastName, userId: _auth.currentUser!.uid);
-      expect((await _userDao.getUserById(_auth.currentUser!.uid)).firstName, 'Test');
+      userDao.createUser(email: email, emailVerified: true, firstName: firstName,
+          lastName: lastName, userId: auth.currentUser!.uid);
+      var user = await userDao.getUserById(auth.currentUser!.uid);
+      expect(user.firstName, firstName);
+      expect(user.lastName, lastName);
+      expect(user.email, email);
     });
 
     test('User should be updated successfully', () async {
-        await _auth.createUserWithEmailAndPassword(email: email, password: password);
+        await auth.createUserWithEmailAndPassword(email: email, password: password);
 
-        _userDao.createUser(email: email, emailVerified: true, firstName: firstName,
-            lastName: lastName, userId: _auth.currentUser!.uid);
-        await _userDao.updateUser(userId: _auth.currentUser!.uid, phone: phone);
-        expect((await _userDao.getUserById(_auth.currentUser!.uid)).phone, phone);
+        userDao.createUser(email: email, emailVerified: true, firstName: firstName,
+            lastName: lastName, userId: auth.currentUser!.uid);
+        await userDao.updateUser(userId: auth.currentUser!.uid, phone: phone);
+        var user = await userDao.getUserById(auth.currentUser!.uid);
+        expect(user.phone, phone);
+        expect(user.firstName, firstName);
+        expect(user.lastName, lastName);
+        expect(user.email, email);
     });
   });
 }
