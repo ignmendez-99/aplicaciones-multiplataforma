@@ -4,7 +4,10 @@ import '../models/voluntariado.dart';
 
 class VoluntariadoDao {
 
-  final FirebaseFirestore _firestoreInstance = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestoreInstance;
+
+  VoluntariadoDao(FirebaseFirestore firebaseFirestore )
+  : _firestoreInstance = firebaseFirestore;
 
   Future<List<Voluntariado>> getAllVoluntariados() async {
     QuerySnapshot querySnapshot = await _firestoreInstance.collection('voluntariados').get();
