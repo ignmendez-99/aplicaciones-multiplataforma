@@ -1,17 +1,21 @@
 import 'package:aplicaciones_multiplataforma/models/user.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
+import 'package:aplicaciones_multiplataforma/services/novedad_service.dart';
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
 import 'package:aplicaciones_multiplataforma/services/voluntariado_service.dart';
 import 'package:aplicaciones_multiplataforma/views/card_seleccionada.dart';
 import 'package:aplicaciones_multiplataforma/views/dashboard.dart';
 import 'package:aplicaciones_multiplataforma/views/edit_profile.dart';
 import 'package:aplicaciones_multiplataforma/views/login.dart';
+import 'package:aplicaciones_multiplataforma/views/novedad_page.dart';
 import 'package:aplicaciones_multiplataforma/views/register.dart';
 import 'package:aplicaciones_multiplataforma/views/start.dart';
 import 'package:aplicaciones_multiplataforma/views/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
+import 'models/novedad.dart';
 
 Key dashboardKey = GlobalKey();
 
@@ -139,6 +143,30 @@ class SerManosRouter {
             initialTab: 2,
           );
         },
+        routes: [
+          GoRoute(
+            path: ':novedadId',
+            name: 'novedad',
+            builder: (context, state) {
+              final novedadId = state.pathParameters['novedadId']!;
+              final Future<Novedad?> novedad = Provider.of<NovedadService>(context, listen: false)
+                  .getNovedadById(novedadId);
+              return NovedadPage(novedadFuture: novedad);
+            },
+            redirect: (context, state) async {
+              final novedadId = state.pathParameters['novedadId'];
+              if(novedadId == null) {
+                return '/novedades';
+              }
+              final Novedad? novedad = await Provider.of<NovedadService>(context, listen: false)
+                  .getNovedadById(novedadId);
+              if(novedad == null) {
+                return '/novedades';
+              }
+              return null; // no redirije
+            }
+          )
+        ]
       )
     ],
   );

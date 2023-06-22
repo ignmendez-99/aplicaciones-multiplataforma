@@ -1,6 +1,7 @@
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:aplicaciones_multiplataforma/ser_manos_router.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
+import 'package:aplicaciones_multiplataforma/services/novedad_service.dart';
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
 import 'package:aplicaciones_multiplataforma/services/voluntariado_service.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +24,12 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (_) => AuthService()),
       ChangeNotifierProvider(create: (_) => VoluntariadoService()),
       ChangeNotifierProvider(create: (_) => UserService()),
+      ChangeNotifierProvider(create: (_) => NovedadService()),
     ],
     child: const MyApp(),
   ));
 }
 
-// TODO: revisar pantalla horizontal
 // todo: revisar pantallas cuando se abre el teclado
 
 class MyApp extends StatelessWidget {

@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:aplicaciones_multiplataforma/persistence/user_dao.dart';
-import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:aplicaciones_multiplataforma/services/picture_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 import '../models/user.dart';
 
