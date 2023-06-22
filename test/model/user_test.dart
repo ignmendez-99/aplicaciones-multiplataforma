@@ -3,7 +3,6 @@ import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -18,10 +17,15 @@ void main() {
     final userDao = UserDao(fireStoreInstance);
 
     test('User should be created', () async {
-      await auth.createUserWithEmailAndPassword(email: email, password: password);
+      await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
 
-      userDao.createUser(email: email, emailVerified: true, firstName: firstName,
-          lastName: lastName, userId: auth.currentUser!.uid);
+      userDao.createUser(
+          email: email,
+          emailVerified: true,
+          firstName: firstName,
+          lastName: lastName,
+          userId: auth.currentUser!.uid);
       var user = await userDao.getUserById(auth.currentUser!.uid);
       expect(user.firstName, firstName);
       expect(user.lastName, lastName);
@@ -29,16 +33,21 @@ void main() {
     });
 
     test('User should be updated successfully', () async {
-        await auth.createUserWithEmailAndPassword(email: email, password: password);
+      await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
 
-        userDao.createUser(email: email, emailVerified: true, firstName: firstName,
-            lastName: lastName, userId: auth.currentUser!.uid);
-        await userDao.updateUser(userId: auth.currentUser!.uid, phone: phone);
-        var user = await userDao.getUserById(auth.currentUser!.uid);
-        expect(user.phone, phone);
-        expect(user.firstName, firstName);
-        expect(user.lastName, lastName);
-        expect(user.email, email);
+      userDao.createUser(
+          email: email,
+          emailVerified: true,
+          firstName: firstName,
+          lastName: lastName,
+          userId: auth.currentUser!.uid);
+      await userDao.updateUser(userId: auth.currentUser!.uid, phone: phone);
+      var user = await userDao.getUserById(auth.currentUser!.uid);
+      expect(user.phone, phone);
+      expect(user.firstName, firstName);
+      expect(user.lastName, lastName);
+      expect(user.email, email);
     });
   });
 }

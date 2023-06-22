@@ -27,21 +27,17 @@ void main() {
       });
       var voluntariados = await voluntariadoDao.getAllVoluntariados();
       expect(voluntariados[0].descripcionCorta,
-        'El propósito principal de "Un techo para mi país" es reducir el déficit habitacional y mejorar las condiciones de vida de las personas que no tienen acceso a una vivienda adecuada.');
+          'El propósito principal de "Un techo para mi país" es reducir el déficit habitacional y mejorar las condiciones de vida de las personas que no tienen acceso a una vivienda adecuada.');
       expect(voluntariados[0].descripcionLarga,
-        'Te necesitamos para construir las viviendas de las personas que necesitan un techo. Estas están prefabricadas en madera y deberás ayudar en carpintería, montaje, pintura y demás actividades de la construcción.');
-      expect(voluntariados[0].direccion,
-          'Echeverría 3560, Capital Federal.');
+          'Te necesitamos para construir las viviendas de las personas que necesitan un techo. Estas están prefabricadas en madera y deberás ayudar en carpintería, montaje, pintura y demás actividades de la construcción.');
+      expect(voluntariados[0].direccion, 'Echeverría 3560, Capital Federal.');
       expect(voluntariados[0].disponibilidad,
           ['Martes de 10h a 12h', 'Jueves de 10h a 12h']);
       expect(voluntariados[0].requisitos,
           'Mayor de edad. Poder levantar cosas pesadas.');
-      expect(voluntariados[0].tipoDeVoluntariado,
-          'ACCIÓN SOCIAL');
-      expect(voluntariados[0].ubicacion,
-          const GeoPoint(37.7749, -122.4194));
-      expect(voluntariados[0].vacantes,
-          10);
+      expect(voluntariados[0].tipoDeVoluntariado, 'ACCIÓN SOCIAL');
+      expect(voluntariados[0].ubicacion, const GeoPoint(37.7749, -122.4194));
+      expect(voluntariados[0].vacantes, 10);
     });
 
     test('Gets one voluntariados', () async {
@@ -49,9 +45,9 @@ void main() {
       await fireStoreInstance.collection('voluntariados').doc('1').set({
         'created_date': timestamp,
         'descripcion_corta':
-        'El propósito principal de "Un techo para mi país" es reducir el déficit habitacional y mejorar las condiciones de vida de las personas que no tienen acceso a una vivienda adecuada.',
+            'El propósito principal de "Un techo para mi país" es reducir el déficit habitacional y mejorar las condiciones de vida de las personas que no tienen acceso a una vivienda adecuada.',
         'descripcion_larga':
-        'Te necesitamos para construir las viviendas de las personas que necesitan un techo. Estas están prefabricadas en madera y deberás ayudar en carpintería, montaje, pintura y demás actividades de la construcción.',
+            'Te necesitamos para construir las viviendas de las personas que necesitan un techo. Estas están prefabricadas en madera y deberás ayudar en carpintería, montaje, pintura y demás actividades de la construcción.',
         'direccion': 'Echeverría 3560, Capital Federal.',
         'disponibilidad': ['Martes de 10h a 12h', 'Jueves de 10h a 12h'],
         'requisitos': 'Mayor de edad. Poder levantar cosas pesadas.',
@@ -66,18 +62,14 @@ void main() {
           'El propósito principal de "Un techo para mi país" es reducir el déficit habitacional y mejorar las condiciones de vida de las personas que no tienen acceso a una vivienda adecuada.');
       expect(voluntariado?.descripcionLarga,
           'Te necesitamos para construir las viviendas de las personas que necesitan un techo. Estas están prefabricadas en madera y deberás ayudar en carpintería, montaje, pintura y demás actividades de la construcción.');
-      expect(voluntariado?.direccion,
-          'Echeverría 3560, Capital Federal.');
+      expect(voluntariado?.direccion, 'Echeverría 3560, Capital Federal.');
       expect(voluntariado?.disponibilidad,
           ['Martes de 10h a 12h', 'Jueves de 10h a 12h']);
       expect(voluntariado?.requisitos,
           'Mayor de edad. Poder levantar cosas pesadas.');
-      expect(voluntariado?.tipoDeVoluntariado,
-          'ACCIÓN SOCIAL');
-      expect(voluntariado?.ubicacion,
-          const GeoPoint(37.7749, -122.4194));
-      expect(voluntariado?.vacantes,
-          10);
+      expect(voluntariado?.tipoDeVoluntariado, 'ACCIÓN SOCIAL');
+      expect(voluntariado?.ubicacion, const GeoPoint(37.7749, -122.4194));
+      expect(voluntariado?.vacantes, 10);
     });
   });
 }
