@@ -41,7 +41,11 @@ class VoluntariadoService with ChangeNotifier {
     return await _voluntariadoDao.getVoluntariadoById(id);
   }
 
-  Future<List<Voluntariado>> getVoluntariadosFilteredByName({required String titleFilter}) async {
-    return await _voluntariadoDao.getVoluntariadosFilteredByName(titleFilter: titleFilter);
+  Future<List<Voluntariado>> getVoluntariadosFilteredByName({required String? titleFilter}) async {
+    if(titleFilter == null || titleFilter.trim().isEmpty) {
+      return await _voluntariadoDao.getAllVoluntariados();
+    } else {
+      return await _voluntariadoDao.getVoluntariadosFilteredByName(titleFilter: titleFilter);
+    }
   }
 }

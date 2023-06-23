@@ -23,36 +23,14 @@ class Postularse extends StatefulWidget {
 
 class _PostularseState extends State<Postularse> {
 
-  final myController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-  bool _searchFocused = false;
+  final TextEditingController myController = TextEditingController();
   final VoluntariadoService _voluntariadoService = VoluntariadoService();
+  String? _buscadorText;
 
   @override
   void dispose() {
-    super.dispose();
     myController.dispose();
-    _focusNode.removeListener(_onFocusChange);
-    _focusNode.dispose();
-  }
-
-  void _printLatestValue() {
-    print('Second text field: ${myController.text}');
-  }
-
-  @override
-  void initState() {
-    myController.addListener(_printLatestValue);
-    _focusNode.addListener(_onFocusChange);
-    super.initState();
-  }
-
-  void _onFocusChange() {
-    if (_focusNode.hasFocus != _searchFocused) {
-      setState(() {
-        _searchFocused = _focusNode.hasFocus;
-      });
-    }
+    super.dispose();
   }
 
   @override
@@ -63,7 +41,19 @@ class _PostularseState extends State<Postularse> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Buscador(),
+            Buscador(
+              controller: myController,
+              onEnterPressed: () {
+                setState(() {
+                  _buscadorText = myController.text;
+                });
+              },
+              onClearPressed: () {
+                setState(() {
+                  _buscadorText = '';
+                });
+              }
+            ),
             const SizedBox(height: 32),
             Text(
               AppLocalizations.of(context)!.volunteering,
@@ -71,12 +61,12 @@ class _PostularseState extends State<Postularse> {
             ),
             const SizedBox(height: 16),
             FutureBuilder(
-              future: _voluntariadoService.getAllVoluntariados(),
+              future: _voluntariadoService.getVoluntariadosFilteredByName(titleFilter: _buscadorText),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if(snapshot.hasData) {
+                if(snapshot.hasData && snapshot.data!.isNotEmpty) {
                   List<Voluntariado> voluntariados = snapshot.data as List<Voluntariado>;
                   return Column(
                     children: voluntariados.map((v) => CardVoluntariado(voluntariado: v)).toList(),
@@ -93,11 +83,19 @@ class _PostularseState extends State<Postularse> {
   }
 
   Widget noData() {
+    String noVoluntariados;
+    if(_buscadorText == null) {
+      // No busco y no encontro nada ==> no hay voluntariados
+      noVoluntariados = AppLocalizations.of(context)!.noVolunteersMessage;
+    } else {
+      // Es vacio o con texto. De cualquier manera, significa que hizo una busqueda
+      noVoluntariados = 'No hay voluntariados vigentes para tu búsqueda.';
+    }
     return Container(
       color: AppColors.neutralWhite,
       padding: const EdgeInsets.fromLTRB(24, 18, 24, 18),
       child: Text(
-        AppLocalizations.of(context)!.noVolunteersMessage,
+        noVoluntariados,
         textAlign: TextAlign.center,
         style: MyTheme.subtitle01(),
       ),

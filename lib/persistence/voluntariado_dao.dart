@@ -43,8 +43,7 @@ class VoluntariadoDao {
   Future<List<Voluntariado>> getVoluntariadosFilteredByName({required String titleFilter}) async {
     QuerySnapshot querySnapshot = await _firestoreInstance
         .collection('voluntariados')
-        .where("titulo", isGreaterThanOrEqualTo: titleFilter)
-        .where("titulo", isLessThanOrEqualTo: "$titleFilter\uf8ff")
+        .where('titulo', isEqualTo: titleFilter)
         .get();
     List<DocumentSnapshot> documents = querySnapshot.docs;
 

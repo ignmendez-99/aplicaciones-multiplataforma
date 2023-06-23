@@ -1,59 +1,83 @@
-import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/shadows.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../atoms/icons.dart';
 import '../tokens/typography.dart';
 
 class Buscador extends StatefulWidget {
 
-  const Buscador({super.key});
+  final TextEditingController controller;
+  final void Function() onEnterPressed;
+  final void Function() onClearPressed;
+
+  const Buscador({
+    super.key,
+    required this.controller,
+    required this.onEnterPressed,
+    required this.onClearPressed,
+  });
 
   @override
   State<Buscador> createState() => _BuscadorState();
 }
 
 class _BuscadorState extends State<Buscador> {
-  bool _typing = false;
-  final _controller = TextEditingController();
-  final _focusNode = FocusNode();
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    _focusNode.dispose();
-    super.dispose();
-  }
+  bool _showPrefixIcon = true;
+  bool _showSuffixIcon = false;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(0),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: AppShadows.sombra1,
-        ),
-        padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-        child: TextFormField(
-          style: MyTheme.subtitle01(),
-          focusNode: _focusNode,
-          decoration: InputDecoration(
-            suffixIcon: getSuffixIcon(),
-            hintText: AppLocalizations.of(context)!.search,
-            hintStyle: _focusNode.hasFocus ? MyTheme.subtitle01(color: AppColors.neutralGrey50) : MyTheme.subtitle01(color: AppColors.neutralGrey75),
-            border: InputBorder.none,
+      child: Center(
+        child: Container(
+          padding: EdgeInsets.only(left: widget.controller.text.isNotEmpty ? 16 : 0),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: AppShadows.sombra1,
+          ),
+          child: TextFormField(
+            onEditingComplete: widget.onEnterPressed,
+            controller: widget.controller,
+            onChanged: _onChanged,
+            keyboardType: TextInputType.text,
+            style: MyTheme.subtitle01(),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              prefixIcon: _showPrefixIcon ? MyIcons.searchEnabled : null,
+              hintText: 'Buscar',
+              suffixIcon: !_showSuffixIcon ? null
+                  :
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        widget.onClearPressed();
+                        widget.controller.clear();
+                        _showPrefixIcon = true;
+                        _showSuffixIcon = false;
+                      });
+                    },
+                    child: MyIcons.closeEnabled,
+                  ),
+            )
           ),
         ),
       ),
     );
   }
 
-  Widget? getSuffixIcon() {
-    if(_typing) {
-      return MyIcons.closeEnabled;
+  void _onChanged(String value) {
+    if(value.isNotEmpty) {
+      setState(() {
+        _showPrefixIcon = false;
+        _showSuffixIcon = true;
+      });
+    } else {
+      setState(() {
+        _showPrefixIcon = true;
+        _showSuffixIcon = false;
+      });
     }
-    return MyIcons.searchEnabled;
   }
 }
