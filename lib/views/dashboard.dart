@@ -49,7 +49,7 @@ class _DashboardState extends State<Dashboard> with SingleTickerProviderStateMix
             clipBehavior: Clip.none,
             controller: _tabController,
             children: [
-              const Postularse(),
+              Postularse(loggedUser: widget.loggedUser),
               MiPerfil(loggedUser: widget.loggedUser),
               const Novedades(),
             ],

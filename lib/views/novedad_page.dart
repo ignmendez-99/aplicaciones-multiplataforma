@@ -38,7 +38,18 @@ class NovedadPage extends StatelessWidget {
       statusBarColor: AppColors.secondaryBlue90,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.secondaryBlue90,
+          iconTheme: const IconThemeData(
+              color: AppColors.neutralWhite
+          ),
+          title: Center (
+            child: Text(
+              'Novedades',
+              style: MyTheme.subtitle01(color: AppColors.neutralWhite),
+            ),
+          ),
 
+          // titleSpacing: ,
         ),
         body: SingleChildScrollView(
           child: Container(

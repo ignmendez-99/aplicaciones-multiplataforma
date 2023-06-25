@@ -10,10 +10,5 @@ class PictureDao {
     final pictureRef = _storageRef.child(fileName);
     await pictureRef.putFile(imageFile);
     return await _storageRef.child(fileName).getDownloadURL();
-    // await mountainsRef.putFile(
-    //   file,
-    //   SettableMetadata(
-    //     contentType: "image/jpeg",
-    // ));
   }
 }

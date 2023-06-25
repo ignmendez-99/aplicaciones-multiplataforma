@@ -21,7 +21,6 @@
   "genderNeeded": "El género es obligatorio",
   "phoneNeeded": "El teléfono es obligatorio",
   "phoneMinLength": "El teléfono debe tener al menos 8 números",
-  "mailMinLength": "El email debe tener al menos 3 caracteres",
   "correctDate": "Solo se acepta años mayores a 1900 y menores o iguales al año actual",
   "dateFormat": "Escriba fecha en formato DD/MM/YYYY",
   "mailNeeded": "El mail es obligatorio",

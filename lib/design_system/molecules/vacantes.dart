@@ -18,6 +18,7 @@ class Vacantes extends StatelessWidget {
     return Container(
       color: vacantes == 0 ? AppColors.neutralGrey25 : AppColors.secondaryBlue25,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             margin: const EdgeInsets.fromLTRB(8, 6, 0, 6),

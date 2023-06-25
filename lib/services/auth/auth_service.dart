@@ -1,8 +1,7 @@
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
-import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth, FirebaseAuthException, User, UserCredential;
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth, FirebaseAuthException, User;
 import 'package:flutter/material.dart';
 
-import 'auth_exceptions.dart';
 import 'auth_user.dart';
 
 class AuthService with ChangeNotifier{
@@ -32,25 +31,18 @@ class AuthService with ChangeNotifier{
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  Future<AuthUser?> logIn({required String email, required String password}) async {
+  Future<Map<String, String>> logIn({required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      final user = currentUser;
-      return user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        throw UserNotFoundAuthException();
-      } else if (e.code == 'wrong-password') {
-        throw WrongPasswordAuthException();
-      } else {
-        throw GenericAuthException();
-      }
+      return {'result': 'ok'};
+    } on FirebaseAuthException {
+      return {'result': 'error', 'detail': 'Las credenciales proporcionadas no son correctas'};
     } catch (_) {
-      throw GenericAuthException();
+      return {'result': 'error', 'detail': 'Error inesperado'};
     }
   }
 
-  Future<void> signUp({
+  Future<Map<String, String>> signUp({
     required String email,
     required String password,
     required String firstName,
@@ -65,18 +57,19 @@ class AuthService with ChangeNotifier{
         lastName: lastName,
         userId: currentUser!.id,
       );
+      return {'result': 'ok'};
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        throw WeakPasswordAuthException();
+        return {'result': 'error', 'detail': 'Contraseña débil'};
       } else if (e.code == 'email-already-in-use') {
-        throw EmailAlreadyInUseAuthException();
+        return {'result': 'error', 'detail': 'El email ya está en uso'};
       } else if (e.code == 'invalid-email') {
-        throw InvalidEmailAuthException();
+        return {'result': 'error', 'detail': 'Email inválido'};
       } else {
-        throw GenericAuthException();
+        return {'result': 'error', 'detail': 'Error inesperado'};
       }
     } catch (_) {
-      throw GenericAuthException();
+      return {'result': 'error', 'detail': 'Error inesperado'};
     }
   }
 

@@ -22,7 +22,6 @@
  "genderNeeded": "Gender is required",
  "phoneNeeded": "Phone is required",
  "phoneMinLength": "Phone must have at least 8 digits",
- "mailMinLength": "Mail must have at least 3 characters",
  "correctDate": "Only years greater than 1900 and lesser or equal to the actual year are accepted",
  "dateFormat": "Write date in DD/MM/YYYY format",
  "mailNeeded": "Mail is required",

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../tokens/shadows.dart';
 
-class Modal extends StatelessWidget {
+class Modal extends StatefulWidget {
   const Modal({
     super.key,
     required this.modalBody,
@@ -20,6 +20,14 @@ class Modal extends StatelessWidget {
   final void Function() onPressedButtonTwo;
 
   @override
+  State<Modal> createState() => _ModalState();
+}
+
+class _ModalState extends State<Modal> {
+
+  bool _buttonTwoPressed = false;
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: const EdgeInsets.all(0),
@@ -34,21 +42,26 @@ class Modal extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            modalBody,
+            widget.modalBody,
             const SizedBox(height: 8,),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ButtonCTANotFilled(
-                  buttonText: buttonOneText,
-                  onPressed: onPressedButtonOne,
-                  disabled: false,
+                  buttonText: widget.buttonOneText,
+                  onPressed: widget.onPressedButtonOne,
+                  disabled: _buttonTwoPressed,
                 ),
                 const SizedBox(height: 8,),
                 ButtonCTANotFilled(
-                  buttonText: buttonTwoText,
-                  onPressed: onPressedButtonTwo,
-                  disabled: false,
+                  buttonText: widget.buttonTwoText,
+                  onPressed: () {
+                    setState(() {
+                      _buttonTwoPressed = true;
+                    });
+                    widget.onPressedButtonTwo();
+                  },
+                  disabled: _buttonTwoPressed,
                 ),
               ],
             )

@@ -43,7 +43,7 @@ class UserService with ChangeNotifier {
     );
   }
 
-  Future<void> updateUser({
+  Future<Map<String, String>> updateUser({
     String? phone,
     String? email,
     String? gender,
@@ -51,33 +51,56 @@ class UserService with ChangeNotifier {
     required String userId,
     File? profilePicture,
   }) async {
-    String? profilePictureDownloadUrl;
-    if(profilePicture != null) {
-      final String pictureFileName = '$userId-profile-pic';
-      profilePictureDownloadUrl = await _pictureService.savePicture(
-        fileName: pictureFileName,
-        imageFile: profilePicture
+    try {
+      String? profilePictureDownloadUrl;
+      if(profilePicture != null) {
+        final String pictureFileName = '$userId-profile-pic';
+        profilePictureDownloadUrl = await _pictureService.savePicture(
+            fileName: pictureFileName,
+            imageFile: profilePicture
+        );
+      }
+      await _userDao.updateUser(
+          userId: userId,
+          phone: phone,
+          email: email,
+          gender: gender,
+          birthdate: birthdate,
+          profilePictureDownloadUrl: profilePictureDownloadUrl
       );
+      return {'result': 'ok'};
+    } catch (_) {
+      return {'result': 'error', 'detail': 'Hubo un error al actualizar el usuario'};
     }
-    return await _userDao.updateUser(
-      userId: userId,
-      phone: phone,
-      email: email,
-      gender: gender,
-      birthdate: birthdate,
-      profilePictureDownloadUrl: profilePictureDownloadUrl
-    );
   }
 
-  Future<void> changeFavouriteInVoluntariado({
+  Future<Map<String, String>> changeFavouriteInVoluntariado({
     required String voluntariadoId,
-    required bool changeTo,
+    required bool postularse,
     required userId,
   }) async {
-    return await _userDao.changeFavouriteInVoluntariado(
+    try {
+      await _userDao.changeFavouriteInVoluntariado(
+          voluntariadoId: voluntariadoId,
+          userId: userId,
+          postularse: postularse
+      );
+      return {'result': 'ok'};
+    } catch (_) {
+      return {'result': 'error', 'detail': 'Hubo un error al marcar el voluntariado como favorito'};
+    }
+
+  }
+
+  Future<void> changePostulacionToVoluntariado({
+    required String voluntariadoId,
+    required String userId,
+    required bool postularse,
+  }) async {
+    await _userDao.changePostulacionToVoluntariado(
       voluntariadoId: voluntariadoId,
       userId: userId,
-      changeTo: changeTo
+      changeTo: postularse
     );
   }
 }

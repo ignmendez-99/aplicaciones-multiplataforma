@@ -39,7 +39,6 @@ class VoluntariadoDao {
     );
   }
 
-  // TODO no anda
   Future<List<Voluntariado>> getVoluntariadosFilteredByName({required String titleFilter}) async {
     QuerySnapshot querySnapshot = await _firestoreInstance
         .collection('voluntariados')
@@ -53,6 +52,28 @@ class VoluntariadoDao {
       voluntariados.add(Voluntariado.fromJson(id: document.reference.id, json: data));
     }
     return voluntariados;
+  }
+
+  Future<void> changePostulacionToVoluntariado({
+    required bool postularse,
+    required int currentVacantes,
+    required String voluntariadoId,
+    required String userId
+  }) async {
+    final Map<Object,Object> params = {
+      'vacantes': postularse ? currentVacantes - 1 : currentVacantes + 1,
+      'postulados': postularse ?
+          FieldValue.arrayUnion([userId])
+          :
+          FieldValue.arrayRemove([userId])
+    };
+    if(!postularse) {
+      params.putIfAbsent('aceptados', () => FieldValue.arrayRemove([userId]));
+    }
+    await _firestoreInstance
+        .collection('voluntariados')
+        .doc(voluntariadoId)
+        .update(params);
   }
 
 }

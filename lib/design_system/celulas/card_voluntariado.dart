@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/snackbar.dart';
 import '../atoms/icons.dart';
 import '../tokens/colors.dart';
 import '../tokens/shadows.dart';
@@ -16,7 +17,7 @@ class CardVoluntariado extends StatefulWidget {
 
   final Voluntariado voluntariado;
 
-  CardVoluntariado({
+  const CardVoluntariado({
     Key? key,
     required this.voluntariado
   }) : super(key: key);
@@ -31,6 +32,7 @@ class _CardVoluntariadoState extends State<CardVoluntariado> {
   final UserService _userService = UserService();
   final AuthService _authService = AuthService();
   late bool favorito;
+  bool _loadingFavorito = false;
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +60,7 @@ class _CardVoluntariadoState extends State<CardVoluntariado> {
                 child: FittedBox(
                   clipBehavior: Clip.hardEdge,
                   fit: BoxFit.fitWidth,
-                  child: Image.asset(
-                    "assets/images/1109 techo 500.jpeg",
-                  ),
+                  child: Image.network(widget.voluntariado.pictureDownloadUrl),
                 ),
               ),
             ),
@@ -86,20 +86,32 @@ class _CardVoluntariadoState extends State<CardVoluntariado> {
                   const Spacer(),
                   Row(
                     children: [
-                      IconButton(
-                        onPressed: () async {
-                          widget.voluntariado.favorito = !widget.voluntariado.favorito;
-                          await _userService.changeFavouriteInVoluntariado(
-                            voluntariadoId: widget.voluntariado.id,
-                            changeTo: widget.voluntariado.favorito,
-                            userId: _authService.currentUser!.id,
-                          );
-                          setState(() {
-                            favorito = widget.voluntariado.favorito;
-                          });
-                        },
-                        icon: favorito ? MyIcons.favoriteActivated : MyIcons.favoriteOutlineActivated
-                      ),
+                      _loadingFavorito ?
+                          const CircularProgressIndicator()
+                          : IconButton(
+                              onPressed: () async {
+                                setState(() {
+                                  _loadingFavorito = true;
+                                });
+                                widget.voluntariado.favorito = !widget.voluntariado.favorito;
+                                var response = await _userService.changeFavouriteInVoluntariado(
+                                  voluntariadoId: widget.voluntariado.id,
+                                  postularse: widget.voluntariado.favorito,
+                                  userId: _authService.currentUser!.id,
+                                );
+                                setState(() {
+                                  _loadingFavorito = false;
+                                });
+                                if(response['result'] == 'error') {
+                                  await CustomSnackbar.showSnackbar(context: context, detail: response['detail']!);
+                                } else {
+                                  setState(() {
+                                    favorito = widget.voluntariado.favorito;
+                                  });
+                                }
+                              },
+                              icon: favorito ? MyIcons.favoriteActivated : MyIcons.favoriteOutlineActivated
+                            ),
                       const SizedBox(width: 16,),
                       GestureDetector(
                         onTap: () => _mapService.openGoogleMaps(widget.voluntariado.ubicacion.latitude, widget.voluntariado.ubicacion.longitude),

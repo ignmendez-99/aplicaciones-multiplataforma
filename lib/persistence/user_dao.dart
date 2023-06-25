@@ -5,8 +5,7 @@ import '../models/user.dart';
 class UserDao {
   final FirebaseFirestore _firestoreInstance;
 
-  UserDao(FirebaseFirestore firestoreInstance)
-    : _firestoreInstance = firestoreInstance;
+  UserDao(FirebaseFirestore firestoreInstance) : _firestoreInstance = firestoreInstance;
 
   Future<User> getUserById(String id) async {
     DocumentSnapshot snapshot = await _firestoreInstance
@@ -14,7 +13,7 @@ class UserDao {
         .doc(id)
         .get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    return User.fromJson(
+    return await User.fromJson(
         id: snapshot.reference.id,
         json: data
     );
@@ -31,6 +30,7 @@ class UserDao {
       'email': email,
       'email_verified': emailVerified,
       'favourites': [],
+      'postulacion': null,
       'user_updated': false,
       'first_name': firstName,
       'last_name': lastName,
@@ -41,10 +41,10 @@ class UserDao {
   Future<void> changeFavouriteInVoluntariado({
     required String userId,
     required String voluntariadoId,
-    required bool changeTo
+    required bool postularse
   }) async {
     final Map<Object,Object> params = {
-      'favourites': changeTo ?
+      'favourites': postularse ?
           FieldValue.arrayUnion([voluntariadoId])
           :
           FieldValue.arrayRemove([voluntariadoId])
@@ -86,6 +86,21 @@ class UserDao {
           .doc(userId)
           .update(params);
     }
+  }
+
+  Future<void> changePostulacionToVoluntariado({
+    required String voluntariadoId,
+    required String userId,
+    required bool changeTo,
+  }) async {
+    final voluntariadoRef = changeTo ? _firestoreInstance.collection('voluntariados').doc(voluntariadoId) : null;
+    final Map<String, DocumentReference<Map<String, dynamic>>?> params = {
+      'postulacion': voluntariadoRef
+    };
+    await _firestoreInstance
+        .collection('users')
+        .doc(userId)
+        .update(params);
   }
 
 }

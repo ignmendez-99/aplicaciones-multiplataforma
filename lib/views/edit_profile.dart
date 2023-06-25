@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
 import 'package:aplicaciones_multiplataforma/design_system/celulas/card_foto_de_perfil.dart';
 import 'package:aplicaciones_multiplataforma/design_system/celulas/card_input.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs_2.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
+import 'package:aplicaciones_multiplataforma/utils/email_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -19,6 +21,7 @@ import '../design_system/tokens/colors.dart';
 import '../design_system/tokens/typography.dart';
 import '../models/user.dart';
 import '../utils/date_utils.dart';
+import '../utils/snackbar.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({
@@ -58,6 +61,12 @@ class EditProfileState extends State<EditProfile> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: MyIcons.closeEnabled,
+            onPressed: () {
+              context.goNamed('miPerfil');
+            },
+          ),
         ),
         body: FutureBuilder(
           future: widget.loggedUser,
@@ -148,10 +157,13 @@ class EditProfileState extends State<EditProfile> {
                         ButtonCTAFilled(
                           onPressed: () async {
                             if(_validEditProfileData()) {
+                              setState(() {
+                                _isSaveChangesButtonDisabled = true;
+                              });
                               final birthDate = getBirthdate(_birthdateController!.text);
                               final phone = _phoneController!.text;
                               final email = _emailController!.text;
-                              await _userService.updateUser(
+                              var response = await _userService.updateUser(
                                 phone: phone,
                                 birthdate: birthDate,
                                 email: email,
@@ -159,7 +171,14 @@ class EditProfileState extends State<EditProfile> {
                                 profilePicture: _profilePicture,
                                 userId: _authService.currentUser!.id,
                               );
-                              context.goNamed('miPerfil');
+                              setState(() {
+                                _isSaveChangesButtonDisabled = false;
+                              });
+                              if(response['result'] == 'error') {
+                                await CustomSnackbar.showSnackbar(context: context, detail: response['detail']!);
+                              } else {
+                                context.goNamed('miPerfil');
+                              }
                             }
                           },
                           buttonText: AppLocalizations.of(context)!.saveData,
@@ -171,7 +190,6 @@ class EditProfileState extends State<EditProfile> {
                 ),
               );
             } else {
-              // CASO IMPOSIBLE
               return Container();
             }
           },
@@ -201,8 +219,8 @@ class EditProfileState extends State<EditProfile> {
     if(input == null || input.isEmpty) {
       return AppLocalizations.of(context)!.mailNeeded;
     }
-    if(input.length < 3) {
-      return AppLocalizations.of(context)!.mailMinLength;
+    if(!EmailUtils.validateEmail(input)) {
+      return 'Email inválido';
     }
     return null;
   }

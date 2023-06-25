@@ -26,15 +26,7 @@ class VoluntariadoService with ChangeNotifier {
 
   Future<List<Voluntariado>> getAllVoluntariados() async {
     final List<Voluntariado> voluntariados = await _voluntariadoDao.getAllVoluntariados();
-    final String loggedUserId = _authService.currentUser!.id;
-    final User loggedUser = await _userService.getUserById(loggedUserId);
-    final List<String> favourites = loggedUser.favourites;
-    for(Voluntariado v in voluntariados) {
-      if(favourites.contains(v.id)) {
-        v.favorito = true;
-      }
-    }
-    return voluntariados;
+    return addFavourites(voluntariados);
   }
 
   Future<Voluntariado?> getVoluntariadoById(String id) async {
@@ -43,9 +35,41 @@ class VoluntariadoService with ChangeNotifier {
 
   Future<List<Voluntariado>> getVoluntariadosFilteredByName({required String? titleFilter}) async {
     if(titleFilter == null || titleFilter.trim().isEmpty) {
-      return await _voluntariadoDao.getAllVoluntariados();
+      return await getAllVoluntariados();
     } else {
-      return await _voluntariadoDao.getVoluntariadosFilteredByName(titleFilter: titleFilter);
+      final List<Voluntariado> voluntariados = await _voluntariadoDao.getVoluntariadosFilteredByName(titleFilter: titleFilter);
+      return addFavourites(voluntariados);
     }
+  }
+
+  Future<List<Voluntariado>> addFavourites(List<Voluntariado> voluntariados) async {
+    final List<Voluntariado> voluntariadosLocal = voluntariados;
+    final String loggedUserId = _authService.currentUser!.id;
+    final User loggedUser = await _userService.getUserById(loggedUserId);
+    final List<String> favourites = loggedUser.favourites;
+    for(Voluntariado v in voluntariadosLocal) {
+      if(favourites.contains(v.id)) {
+        v.favorito = true;
+      }
+    }
+    return voluntariadosLocal;
+  }
+
+  Future<void> postularseAVoluntariado({
+    required String voluntariadoId,
+    required bool postularse,
+    required int currentVacantes
+  }) async {
+    await _userService.changePostulacionToVoluntariado(
+        voluntariadoId: voluntariadoId,
+        userId: _authService.currentUser!.id,
+        postularse: postularse
+    );
+    await _voluntariadoDao.changePostulacionToVoluntariado(
+      voluntariadoId: voluntariadoId,
+      postularse: postularse,
+      currentVacantes: currentVacantes,
+      userId: _authService.currentUser!.id,
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../atoms/icons.dart';
+import '../tokens/typography.dart';
 
 class Input2 extends StatefulWidget {
 

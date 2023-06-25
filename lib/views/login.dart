@@ -1,10 +1,15 @@
 import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.dart';
+import 'package:aplicaciones_multiplataforma/design_system/atoms/status_bar.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs_2.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../design_system/tokens/colors.dart';
+import '../utils/email_utils.dart';
+import '../utils/snackbar.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -33,59 +38,76 @@ class LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                const Spacer(),
-                const LogoCuadrado(),
-                const SizedBox(height: 32),
-                Input2(
-                  controller: _emailController,
-                  labelText: AppLocalizations.of(context)!.email2,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: _validateEmail,
-                  onChanged: _onChangeInput,
+    return SerManosStatusBarWidget(
+      statusBarColor: AppColors.neutralWhite,
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      const LogoCuadrado(),
+                      const SizedBox(height: 32),
+                      Input2(
+                        controller: _emailController,
+                        labelText: AppLocalizations.of(context)!.email2,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: _validateEmail,
+                        onChanged: _onChangeInput,
+                      ),
+                      const SizedBox(height: 24),
+                      PasswordInputField(
+                        controller: _passwordController,
+                        labelText: AppLocalizations.of(context)!.password,
+                        validator: _validatePassword,
+                        onChanged: _onChangeInput,
+                      ),
+                      const Spacer(),
+                      ButtonCTAFilled(
+                        buttonText: AppLocalizations.of(context)!.login,
+                        onPressed: () async {
+                          if (_validLoginData()) {
+                            setState(() {
+                              _isLoginButtonDisabled = true;
+                            });
+                            final email = _emailController.text;
+                            final password = _passwordController.text;
+                            var response = await _authService.logIn(email: email, password: password);
+                            setState(() {
+                              _isLoginButtonDisabled = false;
+                            });
+                            if(response['result'] == 'error') {
+                              await CustomSnackbar.showSnackbar(context: context, detail: response['detail']!);
+                            } else {
+                              context.goNamed('welcome');
+                            }
+                          }
+                        },
+                        disabled: _isLoginButtonDisabled,
+                      ),
+                      const SizedBox(height: 16),
+                      ButtonCTANotFilled(
+                        onPressed: () {
+                          context.goNamed('register');
+                        },
+                        buttonText: AppLocalizations.of(context)!.dontHaveAccountMessage,
+                        disabled: false,
+                      ),
+                      const SizedBox(height: 32),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 24),
-                PasswordInputField(
-                  controller: _passwordController,
-                  labelText: AppLocalizations.of(context)!.password,
-                  validator: _validatePassword,
-                  onChanged: _onChangeInput,
-                ),
-                const Spacer(),
-                ButtonCTAFilled(
-                  buttonText: AppLocalizations.of(context)!.login,
-                  onPressed: () async {
-                    if (_validLoginData()) {
-                      final email = _emailController.text;
-                      final password = _passwordController.text;
-                      await _authService.logIn(email: email, password: password);
-                      context.goNamed('welcome');
-                    }
-                  },
-                  disabled: _isLoginButtonDisabled,
-                ),
-                const SizedBox(height: 16),
-                ButtonCTANotFilled(
-                  onPressed: () {
-                    context.goNamed('register');
-                  },
-                  buttonText: AppLocalizations.of(context)!.dontHaveAccountMessage,
-                  disabled: false,
-                ),
-                const SizedBox(height: 32),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        }
       ),
     );
   }
@@ -107,8 +129,8 @@ class LoginState extends State<Login> {
     if(input == null || input.isEmpty) {
       return AppLocalizations.of(context)!.mailNeeded;
     }
-    if(input.length < 3) {
-      return AppLocalizations.of(context)!.mailMinLength;
+    if(!EmailUtils.validateEmail(input)) {
+      return 'Email inválido';
     }
     return null;
   }
@@ -116,6 +138,9 @@ class LoginState extends State<Login> {
   String? _validatePassword(String? input) {
     if(input == null || input.isEmpty) {
       return AppLocalizations.of(context)!.passwordNeeded;
+    }
+    if(input.length < 8) {
+      return 'Contraseña muy corta';
     }
     return null;
   }

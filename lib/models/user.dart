@@ -1,3 +1,4 @@
+import 'package:aplicaciones_multiplataforma/models/voluntariado.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
@@ -12,6 +13,7 @@ class User {
   final String firstName;
   final String lastName;
   final String? profilePictureDownloadUrl;
+  final Voluntariado? postulacion;
 
   User({
     required this.id,
@@ -25,12 +27,20 @@ class User {
     required this.firstName,
     required this.lastName,
     this.profilePictureDownloadUrl,
+    required this.postulacion,
   });
 
-  static User fromJson({
+  static Future<User> fromJson({
     required String id,
     required Map<String, dynamic> json,
-  }) {
+  }) async {
+    DocumentReference? voluntariadoPath = json['postulacion'];
+    Voluntariado? voluntariado;
+    if(voluntariadoPath != null) {
+      final DocumentSnapshot snapshot = await FirebaseFirestore.instance.doc(voluntariadoPath.path).get();
+      final Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      voluntariado = Voluntariado.fromJson(id: snapshot.reference.id, json: data);
+    }
     return User(
       id: id,
       email: json['email'] as String,
@@ -43,6 +53,7 @@ class User {
       firstName: json['first_name'] as String,
       lastName: json['last_name'] as String,
       profilePictureDownloadUrl: json['profile_picture_download_url'] as String?,
+      postulacion: voluntariado,
     );
   }
 }

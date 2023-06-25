@@ -6,7 +6,10 @@ class NovedadDao {
   final FirebaseFirestore _firestoreInstance = FirebaseFirestore.instance;
 
   Future<List<Novedad>> getAllNovedades() async {
-    QuerySnapshot querySnapshot = await _firestoreInstance.collection('novedades').get();
+    QuerySnapshot querySnapshot = await _firestoreInstance
+        .collection('novedades')
+        .orderBy('created_date', descending: true)
+        .get();
     List<DocumentSnapshot> documents = querySnapshot.docs;
 
     List<Novedad> novedades = [];

@@ -1,3 +1,5 @@
+import 'package:aplicaciones_multiplataforma/models/voluntariado.dart';
+import 'package:aplicaciones_multiplataforma/services/maps_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -7,7 +9,14 @@ import '../tokens/shadows.dart';
 import '../tokens/typography.dart';
 
 class CardVoluntariadoActual extends StatelessWidget {
-  const CardVoluntariadoActual({Key? key}) : super(key: key);
+
+  final Voluntariado voluntariado;
+  final MapService _mapService = MapService();
+
+  CardVoluntariadoActual({
+    super.key,
+    required this.voluntariado,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +32,28 @@ class CardVoluntariadoActual extends StatelessWidget {
           boxShadow: AppShadows.sombra2,
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.socialAction.toUpperCase(),
+                  voluntariado.tipoDeVoluntariado,
                   style: MyTheme.overline(color: AppColors.neutralGrey75),
                 ),
                 Text(
-                  AppLocalizations.of(context)!.roofForCountry,
+                  voluntariado.titulo,
                   style: MyTheme.subtitle01(),
                 ),
               ],
             ),
             const Spacer(),
-            MyIcons.locationOnActivated,
+            GestureDetector(
+                onTap: () => _mapService.openGoogleMaps(
+                  voluntariado.ubicacion.latitude,
+                  voluntariado.ubicacion.longitude,
+                ),
+                child: MyIcons.locationOnActivated
+            ),
           ],
         ),
       )

@@ -19,7 +19,6 @@ class Header {
       ),
       leadingWidth: LogoRectangular.logoWidth,
       // default is 56
-      // TODO el color de las tabs no seleccionadas, y el color del status bar, deben ser diferentes
       bottom: TabBar(
         controller: controller,
         onTap: (index) => {

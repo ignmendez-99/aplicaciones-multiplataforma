@@ -81,10 +81,14 @@ class SerManosRouter {
             path: ':voluntariadoId',
             name: 'voluntariado',
             builder: (context, state) {
+              final String loggedUserId = Provider.of<AuthService>(context, listen: false)
+                  .currentUser!.id;
+              final Future<User> loggedUser = Provider.of<UserService>(context, listen: false)
+                  .getUserById(loggedUserId);
               final voluntariadoId = state.pathParameters['voluntariadoId']!;
               final voluntariado = Provider.of<VoluntariadoService>(context, listen: false)
                   .getVoluntariadoById(voluntariadoId);
-              return CardSeleccionada(voluntariado: voluntariado,);
+              return CardSeleccionada(voluntariado: voluntariado, loggedUser: loggedUser);
             },
             redirect: (context, state) async {
               final voluntariadoId = state.pathParameters['voluntariadoId'];
