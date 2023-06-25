@@ -4,10 +4,15 @@ import '../models/voluntariado.dart';
 
 class VoluntariadoDao {
 
-  final FirebaseFirestore _firestoreInstance;
+  late final FirebaseFirestore _firestoreInstance;
 
-  VoluntariadoDao(FirebaseFirestore firebaseFirestore )
-  : _firestoreInstance = firebaseFirestore;
+  VoluntariadoDao({FirebaseFirestore? firestoreInstance}) {
+    if(firestoreInstance != null) {
+      _firestoreInstance = firestoreInstance;
+    } else {
+      _firestoreInstance = FirebaseFirestore.instance;
+    }
+  }
 
   Future<List<Voluntariado>> getAllVoluntariados({required String filterBy}) async {
     var collection = _firestoreInstance.collection('voluntariados');

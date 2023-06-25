@@ -14,7 +14,7 @@ void main() {
     const phone = '123132';
     final auth = MockFirebaseAuth();
     final fireStoreInstance = FakeFirebaseFirestore();
-    final userDao = UserDao(fireStoreInstance);
+    final userDao = UserDao(firestoreInstance: fireStoreInstance);
 
     test('User should be created', () async {
       await auth.createUserWithEmailAndPassword(

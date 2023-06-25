@@ -3,7 +3,6 @@ import 'package:aplicaciones_multiplataforma/persistence/voluntariado_dao.dart';
 import 'package:aplicaciones_multiplataforma/services/analytics_service.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -23,7 +22,7 @@ class VoluntariadoService with ChangeNotifier {
     return _instance!;
   }
 
-  final VoluntariadoDao _voluntariadoDao = VoluntariadoDao(FirebaseFirestore.instance);
+  final VoluntariadoDao _voluntariadoDao = VoluntariadoDao();
   final UserService _userService = UserService();
   final AuthService _authService = AuthService();
   final AnalyticsService _analyticsService = AnalyticsService();
