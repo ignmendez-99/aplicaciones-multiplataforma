@@ -46,7 +46,6 @@ class _MiPerfilState extends State<MiPerfil> {
             return profileWithNoData(user);
           }
         } else {
-          // CASO IMPOSIBLE
           return Container();
         }
       },

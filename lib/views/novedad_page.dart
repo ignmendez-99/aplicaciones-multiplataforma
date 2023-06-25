@@ -108,7 +108,6 @@ class NovedadPage extends StatelessWidget {
                     ],
                   );
                 } else {
-                  // CASO IMPOSIBLE
                   return Container();
                 }
               }

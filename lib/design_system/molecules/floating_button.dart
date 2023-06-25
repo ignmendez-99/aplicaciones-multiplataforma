@@ -17,7 +17,7 @@ class FloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(4), //todo: falta ver bien como poner el radio del Figma
+      borderRadius: BorderRadius.circular(4),
       child: TextButton(
           onPressed: onPressed,
           child: Container(

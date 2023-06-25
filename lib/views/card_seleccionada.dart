@@ -159,7 +159,6 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                   ),
                 );
               } else {
-                // Caso imposible
                 return Container();
               }
             }

@@ -42,7 +42,6 @@ class _NovedadesState extends State<Novedades> {
                 ]
               );
             } else {
-              // CASO IMPOSIBLE
               return Container();
             }
           }
