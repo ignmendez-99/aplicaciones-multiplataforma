@@ -93,7 +93,7 @@ class _PostularseState extends State<Postularse> {
       noVoluntariados = AppLocalizations.of(context)!.noVolunteersMessage;
     } else {
       // Es vacio o con texto. De cualquier manera, significa que hizo una busqueda
-      noVoluntariados = 'No hay voluntariados vigentes para tu búsqueda.';
+      noVoluntariados = AppLocalizations.of(context)!.noVolunteeringMatchTheSearchCriteria;
     }
     return Container(
       color: AppColors.neutralWhite,
@@ -120,7 +120,7 @@ class _PostularseState extends State<Postularse> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Tu actividad',
+                AppLocalizations.of(context)!.yourActivity,
                   style: MyTheme.headline01(),
                 ),
                 const SizedBox(height: 16,),

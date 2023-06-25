@@ -97,6 +97,7 @@ class _CardVoluntariadoState extends State<CardVoluntariado> {
                                   voluntariadoId: widget.voluntariado.id,
                                   postularse: widget.voluntariado.favorito,
                                   userId: _authService.currentUser!.id,
+                                  context: context,
                                 );
                                 setState(() {
                                   _loadingFavorito = false;

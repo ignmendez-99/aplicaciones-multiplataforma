@@ -40,8 +40,6 @@ Future<void> main() async {
   ));
 }
 
-// todo: revisar pantallas cuando se abre el teclado
-
 class MyApp extends StatelessWidget {
 
   const MyApp({super.key});
@@ -63,8 +61,6 @@ class MyApp extends StatelessWidget {
       ],
       theme: ThemeData(
         fontFamily: 'Roboto',
-        // primarySwatch: Colors.blue,
-        // primarySwatch: AppColors.createMaterialColor(AppColors.secondaryBlue90),
       ),
     );
   }

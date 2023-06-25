@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
 import 'package:aplicaciones_multiplataforma/design_system/celulas/card_foto_de_perfil.dart';
 import 'package:aplicaciones_multiplataforma/design_system/celulas/card_input.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
-import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs_2.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/ser_manos_text_field.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
 import 'package:aplicaciones_multiplataforma/utils/email_utils.dart';
@@ -77,7 +78,7 @@ class EditProfileState extends State<EditProfile> {
               _emailController ??= TextEditingController(text: user.email);
               _birthdateController ??= TextEditingController(
                   text: user.birthdate != null ?
-                      SerManosDateUtils.dateFormatter.format(user.birthdate!)
+                      SerManosDateUtils.dateFormatter(context).format(user.birthdate!)
                       : null
               );
 
@@ -133,7 +134,7 @@ class EditProfileState extends State<EditProfile> {
                           style: MyTheme.subtitle01(),
                         ),
                         const SizedBox(height: 24,),
-                        Input2(
+                        SerManosTextField(
                           controller: _phoneController!,
                           keyboardType: TextInputType.number,
                           labelText: AppLocalizations.of(context)!.phone,
@@ -142,12 +143,12 @@ class EditProfileState extends State<EditProfile> {
                           onChanged: _onChangeInput,
                         ),
                         const SizedBox(height: 24,),
-                        Input2(
+                        SerManosTextField(
                           controller: _emailController!,
                           keyboardType: TextInputType.emailAddress,
-                          labelText: 'Mail',
+                          labelText: AppLocalizations.of(context)!.email2,
                           validator: _validateEmail,
-                          hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: mimail@mail.com',
+                          hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: liomessi@gmail.com',
                           onChanged: _onChangeInput,
                         ),
                         const SizedBox(height: 30,),
@@ -167,6 +168,7 @@ class EditProfileState extends State<EditProfile> {
                                 gender: genero,
                                 profilePicture: _profilePicture,
                                 userId: _authService.currentUser!.id,
+                                context: context
                               );
                               setState(() {
                                 _isSaveChangesButtonDisabled = false;
@@ -217,7 +219,7 @@ class EditProfileState extends State<EditProfile> {
       return AppLocalizations.of(context)!.mailNeeded;
     }
     if(!EmailUtils.validateEmail(input)) {
-      return 'Email inválido';
+      return AppLocalizations.of(context)!.invalidEmail;
     }
     return null;
   }
@@ -236,9 +238,20 @@ class EditProfileState extends State<EditProfile> {
       return AppLocalizations.of(context)!.dateFormat;
     }
 
-    final day = int.tryParse(parts[0]);
-    final month = int.tryParse(parts[1]);
-    final year = int.tryParse(parts[2]);
+    int? day; int? month; int? year;
+
+    Locale userLocale = window.locale;
+    if(userLocale.languageCode == 'es') {
+      day = int.tryParse(parts[0]);
+      month = int.tryParse(parts[1]);
+      year = int.tryParse(parts[2]);
+    } else if(userLocale.languageCode == 'en') {
+      day = int.tryParse(parts[1]);
+      month = int.tryParse(parts[0]);
+      year = int.tryParse(parts[2]);
+    } else {
+      throw Exception('No hay lenguaje disponible');
+    }
 
     if (day == null || month == null || year == null) {
       return AppLocalizations.of(context)!.dateFormat;
@@ -264,9 +277,22 @@ class EditProfileState extends State<EditProfile> {
     if (parts.length != 3) {
       return null;
     }
-    final day = int.tryParse(parts[0]);
-    final month = int.tryParse(parts[1]);
-    final year = int.tryParse(parts[2]);
+
+    int? day; int? month; int? year;
+
+    Locale userLocale = window.locale;
+    if(userLocale.languageCode == 'es') {
+      day = int.tryParse(parts[0]);
+      month = int.tryParse(parts[1]);
+      year = int.tryParse(parts[2]);
+    } else if(userLocale.languageCode == 'en') {
+      day = int.tryParse(parts[1]);
+      month = int.tryParse(parts[0]);
+      year = int.tryParse(parts[2]);
+    } else {
+      throw Exception('No hay lenguaje disponible');
+    }
+
     if (day == null || month == null || year == null) {
       return null;
     }

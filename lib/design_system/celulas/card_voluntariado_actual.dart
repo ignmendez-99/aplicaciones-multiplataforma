@@ -1,7 +1,6 @@
 import 'package:aplicaciones_multiplataforma/models/voluntariado.dart';
 import 'package:aplicaciones_multiplataforma/services/maps_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../atoms/icons.dart';
 import '../tokens/colors.dart';

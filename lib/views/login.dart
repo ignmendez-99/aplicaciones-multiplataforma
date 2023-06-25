@@ -1,7 +1,7 @@
 import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.dart';
 import 'package:aplicaciones_multiplataforma/design_system/atoms/status_bar.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
-import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs_2.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/ser_manos_text_field.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -55,7 +55,7 @@ class LoginState extends State<Login> {
                       const Spacer(),
                       const LogoCuadrado(),
                       const SizedBox(height: 32),
-                      Input2(
+                      SerManosTextField(
                         controller: _emailController,
                         labelText: AppLocalizations.of(context)!.email2,
                         keyboardType: TextInputType.emailAddress,
@@ -79,7 +79,11 @@ class LoginState extends State<Login> {
                             });
                             final email = _emailController.text;
                             final password = _passwordController.text;
-                            var response = await _authService.logIn(email: email, password: password);
+                            var response = await _authService.logIn(
+                              email: email,
+                              password: password,
+                              context: context
+                            );
                             setState(() {
                               _isLoginButtonDisabled = false;
                             });
@@ -130,7 +134,7 @@ class LoginState extends State<Login> {
       return AppLocalizations.of(context)!.mailNeeded;
     }
     if(!EmailUtils.validateEmail(input)) {
-      return 'Email inválido';
+      return AppLocalizations.of(context)!.invalidEmail;
     }
     return null;
   }
@@ -140,7 +144,7 @@ class LoginState extends State<Login> {
       return AppLocalizations.of(context)!.passwordNeeded;
     }
     if(input.length < 8) {
-      return 'Contraseña muy corta';
+      return AppLocalizations.of(context)!.weakPassword;
     }
     return null;
   }

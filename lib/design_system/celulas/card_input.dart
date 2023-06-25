@@ -32,7 +32,20 @@ class _CardInputState extends State<CardInput> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> generos = [AppLocalizations.of(context)!.genderMale, AppLocalizations.of(context)!.genderFemale, AppLocalizations.of(context)!.genderOther];
+    final List<Map<String, String>> generos = [
+      {
+        'label': AppLocalizations.of(context)!.genderMale,
+        'value': 'Hombre'
+      },
+      {
+        'label': AppLocalizations.of(context)!.genderFemale,
+        'value': 'Mujer'
+      },
+      {
+        'label': AppLocalizations.of(context)!.genderOther,
+        'value': 'No binario'
+      },
+    ];
     return Column(
       children: [
         Container(
@@ -58,15 +71,15 @@ class _CardInputState extends State<CardInput> {
                     children: List.generate(
                       generos.length,
                       (index) => CustomRadioButton(
-                        label: generos[index],
-                        isSelected: _selectedOption == generos[index],
+                        label: generos[index]['label']!,
+                        isSelected: _selectedOption == generos[index]['value']!,
                         onChanged: (value) {
                           setState(() {
-                            _selectedOption = value ? generos[index] : null;
+                            _selectedOption = value ? generos[index]['value']! : null;
                             _errorText = _validateGenderRadioButton(_selectedOption);
                           });
-                          field.didChange(value ? generos[index] : null);
-                          widget.onChanged!(generos[index]);
+                          field.didChange(value ? generos[index]['value']! : null);
+                          widget.onChanged!(generos[index]['value']!);
                         },
                       )
                     ),

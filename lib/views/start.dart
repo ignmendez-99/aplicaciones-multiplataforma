@@ -46,7 +46,7 @@ class Start extends StatelessWidget {
                           margin: const EdgeInsets.only(bottom: 32),
                           child: Center(
                             child: Text(
-                              'Se necesita permitir el acceso al a recopilación de datos',
+                              AppLocalizations.of(context)!.dataCollectionAllowanceIsMandatory,
                               style: MyTheme.subtitle01(color: AppColors.error),
                             ),
                           ),

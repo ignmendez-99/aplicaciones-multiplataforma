@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:aplicaciones_multiplataforma/design_system/atoms/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../utils/date_utils.dart';
 
 class DateInputField extends StatefulWidget {
 
@@ -36,12 +39,13 @@ class DateInputFieldState extends State<DateInputField> {
       initialDate: DateTime.now(),
       firstDate: widget.anioMinimo,
       lastDate: widget.anioMaximo,
+      locale: window.locale,
     );
 
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        widget.controller.text = DateFormat('dd/MM/yyyy').format(picked);
+        widget.controller.text = SerManosDateUtils.dateFormatter(context).format(picked);
         widget.onChanged!(widget.controller.text);
       });
     }
@@ -61,11 +65,11 @@ class DateInputFieldState extends State<DateInputField> {
       validator: widget.validator,
       onChanged: _onChangedInput,
       decoration: InputDecoration(
-        helperText: 'DD/MM/YYYY',
+        helperText: AppLocalizations.of(context)!.exactDateFormat,
         errorText: _errorText,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: AppLocalizations.of(context)!.dateOfBirth,
-        hintText: 'DD/MM/YYYY',
+        hintText: AppLocalizations.of(context)!.exactDateFormat,
         border: const OutlineInputBorder(),
         suffixIcon: IconButton(
           icon: MyIcons.calendarMonthTwoTonesActivated,

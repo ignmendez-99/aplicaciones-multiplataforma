@@ -4,6 +4,7 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.d
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -19,14 +20,14 @@ class NovedadPage extends StatelessWidget {
 
   final Future<Novedad?> novedadFuture;
 
-  Future<void> _share({required Novedad novedad}) async {
+  Future<void> _share({required Novedad novedad, required BuildContext context}) async {
     final response = await get(Uri.parse(novedad.pictureDownloadUrl));
     final directory = await getTemporaryDirectory();
     File file = await File('${directory.path}/Image.png').writeAsBytes(response.bodyBytes);
     await Share.shareXFiles(
       [XFile(file.path)],
       text: novedad.subtitulo,
-      subject: 'Ser Manos - Compartir novedad'
+      subject: AppLocalizations.of(context)!.invalidEmail,
     );
   }
 
@@ -42,7 +43,7 @@ class NovedadPage extends StatelessWidget {
           ),
           title: Center (
             child: Text(
-              'Novedades',
+              AppLocalizations.of(context)!.news,
               style: MyTheme.subtitle01(color: AppColors.neutralWhite),
             ),
           ),
@@ -94,14 +95,14 @@ class NovedadPage extends StatelessWidget {
                       const SizedBox(height: 16,),
                       Center(
                         child: Text(
-                          'Comparte esta nota',
+                          AppLocalizations.of(context)!.shareThisNews,
                           style: MyTheme.headline02(),
                         ),
                       ),
                       const SizedBox(height: 16,),
                       ButtonCTAFilled(
-                        onPressed: () async => await _share(novedad: novedad),
-                        buttonText: 'Compartir',
+                        onPressed: () async => await _share(novedad: novedad, context: context),
+                        buttonText: AppLocalizations.of(context)!.share,
                         disabled: false
                       )
                     ],

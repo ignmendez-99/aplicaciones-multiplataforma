@@ -1,4 +1,5 @@
 import 'package:aplicaciones_multiplataforma/design_system/tokens/shadows.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../atoms/icons.dart';
@@ -46,7 +47,7 @@ class _BuscadorState extends State<Buscador> {
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: _showPrefixIcon ? MyIcons.searchEnabled : null,
-              hintText: 'Buscar',
+              hintText: AppLocalizations.of(context)!.search,
               suffixIcon: !_showSuffixIcon ? null
                   :
                   GestureDetector(

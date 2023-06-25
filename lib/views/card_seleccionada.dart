@@ -3,6 +3,8 @@ import 'package:aplicaciones_multiplataforma/design_system/molecules/vacantes.da
 import 'package:aplicaciones_multiplataforma/models/voluntariado.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:aplicaciones_multiplataforma/services/voluntariado_service.dart';
+import 'package:aplicaciones_multiplataforma/utils/date_utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
@@ -13,6 +15,7 @@ import '../design_system/celulas/modal.dart';
 import '../design_system/tokens/colors.dart';
 import '../design_system/tokens/typography.dart';
 import '../models/user.dart';
+import '../utils/currency_utils.dart';
 
 class CardSeleccionada extends StatefulWidget {
 
@@ -92,7 +95,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                               ),
                               const SizedBox(height: 24),
                               Text(
-                                'Sobre la actividad',
+                                AppLocalizations.of(context)!.aboutTheActivity,
                                 style: MyTheme.headline02(),
                               ),
                               Text(
@@ -101,27 +104,27 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                               ),
                               const SizedBox(height: 24),
                               CardUbicacion(
-                                titulo: 'Ubicación',
-                                label1: 'Dirección',
+                                titulo: AppLocalizations.of(context)!.location,
+                                label1: AppLocalizations.of(context)!.address,
                                 content1: voluntariado.direccion,
                                 latitude: voluntariado.ubicacion.latitude,
                                 longitude: voluntariado.ubicacion.longitude,
                               ),
                               const SizedBox(height: 24),
                               Text(
-                                'Participar del voluntariado',
+                                  AppLocalizations.of(context)!.participateInVolunteering,
                                 style: MyTheme.headline02(),
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                'Requisitos',
+                                  AppLocalizations.of(context)!.requirements,
                                 style: MyTheme.subtitle01(),
                               ),
                               const SizedBox(height: 8),
                               MarkdownBody(data: voluntariado.requisitos,),
                               const SizedBox(height: 8),
                               Text(
-                                'Disponibilidad',
+                                AppLocalizations.of(context)!.availability,
                                 style: MyTheme.subtitle01(),
                               ),
                               const SizedBox(height: 8),
@@ -130,6 +133,22 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                               ),
                               const SizedBox(height: 8),
                               Vacantes(vacantes: voluntariado.vacantes),
+                              const SizedBox(height: 8),
+                              Text(
+                                AppLocalizations.of(context)!.dateOfCreation
+                                    + ': '
+                                    + SerManosDateUtils.dateFormatter(context).format(voluntariado.createdDate),
+                                style: MyTheme.subtitle01(),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                AppLocalizations.of(context)!.cost
+                                    + ': '
+                                    + CurrencyUtils.currencyFormatter().format(voluntariado.costo)
+                                    + ' '
+                                    + AppLocalizations.of(context)!.argentinianPesos,
+                                style: MyTheme.subtitle01(),
+                              ),
                               const SizedBox(height: 24),
                               _getPostulacionState(voluntariado, loggedUser),
                             ],
@@ -175,13 +194,13 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
     return Column(
       children: [
         Text(
-          'No hay vacantes disponibles para postularse',
+        AppLocalizations.of(context)!.noRemainingPlaces,
           style: MyTheme.body01(),
         ),
         const SizedBox(height: 24,),
-        const ButtonCTAFilled(
+        ButtonCTAFilled(
           onPressed: null,
-          buttonText: 'Postularme',
+          buttonText: AppLocalizations.of(context)!.apply2,
           disabled: true
         ),
       ],
@@ -193,12 +212,12 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Te has postulado',
+        AppLocalizations.of(context)!.youHaveApplied,
           style: MyTheme.headline02(),
         ),
         const SizedBox(height: 8,),
         Text(
-          'Pronto la organización se pondrá en contacto contigo y te inscribirá como participante.',
+    AppLocalizations.of(context)!.youWillHearSoon,
           style: MyTheme.body01(),
           textAlign: TextAlign.center,
         ),
@@ -211,7 +230,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '¿Estás seguro que querés retirar tu postulación?',
+                  AppLocalizations.of(context)!.areYouSureYouWantToWithdrawYourApplication,
                     style: MyTheme.subtitle01(),
                   ),
                   Text(
@@ -220,8 +239,8 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                   ),
                 ],
               ),
-              buttonOneText: 'Cancelar',
-              buttonTwoText: 'Confirmar',
+              buttonOneText: AppLocalizations.of(context)!.cancel,
+              buttonTwoText: AppLocalizations.of(context)!.confirm,
               onPressedButtonOne: () {
                 Navigator.pop(context);
               },
@@ -236,7 +255,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
               },
             ),
           ),
-          buttonText: 'Retirar postulación',
+          buttonText: AppLocalizations.of(context)!.withdrawApplication,
           disabled: false
         ),
       ],
@@ -245,7 +264,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
 
   Widget _usuarioNoPostuladoANingunVoluntariado(Voluntariado voluntariado) {
     return ButtonCTAFilled(
-      buttonText: 'Postularme',
+      buttonText: AppLocalizations.of(context)!.apply2,
       onPressed: () => showDialog(
         context: context,
         builder: (context) => Modal(
@@ -253,7 +272,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Te estás por postular a',
+              AppLocalizations.of(context)!.youAreAboutToApplyTo,
                 style: MyTheme.subtitle01(),
               ),
               Text(
@@ -262,8 +281,8 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
               ),
             ],
           ),
-          buttonOneText: 'Cancelar',
-          buttonTwoText: 'Confirmar',
+          buttonOneText: AppLocalizations.of(context)!.cancel,
+          buttonTwoText: AppLocalizations.of(context)!.confirm,
           onPressedButtonOne: () {
             Navigator.pop(context);
           },
@@ -286,7 +305,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
     return Column(
       children: [
         Text(
-          'Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este.',
+        AppLocalizations.of(context)!.youAreParticipatingInAnotherVolunteering,
           style: MyTheme.body01(),
         ),
         const SizedBox(height: 8,),
@@ -298,13 +317,13 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '¿Estás seguro que querés abandonar tu voluntariado?',
+                  AppLocalizations.of(context)!.areYouSureYouWantToAbandonThisVolunteering,
                       style: MyTheme.subtitle01(),
                     ),
                   ],
                 ),
-                buttonOneText: 'Cancelar',
-                buttonTwoText: 'Confirmar',
+                buttonOneText: AppLocalizations.of(context)!.cancel,
+                buttonTwoText: AppLocalizations.of(context)!.confirm,
                 onPressedButtonOne: () {
                   Navigator.pop(context);
                 },
@@ -319,13 +338,13 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                 },
               ),
             ),
-            buttonText: 'Abandonar voluntariado actual',
+            buttonText: AppLocalizations.of(context)!.abandonCurrentVolunteering,
             disabled: false
         ),
         const SizedBox(height: 24,),
-        const ButtonCTAFilled(
+        ButtonCTAFilled(
           onPressed: null,
-          buttonText: 'Postularme',
+          buttonText: AppLocalizations.of(context)!.apply2,
           disabled: true
         ),
       ],
@@ -337,12 +356,12 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Estas participando',
+        AppLocalizations.of(context)!.youAreParticipating,
           style: MyTheme.headline02(),
         ),
         const SizedBox(height: 8,),
         Text(
-          'La organización confirmó que ya estas participando de este voluntariado',
+          AppLocalizations.of(context)!.theOrganizationConfirmedThatYouAreParticipatingInThisVolunteering,
           style: MyTheme.body01(),
           textAlign: TextAlign.center,
         ),
@@ -355,7 +374,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '¿Estás seguro que querés abandonar tu voluntariado?',
+                    AppLocalizations.of(context)!.areYouSureYouWantToAbandonThisVolunteering,
                       style: MyTheme.subtitle01(),
                     ),
                     Text(
@@ -364,8 +383,8 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                     ),
                   ],
                 ),
-                buttonOneText: 'Cancelar',
-                buttonTwoText: 'Confirmar',
+                buttonOneText: AppLocalizations.of(context)!.cancel,
+                buttonTwoText: AppLocalizations.of(context)!.confirm,
                 onPressedButtonOne: () {
                   Navigator.pop(context);
                 },
@@ -380,7 +399,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
                 },
               ),
             ),
-            buttonText: 'Abandonar voluntariado',
+            buttonText: AppLocalizations.of(context)!.abandonCurrentVolunteering,
             disabled: false
         ),
       ],

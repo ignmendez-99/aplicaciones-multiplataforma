@@ -17,6 +17,7 @@ class Voluntariado with ChangeNotifier{
   final String pictureDownloadUrl;
   final List<String> postulados;
   final List<String> aceptados;
+  final double costo;
 
   Voluntariado({
     required this.id,
@@ -34,6 +35,7 @@ class Voluntariado with ChangeNotifier{
     required this.pictureDownloadUrl,
     required this.postulados,
     required this.aceptados,
+    required this.costo,
   });
 
   static Voluntariado fromJson({
@@ -55,6 +57,7 @@ class Voluntariado with ChangeNotifier{
       pictureDownloadUrl: json['picture_download_url'],
       postulados: List<String>.from(json['postulados'] as List<dynamic>),
       aceptados: List<String>.from(json['aceptados'] as List<dynamic>),
+      costo: json['costo'] as double,
     );
   }
 }

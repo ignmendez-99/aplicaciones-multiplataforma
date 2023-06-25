@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../atoms/icons.dart';
-import '../tokens/typography.dart';
 
-class Input2 extends StatefulWidget {
+class SerManosTextField extends StatefulWidget {
 
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
@@ -14,7 +13,7 @@ class Input2 extends StatefulWidget {
   final bool obscureText;
   // final bool enabled;
 
-  const Input2({
+  const SerManosTextField({
     super.key,
     required this.controller,
     required this.keyboardType,
@@ -26,10 +25,10 @@ class Input2 extends StatefulWidget {
   });
 
   @override
-  State<Input2> createState() => _Input2State();
+  State<SerManosTextField> createState() => _SerManosTextFieldState();
 }
 
-class _Input2State extends State<Input2> {
+class _SerManosTextFieldState extends State<SerManosTextField> {
 
   bool _showClearIcon = false;
   bool _showErrorIcon = false;
@@ -134,7 +133,7 @@ class _Input2State extends State<Input2> {
   }
 }
 
-class PasswordInputField extends Input2{
+class PasswordInputField extends SerManosTextField{
   const PasswordInputField({
     super.key,
     required TextEditingController controller,

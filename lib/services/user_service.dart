@@ -4,6 +4,7 @@ import 'package:aplicaciones_multiplataforma/persistence/user_dao.dart';
 import 'package:aplicaciones_multiplataforma/services/picture_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/user.dart';
 
@@ -50,6 +51,7 @@ class UserService with ChangeNotifier {
     DateTime? birthdate,
     required String userId,
     File? profilePicture,
+    BuildContext? context,
   }) async {
     try {
       String? profilePictureDownloadUrl;
@@ -65,14 +67,14 @@ class UserService with ChangeNotifier {
           await FirebaseAuth.instance.currentUser!.updateEmail(email);
         } on FirebaseAuthException catch (e) {
           if (e.code == 'email-already-in-use') {
-            return {'result': 'error', 'detail': 'El email ya está en uso'};
+            return {'result': 'error', 'detail': AppLocalizations.of(context!)!.emailAlreadyInUse};
           } else if (e.code == 'invalid-email') {
-            return {'result': 'error', 'detail': 'Email inválido'};
+            return {'result': 'error', 'detail': AppLocalizations.of(context!)!.invalidEmail};
           } else {
-            return {'result': 'error', 'detail': 'Error inesperado'};
+            return {'result': 'error', 'detail': AppLocalizations.of(context!)!.unexpectedErrror};
           }
         } catch (_) {
-          return {'result': 'error', 'detail': 'Error inesperado'};
+          return {'result': 'error', 'detail': AppLocalizations.of(context!)!.unexpectedErrror};
         }
       }
       await _userDao.updateUser(
@@ -85,7 +87,7 @@ class UserService with ChangeNotifier {
       );
       return {'result': 'ok'};
     } catch (_) {
-      return {'result': 'error', 'detail': 'Hubo un error al actualizar el usuario'};
+      return {'result': 'error', 'detail': AppLocalizations.of(context!)!.errorUpdatingUser};
     }
   }
 
@@ -93,6 +95,7 @@ class UserService with ChangeNotifier {
     required String voluntariadoId,
     required bool postularse,
     required userId,
+    BuildContext? context
   }) async {
     try {
       await _userDao.changeFavouriteInVoluntariado(
@@ -102,7 +105,7 @@ class UserService with ChangeNotifier {
       );
       return {'result': 'ok'};
     } catch (_) {
-      return {'result': 'error', 'detail': 'Hubo un error al marcar el voluntariado como favorito'};
+      return {'result': 'error', 'detail': AppLocalizations.of(context!)!.errorWhenLikingVolunteering};
     }
 
   }

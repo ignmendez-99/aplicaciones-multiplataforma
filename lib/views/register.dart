@@ -1,6 +1,6 @@
 import 'package:aplicaciones_multiplataforma/design_system/atoms/status_bar.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
-import 'package:aplicaciones_multiplataforma/design_system/molecules/inputs_2.dart';
+import 'package:aplicaciones_multiplataforma/design_system/molecules/ser_manos_text_field.dart';
 import 'package:aplicaciones_multiplataforma/utils/email_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -61,31 +61,31 @@ class RegisterState extends State<Register> {
                     width: 150,
                   ),
                   const SizedBox(height: 31,),
-                  Input2(
+                  SerManosTextField(
                     controller: _firstNameController,
                     keyboardType: TextInputType.text,
                     labelText: AppLocalizations.of(context)!.name,
                     validator: _validateFirstName,
                     onChanged: _onChangeInput,
-                    hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: Juan',
+                    hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: Lionel',
                   ),
                   const SizedBox(height: 24,),
-                  Input2(
+                  SerManosTextField(
                     controller: _lastNameController,
                     keyboardType: TextInputType.text,
                     labelText: AppLocalizations.of(context)!.surname,
                     validator: _validateLastName,
                     onChanged: _onChangeInput,
-                    hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: Barcena',
+                    hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: Messi',
                   ),
                   const SizedBox(height: 24,),
-                  Input2(
+                  SerManosTextField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     labelText: AppLocalizations.of(context)!.email2,
                     validator: _validateEmail,
                     onChanged: _onChangeInput,
-                    hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: juanbarcena@mail.com',
+                    hintText: '${AppLocalizations.of(context)!.exampleAbbreviation}: liomessi@gmail.com',
                   ),
                   const SizedBox(height: 24,),
                   PasswordInputField(
@@ -111,6 +111,7 @@ class RegisterState extends State<Register> {
                           password: password,
                           firstName: firstName,
                           lastName: lastName,
+                          context: context
                         );
                         setState(() {
                           _isSignupButtonDisabled = false;
@@ -181,7 +182,7 @@ class RegisterState extends State<Register> {
       return AppLocalizations.of(context)!.mailNeeded;
     }
     if(!EmailUtils.validateEmail(input)) {
-      return 'Email inválido';
+      return AppLocalizations.of(context)!.invalidEmail;
     }
     return null;
   }
@@ -191,7 +192,7 @@ class RegisterState extends State<Register> {
       return AppLocalizations.of(context)!.passwordNeeded;
     }
     if(input.length < 8) {
-      return 'Contraseña muy corta';
+      return AppLocalizations.of(context)!.weakPassword;
     }
     return null;
   }

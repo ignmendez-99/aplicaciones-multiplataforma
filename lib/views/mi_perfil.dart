@@ -2,6 +2,7 @@ import 'package:aplicaciones_multiplataforma/design_system/celulas/card_informac
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_corto.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
+import 'package:aplicaciones_multiplataforma/utils/gender_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
 import 'package:go_router/go_router.dart';
@@ -82,9 +83,9 @@ class _MiPerfilState extends State<MiPerfil> {
             CardInformacion(
               titulo: AppLocalizations.of(context)!.personalInformation,
               label1: AppLocalizations.of(context)!.dateOfBirth.toUpperCase(),
-              content1: SerManosDateUtils.dateFormatter.format(user.birthdate!),
+              content1: SerManosDateUtils.dateFormatter(context).format(user.birthdate!),
               label2: AppLocalizations.of(context)!.gender.toUpperCase(),
-              content2: user.gender!,
+              content2: GenderUtils.getGenderTranslated(genderInSpanish: user.gender!, context: context),
             ),
             const SizedBox(height: 32,),
             CardInformacion(
