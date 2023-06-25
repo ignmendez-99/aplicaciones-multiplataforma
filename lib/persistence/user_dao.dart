@@ -7,19 +7,19 @@ class UserDao {
 
   UserDao(FirebaseFirestore firestoreInstance) : _firestoreInstance = firestoreInstance;
 
-  Future<User> getUserById(String id) async {
+  Future<SerManosUser> getUserById(String id) async {
     DocumentSnapshot snapshot = await _firestoreInstance
         .collection('users')
         .doc(id)
         .get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    return await User.fromJson(
+    return await SerManosUser.fromJson(
         id: snapshot.reference.id,
         json: data
     );
   }
 
-  Future<User> createUser({
+  Future<SerManosUser> createUser({
     required String email,
     required bool emailVerified,
     required String firstName,

@@ -20,7 +20,7 @@ class MiPerfil extends StatefulWidget {
     required this.loggedUser
   });
 
-  final Future<User> loggedUser;
+  final Future<SerManosUser> loggedUser;
 
   @override
   State<MiPerfil> createState() => _MiPerfilState();
@@ -38,7 +38,7 @@ class _MiPerfilState extends State<MiPerfil> {
           return const Center(child: CircularProgressIndicator());
         }
         if(snapshot.hasData && snapshot.data != null) {
-          final User user = snapshot.data!;
+          final SerManosUser user = snapshot.data!;
           if(user.userUpdated) {
             return profileWithUserData(user);
           } else {
@@ -52,7 +52,7 @@ class _MiPerfilState extends State<MiPerfil> {
     );
   }
 
-  Widget profileWithUserData(User user) {
+  Widget profileWithUserData(SerManosUser user) {
     return SingleChildScrollView(
       child: Container(
         color: AppColors.neutralWhite,
@@ -124,6 +124,7 @@ class _MiPerfilState extends State<MiPerfil> {
               ),
               buttonText: AppLocalizations.of(context)!.logout,
               disabled: false,
+              textColor: AppColors.error,
             ),
           ],
         ),
@@ -131,7 +132,7 @@ class _MiPerfilState extends State<MiPerfil> {
     );
   }
 
-  Widget profileWithNoData(User user) {
+  Widget profileWithNoData(SerManosUser user) {
     return SingleChildScrollView(
       child: Container(
         color: AppColors.neutralWhite,

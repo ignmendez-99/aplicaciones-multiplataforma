@@ -11,13 +11,10 @@ import 'package:aplicaciones_multiplataforma/views/novedad_page.dart';
 import 'package:aplicaciones_multiplataforma/views/register.dart';
 import 'package:aplicaciones_multiplataforma/views/start.dart';
 import 'package:aplicaciones_multiplataforma/views/welcome.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'models/novedad.dart';
-
-Key dashboardKey = GlobalKey();
 
 class SerManosRouter {
   static final router = GoRouter(
@@ -67,12 +64,10 @@ class SerManosRouter {
         builder: (context, state) {
           final String loggedUserId = Provider.of<AuthService>(context, listen: false)
               .currentUser!.id;
-          final Future<User> loggedUser = Provider.of<UserService>(context, listen: false)
+          final Future<SerManosUser> loggedUser = Provider.of<UserService>(context, listen: false)
               .getUserById(loggedUserId);
           return Dashboard(
             loggedUser: loggedUser,
-            // key: state.pageKey,
-            // key: dashboardKey,
             initialTab: 0,
           );
         },
@@ -83,7 +78,7 @@ class SerManosRouter {
             builder: (context, state) {
               final String loggedUserId = Provider.of<AuthService>(context, listen: false)
                   .currentUser!.id;
-              final Future<User> loggedUser = Provider.of<UserService>(context, listen: false)
+              final Future<SerManosUser> loggedUser = Provider.of<UserService>(context, listen: false)
                   .getUserById(loggedUserId);
               final voluntariadoId = state.pathParameters['voluntariadoId']!;
               final voluntariado = Provider.of<VoluntariadoService>(context, listen: false)
@@ -111,11 +106,10 @@ class SerManosRouter {
         builder: (context, state) {
           final String loggedUserId = Provider.of<AuthService>(context, listen: false)
               .currentUser!.id;
-          final Future<User> loggedUser = Provider.of<UserService>(context, listen: false)
+          final Future<SerManosUser> loggedUser = Provider.of<UserService>(context, listen: false)
               .getUserById(loggedUserId);
           return Dashboard(
             loggedUser: loggedUser,
-            // key: dashboardKey,
             initialTab: 1,
           );
         },
@@ -126,7 +120,7 @@ class SerManosRouter {
             builder: (context, state) {
               final String loggedUserId = Provider.of<AuthService>(context, listen: false)
                   .currentUser!.id;
-              final Future<User> loggedUser = Provider.of<UserService>(context, listen: false)
+              final Future<SerManosUser> loggedUser = Provider.of<UserService>(context, listen: false)
                   .getUserById(loggedUserId);
               return EditProfile(loggedUser: loggedUser);
             }
@@ -139,11 +133,10 @@ class SerManosRouter {
         builder: (context, state) {
           final String loggedUserId = Provider.of<AuthService>(context, listen: false)
               .currentUser!.id;
-          final Future<User> loggedUser = Provider.of<UserService>(context, listen: false)
+          final Future<SerManosUser> loggedUser = Provider.of<UserService>(context, listen: false)
               .getUserById(loggedUserId);
           return Dashboard(
             loggedUser: loggedUser,
-            // key: dashboardKey,
             initialTab: 2,
           );
         },

@@ -1,7 +1,7 @@
 import 'package:aplicaciones_multiplataforma/models/voluntariado.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class SerManosUser {
   final String id;
   final String email;
   final bool emailVerified;
@@ -15,7 +15,7 @@ class User {
   final String? profilePictureDownloadUrl;
   final Voluntariado? postulacion;
 
-  User({
+  SerManosUser({
     required this.id,
     required this.email,
     required this.emailVerified,
@@ -30,7 +30,7 @@ class User {
     required this.postulacion,
   });
 
-  static Future<User> fromJson({
+  static Future<SerManosUser> fromJson({
     required String id,
     required Map<String, dynamic> json,
   }) async {
@@ -41,7 +41,7 @@ class User {
       final Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
       voluntariado = Voluntariado.fromJson(id: snapshot.reference.id, json: data);
     }
-    return User(
+    return SerManosUser(
       id: id,
       email: json['email'] as String,
       emailVerified: json['email_verified'] as bool,

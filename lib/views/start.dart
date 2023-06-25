@@ -2,6 +2,7 @@ import 'package:aplicaciones_multiplataforma/design_system/atoms/logo_cuadrado.d
 import 'package:aplicaciones_multiplataforma/design_system/atoms/status_bar.dart';
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:aplicaciones_multiplataforma/design_system/tokens/typography.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -31,33 +32,67 @@ class Start extends StatelessWidget {
                   style: MyTheme.subtitle01(),
                   textAlign: TextAlign.center
                 ),
-                // const SizedBox(height: 181),
                 const Spacer(),
-                ButtonCTAFilled(
-                  onPressed: () {
-                    // Navigator.of(context).pushReplacementNamed('/login');
-                    context.goNamed('login');
-                  },
-                  buttonText: AppLocalizations.of(context)!.login,
-                  disabled: false,
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 32),
-                  child: ButtonCTANotFilled(
-                    onPressed: () {
-                      // Navigator.of(context).pushReplacementNamed('/register');
-                      context.goNamed('register');
-                    },
-                    buttonText: AppLocalizations.of(context)!.register,
-                    disabled: false,
-                  ),
-                ),
+                FutureBuilder(
+                  future: _requestTrackingAuthorization(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if(snapshot.hasData && snapshot.data != null) {
+                      final bool hasPermissions = snapshot.data!;
+                      if(!hasPermissions) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 32),
+                          child: Center(
+                            child: Text(
+                              'Se necesita permitir el acceso al a recopilación de datos',
+                              style: MyTheme.subtitle01(color: AppColors.error),
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            ButtonCTAFilled(
+                              onPressed: () {
+                                context.goNamed('login');
+                              },
+                              buttonText: AppLocalizations.of(context)!.login,
+                              disabled: false,
+                            ),
+                            const SizedBox(height: 16),
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 32),
+                              child: ButtonCTANotFilled(
+                                onPressed: () {
+                                  context.goNamed('register');
+                                },
+                                buttonText: AppLocalizations.of(context)!.register,
+                                disabled: false,
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    } else {
+                      return Container();
+                    }
+                  }
+                )
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> _requestTrackingAuthorization() async {
+    final status = await AppTrackingTransparency.requestTrackingAuthorization();
+    if(status == TrackingStatus.notSupported) {
+      return true;
+    }
+    return status == TrackingStatus.authorized;
   }
 }

@@ -10,9 +10,6 @@ import 'package:aplicaciones_multiplataforma/services/user_service.dart';
 import 'package:aplicaciones_multiplataforma/utils/email_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../design_system/atoms/status_bar.dart';
@@ -29,7 +26,7 @@ class EditProfile extends StatefulWidget {
     required this.loggedUser,
   });
 
-  final Future<User> loggedUser;
+  final Future<SerManosUser> loggedUser;
 
   @override
   State<EditProfile> createState() => EditProfileState();
@@ -75,7 +72,7 @@ class EditProfileState extends State<EditProfile> {
               return const Center(child: CircularProgressIndicator());
             }
             if(snapshot.hasData && snapshot.data != null) {
-              final User user = snapshot.data!;
+              final SerManosUser user = snapshot.data!;
               _phoneController ??= TextEditingController(text: user.phone);
               _emailController ??= TextEditingController(text: user.email);
               _birthdateController ??= TextEditingController(

@@ -1,3 +1,4 @@
+import 'package:aplicaciones_multiplataforma/services/analytics_service.dart';
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth, FirebaseAuthException, User;
 import 'package:flutter/material.dart';
@@ -18,7 +19,9 @@ class AuthService with ChangeNotifier{
   }
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   final UserService _userService = UserService();
+  final AnalyticsService _analyticsService = AnalyticsService();
 
   AuthUser? get currentUser {
     final user = _firebaseAuth.currentUser;
@@ -34,6 +37,7 @@ class AuthService with ChangeNotifier{
   Future<Map<String, String>> logIn({required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      await _analyticsService.sendEvent(type: 'login');
       return {'result': 'ok'};
     } on FirebaseAuthException {
       return {'result': 'error', 'detail': 'Las credenciales proporcionadas no son correctas'};
@@ -57,6 +61,7 @@ class AuthService with ChangeNotifier{
         lastName: lastName,
         userId: currentUser!.id,
       );
+      await _analyticsService.sendEvent(type: 'sign_up');
       return {'result': 'ok'};
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

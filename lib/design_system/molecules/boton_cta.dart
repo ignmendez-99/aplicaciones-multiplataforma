@@ -44,11 +44,12 @@ class ButtonCTAFilled extends ButtonCTA {
     required void Function()? onPressed,
     required String buttonText,
     required bool disabled,
+    Color? textColor,
   }) : super(
     onPressed: disabled ? null : onPressed,
     buttonText: buttonText,
     backgroundColor: disabled ? AppColors.neutralGrey25 : AppColors.primary100,
-    textColor: disabled ? AppColors.neutralGrey50 : AppColors.neutralWhite,
+    textColor: textColor ?? (disabled ? AppColors.neutralGrey50 : AppColors.neutralWhite),
   );
 }
 
@@ -58,10 +59,11 @@ class ButtonCTANotFilled extends ButtonCTA {
     required void Function()? onPressed,
     required String buttonText,
     required bool disabled,
+    Color? textColor,
   }) : super(
     onPressed: disabled ? null : onPressed,
     buttonText: buttonText,
     backgroundColor: null,
-    textColor: disabled ? AppColors.neutralGrey50 : AppColors.primary100,
+    textColor: textColor ?? (disabled ? AppColors.neutralGrey50 : AppColors.primary100),
   );
 }

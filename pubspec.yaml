@@ -51,6 +51,10 @@ dependencies:
   permission_handler: ^10.3.0
   flutter_markdown: ^0.6.15
   another_flushbar: ^1.12.30
+  firebase_analytics: ^10.4.3
+  firebase_crashlytics: ^3.3.3
+  app_tracking_transparency: ^2.0.4
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

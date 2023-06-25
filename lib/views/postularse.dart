@@ -13,7 +13,7 @@ import '../design_system/molecules/buscador.dart';
 
 
 class Postularse extends StatefulWidget {
-  final Future<User?> loggedUser;
+  final Future<SerManosUser?> loggedUser;
 
   const Postularse({
     super.key,

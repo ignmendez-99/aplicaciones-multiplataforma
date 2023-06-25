@@ -17,7 +17,7 @@ import '../models/user.dart';
 class CardSeleccionada extends StatefulWidget {
 
   final Future<Voluntariado?> voluntariado;
-  final Future<User?> loggedUser;
+  final Future<SerManosUser?> loggedUser;
 
   const CardSeleccionada({
     super.key,
@@ -58,7 +58,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
               }
               if(snapshot.hasData && snapshot.data != null) {
                 final Voluntariado voluntariado = snapshot.data![0];
-                final User loggedUser = snapshot.data![1];
+                final SerManosUser loggedUser = snapshot.data![1];
                 return SingleChildScrollView(
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -149,7 +149,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
     );
   }
 
-  Widget _getPostulacionState(Voluntariado voluntariado, User loggedUser) {
+  Widget _getPostulacionState(Voluntariado voluntariado, SerManosUser loggedUser) {
     if(voluntariado.vacantes == 0) {
       return _noVacantes();
     } else if(voluntariado.postulados.contains(_authService.currentUser!.id)) {
@@ -282,7 +282,7 @@ class _CardSeleccionadaState extends State<CardSeleccionada> {
     );
   }
 
-  Widget _usuarioPostuladoAOtroVoluntariado(Voluntariado voluntariado, User loggedUser) {
+  Widget _usuarioPostuladoAOtroVoluntariado(Voluntariado voluntariado, SerManosUser loggedUser) {
     return Column(
       children: [
         Text(

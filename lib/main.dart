@@ -1,9 +1,11 @@
-import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
+import 'dart:ui';
+
 import 'package:aplicaciones_multiplataforma/ser_manos_router.dart';
 import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
 import 'package:aplicaciones_multiplataforma/services/novedad_service.dart';
 import 'package:aplicaciones_multiplataforma/services/user_service.dart';
 import 'package:aplicaciones_multiplataforma/services/voluntariado_service.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,6 +20,14 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Pass all uncaught "fatal" errors from the framework to Crashlytics
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
 
   runApp(MultiProvider(
     providers: [

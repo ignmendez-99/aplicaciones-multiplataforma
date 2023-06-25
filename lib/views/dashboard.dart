@@ -16,7 +16,7 @@ class Dashboard extends StatefulWidget {
   });
 
   final int initialTab;
-  final Future<User> loggedUser;
+  final Future<SerManosUser> loggedUser;
 
   @override
   State<Dashboard> createState() => _DashboardState();

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:aplicaciones_multiplataforma/persistence/user_dao.dart';
 import 'package:aplicaciones_multiplataforma/services/picture_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../models/user.dart';
@@ -23,11 +24,11 @@ class UserService with ChangeNotifier {
   final UserDao _userDao = UserDao(FirebaseFirestore.instance);
   final PictureService _pictureService = PictureService();
 
-  Future<User> getUserById(String id) async {
+  Future<SerManosUser> getUserById(String id) async {
     return await _userDao.getUserById(id);
   }
 
-  Future<User> createUser({
+  Future<SerManosUser> createUser({
     required String email,
     required bool emailVerified,
     required String firstName,
@@ -59,6 +60,21 @@ class UserService with ChangeNotifier {
             fileName: pictureFileName,
             imageFile: profilePicture
         );
+      }
+      if(email != null) {
+        try {
+          await FirebaseAuth.instance.currentUser!.updateEmail(email);
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'email-already-in-use') {
+            return {'result': 'error', 'detail': 'El email ya está en uso'};
+          } else if (e.code == 'invalid-email') {
+            return {'result': 'error', 'detail': 'Email inválido'};
+          } else {
+            return {'result': 'error', 'detail': 'Error inesperado'};
+          }
+        } catch (_) {
+          return {'result': 'error', 'detail': 'Error inesperado'};
+        }
       }
       await _userDao.updateUser(
           userId: userId,
