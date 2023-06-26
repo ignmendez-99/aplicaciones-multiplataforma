@@ -14,7 +14,6 @@ class Start extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-                ButtonCTAFilled(
     return SerManosStatusBarWidget(
       statusBarColor: AppColors.neutralWhite,
       child: Scaffold(
