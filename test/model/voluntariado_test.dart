@@ -13,6 +13,7 @@ void main() {
       var timestamp = Timestamp.fromMicrosecondsSinceEpoch(10);
       await fireStoreInstance.collection('voluntariados').doc('1').set({
         'aceptados': [],
+        'costo': 2000.0,
         'created_date': timestamp,
         'descripcion_corta':
             'El propósito principal de "Un techo para mi país" es reducir el déficit habitacional y mejorar las condiciones de vida de las personas que no tienen acceso a una vivienda adecuada.',
@@ -47,6 +48,7 @@ void main() {
       var timestamp = Timestamp.fromMicrosecondsSinceEpoch(10);
       await fireStoreInstance.collection('voluntariados').doc('1').set({
         'aceptados': [],
+        'costo': 2000.0,
         'created_date': timestamp,
         'descripcion_corta':
             'El propósito principal de "Un techo para mi país" es reducir el déficit habitacional y mejorar las condiciones de vida de las personas que no tienen acceso a una vivienda adecuada.',
