@@ -20,12 +20,9 @@ class ButtonCTA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(4), //todo: falta ver bien como poner el radio del Figma
+      borderRadius: BorderRadius.circular(4),
       child: TextButton(
         onPressed: onPressed,
-        style: ButtonStyle(
-          overlayColor: MaterialStateColor.resolveWith((states) => AppColors.neutralGrey10),
-        ),
         child: Container(
           color: backgroundColor,
           padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
@@ -46,23 +43,13 @@ class ButtonCTAFilled extends ButtonCTA {
     super.key,
     required void Function()? onPressed,
     required String buttonText,
+    required bool disabled,
+    Color? textColor,
   }) : super(
-    onPressed: onPressed,
+    onPressed: disabled ? null : onPressed,
     buttonText: buttonText,
-    backgroundColor: AppColors.primary,
-    textColor: AppColors.neutralWhite,
-  );
-}
-
-class ButtonCTAFilledDisabled extends ButtonCTA {
-  const ButtonCTAFilledDisabled({
-    super.key,
-    required String buttonText,
-  }) : super(
-    onPressed: null,
-    buttonText: buttonText,
-    backgroundColor: AppColors.neutralGrey25,
-    textColor: AppColors.neutralGrey50,
+    backgroundColor: disabled ? AppColors.neutralGrey25 : AppColors.primary100,
+    textColor: textColor ?? (disabled ? AppColors.neutralGrey50 : AppColors.neutralWhite),
   );
 }
 
@@ -71,22 +58,12 @@ class ButtonCTANotFilled extends ButtonCTA {
     super.key,
     required void Function()? onPressed,
     required String buttonText,
+    required bool disabled,
+    Color? textColor,
   }) : super(
-    onPressed: onPressed,
+    onPressed: disabled ? null : onPressed,
     buttonText: buttonText,
     backgroundColor: null,
-    textColor: AppColors.primary,
-  );
-}
-
-class ButtonCTANotFilledDisabled extends ButtonCTA {
-  const ButtonCTANotFilledDisabled({
-    super.key,
-    required String buttonText,
-  }) : super(
-    onPressed: null,
-    buttonText: buttonText,
-    backgroundColor: null,
-    textColor: AppColors.neutralGrey50,
+    textColor: textColor ?? (disabled ? AppColors.neutralGrey50 : AppColors.primary100),
   );
 }

@@ -1,12 +1,31 @@
 import 'package:aplicaciones_multiplataforma/design_system/molecules/boton_cta.dart';
 import 'package:flutter/material.dart';
 
-import '../tokens/colors.dart';
 import '../tokens/shadows.dart';
-import '../tokens/typography.dart';
 
-class Modal extends StatelessWidget {
-  const Modal({Key? key}) : super(key: key);
+class Modal extends StatefulWidget {
+  const Modal({
+    super.key,
+    required this.modalBody,
+    required this.buttonOneText,
+    required this.buttonTwoText,
+    required this.onPressedButtonOne,
+    required this.onPressedButtonTwo,
+  });
+
+  final Widget modalBody;
+  final String buttonOneText;
+  final String buttonTwoText;
+  final void Function() onPressedButtonOne;
+  final void Function() onPressedButtonTwo;
+
+  @override
+  State<Modal> createState() => _ModalState();
+}
+
+class _ModalState extends State<Modal> {
+
+  bool _buttonTwoPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,39 +42,26 @@ class Modal extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Te estás por postular a',
-              style: MyTheme.subtitle01(),
-            ),
-            Text(
-              'Un Techo para mi País',
-              style: MyTheme.headline02(),
-            ),
-            const SizedBox(height: 16,),
-            Text(
-              'Días sábados de 9.00 a 17.00 horas.',
-              style: MyTheme.body01(color: AppColors.neutralGrey75),
-            ),
-            Text(
-              'Caballito',
-              style: MyTheme.body01(color: AppColors.neutralGrey75),
-            ),
+            widget.modalBody,
             const SizedBox(height: 8,),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ButtonCTANotFilled(
-                  buttonText: 'Cancelar',
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  },
+                  buttonText: widget.buttonOneText,
+                  onPressed: widget.onPressedButtonOne,
+                  disabled: _buttonTwoPressed,
                 ),
                 const SizedBox(height: 8,),
                 ButtonCTANotFilled(
-                  buttonText: 'Confirmar',
-                  onPressed: (){
-                    Navigator.of(context).pop();
+                  buttonText: widget.buttonTwoText,
+                  onPressed: () {
+                    setState(() {
+                      _buttonTwoPressed = true;
+                    });
+                    widget.onPressedButtonTwo();
                   },
+                  disabled: _buttonTwoPressed,
                 ),
               ],
             )

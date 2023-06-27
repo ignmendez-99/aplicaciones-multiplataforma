@@ -1,21 +1,44 @@
-import 'package:aplicaciones_multiplataforma/Login.dart';
-import 'package:aplicaciones_multiplataforma/views/card_seleccionada.dart';
-import 'package:aplicaciones_multiplataforma/views/dashboard.dart';
-import 'package:aplicaciones_multiplataforma/design_system/tokens/colors.dart';
-import 'package:aplicaciones_multiplataforma/views/register.dart';
-import 'package:aplicaciones_multiplataforma/views/start.dart';
-import 'package:aplicaciones_multiplataforma/views/welcome.dart';
+import 'dart:ui';
+
+import 'package:aplicaciones_multiplataforma/ser_manos_router.dart';
+import 'package:aplicaciones_multiplataforma/services/auth/auth_service.dart';
+import 'package:aplicaciones_multiplataforma/services/novedad_service.dart';
+import 'package:aplicaciones_multiplataforma/services/user_service.dart';
+import 'package:aplicaciones_multiplataforma/services/voluntariado_service.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Pass all uncaught "fatal" errors from the framework to Crashlytics
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => AuthService()),
+      ChangeNotifierProvider(create: (_) => VoluntariadoService()),
+      ChangeNotifierProvider(create: (_) => UserService()),
+      ChangeNotifierProvider(create: (_) => NovedadService()),
+    ],
+    child: const MyApp(),
+  ));
 }
-
-// https://www.figma.com/file/iCyHRyGBGaKOqS1ioWbJeI/Ser-manos-%7C-Design-System?node-id=231%3A1648&t=OKsdvc6OSI4nOwpw-1
-
-// TODO: revisar pantalla horizontal
-// todo: revisar pantallas cuando se abre el teclado
 
 class MyApp extends StatelessWidget {
 
@@ -23,29 +46,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: AppColors.secondaryBlue90,
-      ),
-    );
-
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: SerManosRouter.router,
       title: 'Flutter Demo',
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('es'), // Spanish
+      ],
       theme: ThemeData(
         fontFamily: 'Roboto',
-        primarySwatch: Colors.blue,
       ),
-      home: const Dashboard(),
-      initialRoute: '/start',
-      routes: {
-        '/card-seleccionada/':(context) => const CardSeleccionada(),
-        '/login': (context) => const Login(),
-        '/register': (context) => const Register(),
-        '/start': (context) => const Start(),
-        '/welcome': (context) => const Welcome(),
-        '/home': (context) => const Dashboard(),
-      },
     );
   }
 }
